@@ -1,0 +1,90 @@
+#+build darwin amd64, darwin arm64, linux amd64, linux arm64, windows amd64
+package gmodule
+
+when ODIN_OS == .Darwin  do foreign import libgmodule2 "../LIBS/libgmodule-2.0.dylib"
+
+import glib "../glib"
+
+_GModule :: struct #packed {}
+Module :: _GModule
+ModuleCheckInit :: #type proc "c" (module: ^Module) -> cstring
+ModuleUnload :: #type proc "c" (module: ^Module)
+
+@(default_calling_convention = "c")
+foreign libgmodule2 {
+    @(link_name = "g_module_supported")
+    supported :: proc() -> glib.boolean ---
+
+    @(link_name = "g_module_open")
+    open :: proc(file_name: cstring, flags: ModuleFlags) -> ^Module ---
+
+    @(link_name = "g_module_close")
+    close :: proc(module: ^Module) -> glib.boolean ---
+
+    @(link_name = "g_module_error")
+    error :: proc() -> cstring ---
+
+    @(link_name = "g_module_symbol")
+    symbol :: proc(module: ^Module, symbol_name: cstring, symbol: ^glib.pointer) -> glib.boolean ---
+
+    @(link_name = "g_module_name")
+    name :: proc(module: ^Module) -> cstring ---
+
+    @(link_name = "g_module_make_resident")
+    make_resident :: proc(module: ^Module) ---
+
+    @(link_name = "g_module_build_path")
+    build_path :: proc(directory: cstring, module_name: cstring) -> cstring ---
+
+    @(link_name = "g_module_error_quark")
+    error_quark :: proc() -> glib.Quark ---
+
+    @(link_name = "g_module_open_full")
+    open_full :: proc(file_name: cstring, flags: ModuleFlags, error: ^^glib.Error) -> ^Module ---
+
+}
+
+when (ODIN_OS == .Linux || ODIN_OS == .Darwin) {
+
+ModuleFlags :: enum u32 {BIND_LAZY = 1, BIND_LOCAL = 2, BIND_MASK = 3 }
+ModuleError :: enum u32 {FAILED = 0, CHECK_FAILED = 1 }
+
+}
+
+when (ODIN_OS == .Windows) && (ODIN_ARCH == .amd64) {
+
+ModuleFlags :: enum i32 {BIND_LAZY = 1, BIND_LOCAL = 2, BIND_MASK = 3 }
+ModuleError :: enum i32 {FAILED = 0, CHECK_FAILED = 1 }
+
+}
+
+when (ODIN_OS == .Linux) && (ODIN_ARCH == .amd64) {
+
+when #config(GLIB_STATIC, false) {
+    when (ODIN_OS == .Linux) {
+    foreign import gmodule_runic { "../../lib/linux/x86_64/libgmodule-2.0.a", "system:ffi", "system:pcre2-8" }
+} 
+} else {
+    foreign import gmodule_runic "system:gmodule-2.0"
+}
+
+}
+
+when (ODIN_OS == .Linux) && (ODIN_ARCH == .arm64) {
+
+when #config(GLIB_STATIC, false) {
+    when (ODIN_OS == .Linux) {
+    foreign import gmodule_runic { "../../lib/linux/aarch64/libgmodule-2.0.a", "system:ffi", "system:pcre2-8" }
+} 
+} else {
+    foreign import gmodule_runic "system:gmodule-2.0"
+}
+
+}
+
+when (ODIN_OS == .Windows) && (ODIN_ARCH == .amd64) {
+
+foreign import gmodule_runic "../../lib/windows/x86_64/gmodule-2.0.lib"
+
+}
+
