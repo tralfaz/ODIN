@@ -10,12 +10,12 @@ import gio  "../../gio"
 import gobj "../../gobject"
 import gtk  "../../gtk"
 
-fontSize := 12
 
 on_button_clicked :: proc "c" (button: ^gtk.Button, user_data: glib.pointer) {
   //glib.print("Button clicked! >///<\n")
   context = runtime.default_context()
   fontDesc := "'Futura Bold %d'" 
+  @static fontSize := 12
   fontDesc = fmt.aprintf(fontDesc, fontSize)
   fontSize += 1
   labelText := "Click Me!"
