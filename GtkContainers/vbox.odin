@@ -29,7 +29,7 @@ AppActivateCB :: proc "c" (app :^gtk.Application, user_data :glib.pointer) {
 
   appwgt := gtk.application_window_new(app)
   appwin := cast(^gtk.Window)appwgt
-  gtk.window_set_title(appwin, "Horizontal Box Example")
+  gtk.window_set_title(appwin, "Vertical Box Example")
   gtk.window_set_default_size(appwin, 150, 500)
 
   vbox := gtk.box_new(gtk.Orientation.VERTICAL, spacing=6)
