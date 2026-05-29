@@ -11,11 +11,41 @@ import gobj "../gtk4m/gobject"
 import gtk  "../gtk4m/gtk"
 
 
-//class ListBoxRowWithData(Gtk.ListBoxRow):
-//    def __init__(self, data):
-//        super().__init__()
-//        self.data = data
-//        self.set_child(Gtk.Label(label=data))
+ListBoxRowWithData :: proc(data :cstring) -> ^gtk.Widget {
+  lbrow := gtk.list_box_row_new()
+  label := gtk.label_new(data)
+  gtk.list_box_row_set_child(cast(^gtk.ListBoxRow)lbrow, label)
+  return lbrow
+}
+
+LB2SortFunc :: proc "c" (row1 :^gtk.ListBoxRow,
+                         row2 :^gtk.ListBoxRow,
+                         user_data: glib.pointer) -> i32 {
+  context = runtime.default_context()
+  r1kid := gtk.list_box_row_get_child(row1)
+//  r1ilk := r1kid.get_type()
+  r2kid := gtk.list_box_row_get_child(row2)
+//  r2ilk := gtk.widget_get_type(r2kid)
+//  return row_1.data.lower() > row_2.data.lower()
+  fmt.printf("LB2SortFunc: r1kid %v [%T]\n", r1kid, r1kid)
+  fmt.printf("           : r1kid.g_class %v [%T]\n", r1kid.parent_instance.g_type_instance.g_class, r1kid.parent_instance.g_type_instance.g_class)
+  return 0
+}
+
+LB2FilterFunc :: proc "c" (row :^gtk.ListBoxRow,
+                           user_data: glib.pointer) -> glib.boolean {
+//        return row.data != "Fail"
+  return true
+}
+
+
+
+OnRowActivatedCB :: proc "c" (listbox : ^gtk.ListBox, row :^gtk.ListBoxRow) {
+//Button1ClickedCB :: proc "c" (button :^gtk.Button, cbData :glib.pointer) {
+  context = runtime.default_context()
+//  appwin := cast(^gtk.Window)cbData
+  fmt.printf("OnRowActivatedCB: listbox %p [%T]\n", listbox, listbox)
+}
 
 
 AppActivateCB :: proc "c" (app :^gtk.Application, user_data :glib.pointer) {
@@ -46,6 +76,7 @@ AppActivateCB :: proc "c" (app :^gtk.Application, user_data :glib.pointer) {
   row := gtk.list_box_row_new()
   hbox := gtk.box_new(gtk.Orientation.HORIZONTAL, spacing=24)
   gtk.list_box_row_set_child(cast(^gtk.ListBoxRow)row, hbox)
+
   // We set the Box as the ListBoxRow child
   vbox := gtk.box_new(gtk.Orientation.VERTICAL, spacing=0)
   gtk.box_append(cast(^gtk.Box)hbox, vbox)
@@ -77,27 +108,23 @@ AppActivateCB :: proc "c" (app :^gtk.Application, user_data :glib.pointer) {
   // Let's create a second ListBox
   listbox_2 := gtk.list_box_new()
   gtk.box_append(cast(^gtk.Box)box_outer, listbox_2)
-//        items = ["This", "is", "a", "sorted", "ListBox", "Fail"]
+  items := [?]cstring{"This", "is", "a", "sorted", "ListBox", "Fail"}
 
-//        # Populate the list
-//        for item in items:
-//            listbox_2.append(ListBoxRowWithData(item))
-//
-//        # Set sorting and filter functions
+  // Populate the list
+  for item in items {
+    gtk.list_box_append(cast(^gtk.ListBox)listbox_2,
+                        ListBoxRowWithData(item))
+  }
+
+  // Set sorting and filter functions
 //        listbox_2.set_sort_func(self.sort_func)
-//        listbox_2.set_filter_func(self.filter_func)
-//
-//        # Connect to "row-activated" signal
-//        listbox_2.connect("row-activated", self.on_row_activated)
-
-//    def sort_func(self, row_1, row_2):
-//        return row_1.data.lower() > row_2.data.lower()
-
-//    def filter_func(self, row):
-//        return row.data != "Fail"
-
-//    def on_row_activated(self, _listbox, row):
-//        pass
+  gtk.list_box_set_sort_func(cast(^gtk.ListBox)listbox_2, LB2SortFunc, nil, nil)
+//                     user_data: glib.pointer, destroy: glib.DestroyNotify) ---
+  gtk.list_box_set_filter_func(cast(^gtk.ListBox)listbox_2, LB2FilterFunc, nil, nil)
+//                               user_data: glib.pointer, destroy: glib.DestroyNotify) ---
+  // Connect to "row-activated" signal
+  gobj.signal_connect(listbox_2, "row-activated",
+                      cast(gobj.Callback)OnRowActivatedCB, nil)
 
   gtk.window_present(appwin)
 }
