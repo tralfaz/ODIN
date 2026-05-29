@@ -149,8 +149,17 @@ region_overlap_t :: _cairo_region_overlap
 
 @(default_calling_convention = "c")
 foreign libcairo {
-    @(link_name = "cairo_image_surface_create")
-    image_surface_create :: proc(format: format_t, width: i32, height: i32) -> ^surface_t ---
+    @(link_name = "cairo_version")
+    version :: proc() -> i32 ---
+
+    @(link_name = "cairo_version_string")
+    version_string :: proc() -> cstring ---
+
+    @(link_name = "cairo_pattern_set_dither")
+    pattern_set_dither :: proc(pattern: ^pattern_t, dither: dither_t) ---
+
+    @(link_name = "cairo_pattern_get_dither")
+    pattern_get_dither :: proc(pattern: ^pattern_t) -> dither_t ---
 
     @(link_name = "cairo_create")
     create :: proc(target: ^surface_t) -> ^context_t ---
@@ -163,75 +172,6 @@ foreign libcairo {
 
     @(link_name = "cairo_get_reference_count")
     get_reference_count :: proc(cr: ^context_t) -> u32 ---
-
-    @(link_name = "cairo_surface_destroy")
-    surface_destroy :: proc(surface: ^surface_t) ---
-
-    @(link_name = "cairo_surface_get_device")
-    surface_get_device :: proc(surface: ^surface_t) -> ^device_t ---
-
-    @(link_name = "cairo_surface_get_reference_count")
-    surface_get_reference_count :: proc(surface: ^surface_t) -> u32 ---
-
-    @(link_name = "cairo_surface_status")
-    surface_status :: proc(surface: ^surface_t) -> status_t ---
-
-    @(link_name = "cairo_surface_get_type")
-    surface_get_type :: proc(surface: ^surface_t) -> surface_type_t ---
-
-    @(link_name = "cairo_set_source")
-    set_source :: proc(cr: ^context_t, source: ^pattern_t) ---
-
-    @(link_name = "cairo_set_source_rgb")
-    set_source_rgb :: proc(cr: ^context_t, red: f64, green: f64, blue: f64) ---
-
-    @(link_name = "cairo_set_source_rgba")
-    set_source_rgba :: proc(cr: ^context_t, red: f64, green: f64, blue: f64, alpha: f64) ---
-
-    @(link_name = "cairo_set_source_surface")
-    set_source_surface :: proc(cr: ^context_t, surface: ^surface_t, x: f64, y: f64) ---
-
-    @(link_name = "cairo_paint")
-    paint :: proc(cr: ^context_t) ---
-
-    @(link_name = "cairo_paint_with_alpha")
-    paint_with_alpha :: proc(cr: ^context_t, alpha: f64) ---
-
-    @(link_name = "cairo_mask")
-    mask :: proc(cr: ^context_t, pattern: ^pattern_t) ---
-
-    @(link_name = "cairo_mask_surface")
-    mask_surface :: proc(cr: ^context_t, surface: ^surface_t, surface_x: f64, surface_y: f64) ---
-
-    @(link_name = "cairo_stroke")
-    stroke :: proc(cr: ^context_t) ---
-
-    @(link_name = "cairo_rectangle")
-    rectangle :: proc(cr: ^context_t, x: f64, y: f64, width: f64, height: f64) ---
-
-    @(link_name = "cairo_fill")
-    fill :: proc(cr: ^context_t) ---
-
-    @(link_name = "cairo_surface_write_to_png")
-    surface_write_to_png :: proc(surface: ^surface_t, filename: cstring) -> status_t ---
-
-}// libcairo
-
-
-/*
-@(default_calling_convention = "c")
-foreign cairo_runic {
-    @(link_name = "cairo_version")
-    version :: proc() -> i32 ---
-
-    @(link_name = "cairo_version_string")
-    version_string :: proc() -> cstring ---
-
-    @(link_name = "cairo_pattern_set_dither")
-    pattern_set_dither :: proc(pattern: ^pattern_t, dither: dither_t) ---
-
-    @(link_name = "cairo_pattern_get_dither")
-    pattern_get_dither :: proc(pattern: ^pattern_t) -> dither_t ---
 
     @(link_name = "cairo_get_user_data")
     get_user_data :: proc(cr: ^context_t, key: ^user_data_key_t) -> rawptr ---
@@ -259,6 +199,18 @@ foreign cairo_runic {
 
     @(link_name = "cairo_set_operator")
     set_operator :: proc(cr: ^context_t, op: operator_t) ---
+
+    @(link_name = "cairo_set_source")
+    set_source :: proc(cr: ^context_t, source: ^pattern_t) ---
+
+    @(link_name = "cairo_set_source_rgb")
+    set_source_rgb :: proc(cr: ^context_t, red: f64, green: f64, blue: f64) ---
+
+    @(link_name = "cairo_set_source_rgba")
+    set_source_rgba :: proc(cr: ^context_t, red: f64, green: f64, blue: f64, alpha: f64) ---
+
+    @(link_name = "cairo_set_source_surface")
+    set_source_surface :: proc(cr: ^context_t, surface: ^surface_t, x: f64, y: f64) ---
 
     @(link_name = "cairo_set_tolerance")
     set_tolerance :: proc(cr: ^context_t, tolerance: f64) ---
@@ -347,14 +299,35 @@ foreign cairo_runic {
     @(link_name = "cairo_rel_curve_to")
     rel_curve_to :: proc(cr: ^context_t, dx1: f64, dy1: f64, dx2: f64, dy2: f64, dx3: f64, dy3: f64) ---
 
+    @(link_name = "cairo_rectangle")
+    rectangle :: proc(cr: ^context_t, x: f64, y: f64, width: f64, height: f64) ---
+
     @(link_name = "cairo_close_path")
     close_path :: proc(cr: ^context_t) ---
 
     @(link_name = "cairo_path_extents")
     path_extents :: proc(cr: ^context_t, x1: ^f64, y1: ^f64, x2: ^f64, y2: ^f64) ---
 
+    @(link_name = "cairo_paint")
+    paint :: proc(cr: ^context_t) ---
+
+    @(link_name = "cairo_paint_with_alpha")
+    paint_with_alpha :: proc(cr: ^context_t, alpha: f64) ---
+
+    @(link_name = "cairo_mask")
+    mask :: proc(cr: ^context_t, pattern: ^pattern_t) ---
+
+    @(link_name = "cairo_mask_surface")
+    mask_surface :: proc(cr: ^context_t, surface: ^surface_t, surface_x: f64, surface_y: f64) ---
+
+    @(link_name = "cairo_stroke")
+    stroke :: proc(cr: ^context_t) ---
+
     @(link_name = "cairo_stroke_preserve")
     stroke_preserve :: proc(cr: ^context_t) ---
+
+    @(link_name = "cairo_fill")
+    fill :: proc(cr: ^context_t) ---
 
     @(link_name = "cairo_fill_preserve")
     fill_preserve :: proc(cr: ^context_t) ---
@@ -833,8 +806,26 @@ foreign cairo_runic {
     @(link_name = "cairo_surface_finish")
     surface_finish :: proc(surface: ^surface_t) ---
 
+    @(link_name = "cairo_surface_destroy")
+    surface_destroy :: proc(surface: ^surface_t) ---
+
+    @(link_name = "cairo_surface_get_device")
+    surface_get_device :: proc(surface: ^surface_t) -> ^device_t ---
+
+    @(link_name = "cairo_surface_get_reference_count")
+    surface_get_reference_count :: proc(surface: ^surface_t) -> u32 ---
+
+    @(link_name = "cairo_surface_status")
+    surface_status :: proc(surface: ^surface_t) -> status_t ---
+
+    @(link_name = "cairo_surface_get_type")
+    surface_get_type :: proc(surface: ^surface_t) -> surface_type_t ---
+
     @(link_name = "cairo_surface_get_content")
     surface_get_content :: proc(surface: ^surface_t) -> content_t ---
+
+    @(link_name = "cairo_surface_write_to_png")
+    surface_write_to_png :: proc(surface: ^surface_t, filename: cstring) -> status_t ---
 
     @(link_name = "cairo_surface_write_to_png_stream")
     surface_write_to_png_stream :: proc(surface: ^surface_t, write_func: write_func_t, closure: rawptr) -> status_t ---
@@ -886,6 +877,9 @@ foreign cairo_runic {
 
     @(link_name = "cairo_surface_has_show_text_glyphs")
     surface_has_show_text_glyphs :: proc(surface: ^surface_t) -> bool_t ---
+
+    @(link_name = "cairo_image_surface_create")
+    image_surface_create :: proc(format: format_t, width: i32, height: i32) -> ^surface_t ---
 
     @(link_name = "cairo_format_stride_for_width")
     format_stride_for_width :: proc(format: format_t, width: i32) -> i32 ---
@@ -1181,8 +1175,7 @@ foreign cairo_runic {
     @(link_name = "cairo_debug_reset_static_data")
     debug_reset_static_data :: proc() ---
 
-}
-*/
+}// libcairo
 
 when (ODIN_OS == .Linux || ODIN_OS == .Darwin) {
 
@@ -1218,12 +1211,7 @@ _cairo_filter :: enum u32 {FAST = 0, GOOD = 1, BEST = 2, NEAREST = 3, BILINEAR =
 _cairo_region_overlap :: enum u32 {IN = 0, OUT = 1, PART = 2 }
 
 @(default_calling_convention = "c")
-foreign cairo_runic {
-}
-
-/*
-@(default_calling_convention = "c")
-foreign cairo_runic {
+foreign libcairo {
     @(link_name = "cairo_font_options_hash")
     font_options_hash :: proc(options: [^]font_options_t) -> u64 ---
 
@@ -1234,7 +1222,6 @@ foreign cairo_runic {
     surface_set_mime_data :: proc(surface: ^surface_t, mime_type: cstring, data: ^u8, length: u64, destroy: destroy_func_t, closure: rawptr) -> status_t ---
 
 }
-*/
 
 }
 
@@ -1271,6 +1258,8 @@ _cairo_extend :: enum i32 {NONE = 0, REPEAT = 1, REFLECT = 2, PAD = 3 }
 _cairo_filter :: enum i32 {FAST = 0, GOOD = 1, BEST = 2, NEAREST = 3, BILINEAR = 4, GAUSSIAN = 5 }
 _cairo_region_overlap :: enum i32 {IN = 0, OUT = 1, PART = 2 }
 
+
+/*
 @(default_calling_convention = "c")
 foreign cairo_runic {
     @(link_name = "cairo_font_options_hash")
@@ -1283,6 +1272,7 @@ foreign cairo_runic {
     surface_set_mime_data :: proc(surface: ^surface_t, mime_type: cstring, data: ^u8, length: u32, destroy: destroy_func_t, closure: rawptr) -> status_t ---
 
 }
+*/
 
 }
 
