@@ -17,7 +17,10 @@ DrawButtonColor :: proc "c" (area :^gtk.DrawingArea,
                              width: glib.int_,
                              height: glib.int_,
                              cbData :glib.pointer) {
+  context = runtime.default_context()
   rgba := cast(^gtk.RGBA)cbData
+//  fmt.printf("DrawButtonColor: %v [%T]\n", rgba, rgba)
+//  fmt.printf("               : WxH %dx%d]\n", width, height)
   cairo.set_source_rgba(cr, f64(rgba.red), f64(rgba.green), f64(rgba.blue),
                             f64(rgba.alpha))
   cairo.rectangle(cr, 0, 0, f64(width), f64(height))
@@ -26,16 +29,17 @@ DrawButtonColor :: proc "c" (area :^gtk.DrawingArea,
 
 
 NewColorSwatch :: proc(str_color :cstring) -> ^gtk.Widget {
-  rgba := gtk.RGBA{}
-  gtk.gdk_rgba_parse(&rgba, str_color)
-
+  rgba := new(gtk.RGBA)
+  gtk.gdk_rgba_parse(rgba, str_color)
+//  fmt.printf("NewColorSwatch: rgba %v\n", ColorNameToRgbaMap[str_color])
+//  fmt.printf("              : &rgba %p\n", &ColorNameToRgbaMap[str_color])
   button := gtk.button_new()
   gtk.widget_set_tooltip_text(button, str_color)
 
   area := gtk.drawing_area_new()
   gtk.widget_set_size_request(area, 24, 24)
   gtk.drawing_area_set_draw_func(cast(^gtk.DrawingArea)area,
-                                 DrawButtonColor, &rgba, nil)
+                                 DrawButtonColor, rgba, nil)
 
   gtk.button_set_child(cast(^gtk.Button)button, area)
 
@@ -119,7 +123,7 @@ AppActivateCB :: proc "c" (app :^gtk.Application, user_data :glib.pointer) {
 
   appwgt := gtk.application_window_new(app)
   appwin := cast(^gtk.Window)appwgt
-  gtk.window_set_title(appwin, "HeaderBar Example")
+  gtk.window_set_title(appwin, "FlowBox Example")
   gtk.window_set_default_size(appwin, 300, 250)
 
   header := gtk.header_bar_new()
@@ -131,7 +135,7 @@ AppActivateCB :: proc "c" (app :^gtk.Application, user_data :glib.pointer) {
                                  gtk.PolicyType.POLICY_AUTOMATIC)
   gtk.window_set_child(appwin, scrolled)
 
-    flowbox := gtk.flow_box_new()
+  flowbox := gtk.flow_box_new()
   gtk.widget_set_valign(flowbox, align=gtk.Align.START)
   gtk.flow_box_set_min_children_per_line(cast(^gtk.FlowBox)flowbox, 30)
   gtk.flow_box_set_selection_mode(cast(^gtk.FlowBox)flowbox,
@@ -144,10 +148,16 @@ AppActivateCB :: proc "c" (app :^gtk.Application, user_data :glib.pointer) {
 }
 
 
+ColorNameToRgbaMap :map[cstring]gtk.RGBA
+
 //
 // MAIN
 //
 main :: proc() {
+
+  clrRgbaMap := make(map[cstring]gtk.RGBA)
+  defer delete(clrRgbaMap)
+  ColorNameToRgbaMap = make(map[cstring]gtk.RGBA)
 
   cbArg :cstring = "CB Arg"
   app := gtk.application_new("com.example.FontDialog",
