@@ -36,32 +36,47 @@ EntryChangedCB :: proc "c" (sender :^gtk.Widget, cbData :glib.pointer) {
   fmt.printf("              : text '%s'\n", enttxt)
 }
 
-/*
-def on_visible_toggled(self, button):
-        self.entry.props.visibility = button.props.active
+VisibleToggledCB ::  proc "c" (sender :^gtk.Widget, cbData :glib.pointer) {
+  button := cast(^gtk.CheckButton)sender
+  value := gtk.check_button_get_active(button)
+//  self.entry.props.visibility = button.props.active
+  gtk.widget_set_visible(cast(^gtk.Widget)V_entry, value)
+}
 
-    def on_pulse_toggled(self, button):
-        if button.get_active():
-            # Call self.do_pulse every 100 ms
-            self.timeout_id = GLib.timeout_add(100, self.do_pulse)
-        else:
-            # Don't call self.do_pulse anymore
-            GLib.source_remove(self.timeout_id)
-            self.timeout_id = None
+PulseToggledCB ::  proc "c" (sender :^gtk.Widget, cbData :glib.pointer) {
+  button := cast(^gtk.CheckButton)sender
+  isActive := gtk.check_button_get_active(button)
+  if isActive {
+    // Call self.do_pulse every 100 ms
+      V_timeout_id = glib.timeout_add(100, DoPulseCB, nil)
+  } else {
+    // Don't call self.do_pulse anymore
+    glib.source_remove(V_timeout_id)
+    V_timeout_id = 0
+  }
+}
 
-    def do_pulse(self):
-        self.entry.progress_pulse()
-        return True
+DoPulseCB :: proc "c" (user_data :glib.pointer) -> glib.boolean {
+  gtk.entry_progress_pulse(cast(^gtk.Entry)V_entry)
+  return true
+}
 
-    def on_icon_toggled(self, button):
-        icon_name = "system-search-symbolic" if button.props.active else None
-        self.entry.set_icon_from_icon_name(Gtk.EntryIconPosition.PRIMARY, icon_name)
-*/
+IconToggledCB ::  proc "c" (sender :^gtk.Widget, cbData :glib.pointer) {
+  button := cast(^gtk.CheckButton)sender
+  isActive := gtk.check_button_get_active(button)
+  iconName :cstring = ""
+  if isActive {
+    iconName = "system-search-symbolic"
+  }
+  gtk.entry_set_icon_from_icon_name(cast(^gtk.Entry)V_entry,
+                                    gtk.EntryIconPosition.ENTRY_ICON_PRIMARY,
+                                    iconName)
+}
 
 
 V_entry :^gtk.Entry = nil
 V_entryBuf :^gtk.EntryBuffer = nil
-V_timwout_id :glib.uint_ = 0
+V_timeout_id :glib.uint_ = 0
 
 AppActivateCB :: proc "c" (app :^gtk.Application, user_data :glib.pointer) {
   context = runtime.default_context()
@@ -70,8 +85,6 @@ AppActivateCB :: proc "c" (app :^gtk.Application, user_data :glib.pointer) {
   appwin := cast(^gtk.Window)appwgt
   gtk.window_set_title(appwin, "Entries Example")
   gtk.window_set_default_size(appwin, 200, 150)
-
-//        self.timeout_id = None
 
   header := gtk.header_bar_new()
   gtk.window_set_titlebar(appwin, header)
@@ -105,25 +118,29 @@ AppActivateCB :: proc "c" (app :^gtk.Application, user_data :glib.pointer) {
 
   check_editable := gtk.check_button_new_with_label("Editable")
   gtk.check_button_set_active(cast(^gtk.CheckButton)check_editable, true)
-//  editable_set_editable(editable: ^Editable, is_editable: glib.boolean) ---
+  gtk.editable_set_editable(cast(^gtk.Editable)V_entry, true)
   gobj.signal_connect(check_editable, "toggled",
                      cast(gobj.Callback)EditableToggledCB, appwin)
   gtk.box_append(cast(^gtk.Box)hbox, check_editable)
 
+  check_visible := gtk.check_button_new_with_label("Visible")
+  gtk.check_button_set_active(cast(^gtk.CheckButton)check_visible, true)
+  gobj.signal_connect(check_visible, "toggled",
+                     cast(gobj.Callback)VisibleToggledCB, appwin)
+  gtk.box_append(cast(^gtk.Box)hbox, check_visible)
+
+  pulse := gtk.check_button_new_with_label("Pulse")
+  gobj.signal_connect(pulse, "toggled",
+                     cast(gobj.Callback)PulseToggledCB, appwin)
+  gtk.box_append(cast(^gtk.Box)hbox, pulse)
+
+  icon := gtk.check_button_new_with_label("Icon")
+  gobj.signal_connect(icon, "toggled",
+                     cast(gobj.Callback)IconToggledCB, appwin)
+  gtk.box_append(cast(^gtk.Box)hbox, icon)
+
 /*
-        self.check_visible = Gtk.CheckButton(label="Visible", active=True)
-        self.check_visible.connect("toggled", self.on_visible_toggled)
-        hbox.append(self.check_visible)
-
-        self.pulse = Gtk.CheckButton(label="Pulse")
-        self.pulse.connect("toggled", self.on_pulse_toggled)
-        hbox.append(self.pulse)
-
-        self.icon = Gtk.CheckButton(label="Icon")
-        self.icon.connect("toggled", self.on_icon_toggled)
-        hbox.append(self.icon)
-
-        # Gtk.PasswordEntry
+    // Gtk.PasswordEntry
         pass_entry = Gtk.PasswordEntry(
             placeholder_text="Password Entry",
             show_peek_icon=True,
