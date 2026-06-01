@@ -31,7 +31,6 @@ EntryChangedCB :: proc "c" (sender :^gtk.Widget, cbData :glib.pointer) {
   entry := cast(^gtk.Entry)sender
   fmt.printf("              : sender %p V_entry %p\n", sender, V_entry)
   entbuf := cast(^gtk.TextBuffer)gtk.entry_get_buffer(entry)
-//  txtitr := gtk,TextIter{}
   enttxt := gtk.editable_get_text(cast(^gtk.Editable)entry)
   fmt.printf("              : text '%s'\n", enttxt)
 }
@@ -64,7 +63,7 @@ DoPulseCB :: proc "c" (user_data :glib.pointer) -> glib.boolean {
 IconToggledCB ::  proc "c" (sender :^gtk.Widget, cbData :glib.pointer) {
   button := cast(^gtk.CheckButton)sender
   isActive := gtk.check_button_get_active(button)
-  iconName :cstring = ""
+  iconName :cstring = nil
   if isActive {
     iconName = "system-search-symbolic"
   }
@@ -139,15 +138,35 @@ AppActivateCB :: proc "c" (app :^gtk.Application, user_data :glib.pointer) {
                      cast(gobj.Callback)IconToggledCB, appwin)
   gtk.box_append(cast(^gtk.Box)hbox, icon)
 
+  // Gtk.PasswordEntry
+  pass_entry := gtk.password_entry_new()
+//gtk.password_entry_set_placeholder_text(cast(^gtk.Entry)pass_entry, "Password Entry")
 /*
-    // Gtk.PasswordEntry
-        pass_entry = Gtk.PasswordEntry(
-            placeholder_text="Password Entry",
-            show_peek_icon=True,
-            margin_top=24,
-        )
-        vbox.append(pass_entry)
+array_union_anon_0 :: struct #raw_union {
+    v_int: glib.int_,
+    v_uint: glib.uint_,
+    v_long: glib.long,
+    v_ulong: glib.ulong,
+    v_int64: glib.int64,
+    v_uint64: glib.uint64,
+    v_float: glib.float,
+    v_double: glib.double,
+    v_pointer: glib.pointer,
+}
+_GValue :: struct {
+    g_type: Type,
+    data: [2]array_union_anon_0,
+}
 */
+  strPropVal := gobj.Value{g_type=gobj.TYPE_STRING}
+  pswdPH :cstring = "Enter your password"
+  strPropVal.data[0].v_pointer = rawptr(pswdPH)
+  strPropVal.data[1].v_pointer = nil
+  gobj.object_set_property(cast(^gobj.Object)pass_entry,
+                         "placeholder-text", &strPropVal)
+  gtk.password_entry_set_show_peek_icon(cast(^gtk.PasswordEntry)pass_entry,true)
+  gtk.widget_set_margin_top(pass_entry, 24)
+  gtk.box_append(cast(^gtk.Box)vbox, pass_entry)
 
   fmt.printf("AppActivateCB: appwin %p [%T]\n", appwin, appwin)
   gtk.window_present(appwin)
