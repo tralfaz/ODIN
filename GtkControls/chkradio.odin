@@ -11,17 +11,6 @@ import gobj "../gtk4m/gobject"
 import gtk  "../gtk4m/gtk"
 
 
-Button1ClickedCB :: proc "c" (button :^gtk.Button, cbData :glib.pointer) {
-  context = runtime.default_context()
-  appwin := cast(^gtk.Window)cbData
-  fmt.printf("Button1ClickedCB: appwin %p [%T]\n", appwin, appwin)
-}
-
-Button2ClickedCB :: proc "c" (button :^gtk.Button, cbData :glib.pointer) {
-  context = runtime.default_context()
-  hbox := cast(^gtk.Box)cbData
-  fmt.printf("Button2ClickedCB: hbox %p [%T]\n", hbox, hbox)
-}
 CheckToggledCB :: proc "c" (chkbtn :^gtk.CheckButton, cbData :glib.pointer) {
   context = runtime.default_context()
 
@@ -33,10 +22,18 @@ CheckToggledCB :: proc "c" (chkbtn :^gtk.CheckButton, cbData :glib.pointer) {
   }
   fmt.printf("Checkbox(%s) was turned %s\n", chkarg, chkwas)
 }
-//    def on_radio_toggled(self, radio, name):
-//        state = "on" if radio.props.active else "off"
-//        print("Radio", name, "was turned", state)
 
+RadioToggledCB :: proc "c" (chkbtn :^gtk.CheckButton, cbData :glib.pointer) {
+  context = runtime.default_context()
+
+  chkarg := cast(cstring)cbData
+  wasact := gtk.check_button_get_active(chkbtn)
+  chkwas := "off"
+  if !wasact {
+    chkwas = "on"
+  }
+  fmt.printf("Radio[%s] was turned %s\n", chkarg, chkwas)
+}
 
 AppActivateCB :: proc "c" (app :^gtk.Application, user_data :glib.pointer) {
   context = runtime.default_context()
@@ -50,32 +47,33 @@ AppActivateCB :: proc "c" (app :^gtk.Application, user_data :glib.pointer) {
   gtk.window_set_child(appwin, hbox)
 
   check := gtk.check_button_new_with_label("Checkbox")
+  cbarg0 :cstring = "Check-0"
   gobj.signal_connect(check, "toggled",
-                     cast(gobj.Callback)CheckToggledCB, appwin)
+                     cast(gobj.Callback)CheckToggledCB, rawptr(cbarg0))
   gtk.box_append(cast(^gtk.Box)hbox, check)
 
   radio1 := gtk.check_button_new_with_label("Radio 1")
   gtk.check_button_set_active(cast(^gtk.CheckButton)radio1, true)
   cbarg1 :cstring = "R1"
   gobj.signal_connect(radio1, "toggled",
-                      cast(gobj.Callback)CheckToggledCB, rawptr(cbarg1))
+                      cast(gobj.Callback)RadioToggledCB, rawptr(cbarg1))
   gtk.box_append(cast(^gtk.Box)hbox, radio1)
 
   radio2 := gtk.check_button_new_with_label("Radio 2")
-  gtk.toggle_button_set_group(cast(^gtk.ToggleButton)radio2,
-                              group=cast(^gtk.ToggleButton)radio1)
+  gtk.check_button_set_group(cast(^gtk.CheckButton)radio2,
+                              group=cast(^gtk.CheckButton)radio1)
   cbarg2 :cstring = "R2"
   gobj.signal_connect(radio2, "toggled",
-                      cast(gobj.Callback)CheckToggledCB, rawptr(cbarg2))
+                      cast(gobj.Callback)RadioToggledCB, rawptr(cbarg2))
   gtk.box_append(cast(^gtk.Box)hbox, radio2)
 
   radio3 := gtk.check_button_new_with_label("R_adio 3")
-    //, use_underline=True,
-  gtk.toggle_button_set_group(cast(^gtk.ToggleButton)radio3,
-                              group=cast(^gtk.ToggleButton)radio1)
+  gobj.set_boolean_property(cast(^gobj.Object)radio3, "use-underline", true)
+  gtk.check_button_set_group(cast(^gtk.CheckButton)radio3,
+                              group=cast(^gtk.CheckButton)radio1)
   cbarg3 :cstring = "R3"
   gobj.signal_connect(radio3, "toggled",
-                      cast(gobj.Callback)CheckToggledCB, rawptr(cbarg3))
+                      cast(gobj.Callback)RadioToggledCB, rawptr(cbarg3))
   gtk.box_append(cast(^gtk.Box)hbox, radio3)
 
   gtk.window_present(appwin)
