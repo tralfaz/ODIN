@@ -11,11 +11,14 @@ import gobj "../gtk4m/gobject"
 import gtk  "../gtk4m/gtk"
 
 
-SwitchActivatedCB :: proc "c" (sender :^gtk.Switch, cbarg :glib.pointer) {
+SwitchActivatedCB :: proc "c" (sender :^gtk.Switch,
+                               pspec :^gobj.ParamSpec,
+                               cbarg :glib.pointer) {
   context = runtime.default_context()
   swid := cast(cstring)cbarg
   state := "on" if gtk.switch_get_active(sender) else "off"
   fmt.printf("Switch[%s] was turned %s\n", swid, state)
+  fmt.printf("param spec %v\n", pspec)
 }
 
 AppActivateCB :: proc "c" (app :^gtk.Application, user_data :glib.pointer) {
@@ -35,8 +38,7 @@ AppActivateCB :: proc "c" (app :^gtk.Application, user_data :glib.pointer) {
   swbtn := gtk.switch_new()
   gtk.switch_set_active(cast(^gtk.Switch)swbtn, false)
   gtk.widget_set_halign(swbtn, gtk.Align.CENTER)
-  @static cbarg1 :cstring = "SID1"
-  fmt.printf("cbarg1: %p\n", cbarg1)
+  @static cbarg1 :cstring = "SW1"
   gobj.signal_connect(swbtn, "notify::active",
                       cast(gobj.Callback)SwitchActivatedCB, rawptr(cbarg1))
   gtk.box_append(cast(^gtk.Box)hbox, swbtn)
@@ -44,7 +46,7 @@ AppActivateCB :: proc "c" (app :^gtk.Application, user_data :glib.pointer) {
   swbtn = gtk.switch_new()
   gtk.switch_set_active(cast(^gtk.Switch)swbtn, true)
   gtk.widget_set_halign(swbtn, gtk.Align.CENTER)
-    @static cbarg2 :cstring = "STD2"
+  @static cbarg2 :cstring = "SW2"
   gobj.signal_connect(swbtn, "notify::active",
                       cast(gobj.Callback)SwitchActivatedCB, rawptr(cbarg2))
   gtk.box_append(cast(^gtk.Box)hbox, swbtn)
