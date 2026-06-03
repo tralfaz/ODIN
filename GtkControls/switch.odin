@@ -11,15 +11,11 @@ import gobj "../gtk4m/gobject"
 import gtk  "../gtk4m/gtk"
 
 
-Button1ClickedCB :: proc "c" (button :^gtk.Button, cbData :glib.pointer) {
+SwitchActivatedCB :: proc "c" (sender :^gtk.Switch, cbarg :glib.pointer) {
   context = runtime.default_context()
-  appwin := cast(^gtk.Window)cbData
-  fmt.printf("Button1ClickedCB: appwin %p [%T]\n", appwin, appwin)
-}
-SwitchActivatedCB :: proc "c" (self, switch, _gparam) {
-  context = runtime.default_context()
-        state = "on" if switch.props.active else "off"
-  fmt.printf("Switch was turned %v\n", state)
+  swid := cast(cstring)cbarg
+  state := "on" if gtk.switch_get_active(sender) else "off"
+  fmt.printf("Switch[%s] was turned %s\n", swid, state)
 }
 
 AppActivateCB :: proc "c" (app :^gtk.Application, user_data :glib.pointer) {
@@ -27,22 +23,31 @@ AppActivateCB :: proc "c" (app :^gtk.Application, user_data :glib.pointer) {
 
   appwgt := gtk.application_window_new(app)
   appwin := cast(^gtk.Window)appwgt
-  gtk.window_set_title(appwin, "Horizontal Box Example")
+  gtk.window_set_title(appwin, "Switch button demo")
 //  gtk.window_set_default_size(appwin, 500, 150)
 
   hbox := gtk.box_new(gtk.Orientation.HORIZONTAL, spacing=6)
-  //homogeneous=True, margin_top=24, margin_bottom=24)
+  gtk.box_set_homogeneous(cast(^gtk.Box)hbox, true)
+  gtk.widget_set_margin_top(hbox, 24)
+  gtk.widget_set_margin_bottom(hbox, 24)  
   gtk.window_set_child(appwin, hbox)
 
-  switch := gtk.Switch(active=False, halign=Gtk.Align.CENTER)
-  gobj.signal_connect(switch, "notify::active",
-                      cast(gobj.Callback)SwitchActivatedCB, appwin)
-  gtk.box_append(cast(^gtk.Box)hbox, switch)
+  swbtn := gtk.switch_new()
+  gtk.switch_set_active(cast(^gtk.Switch)swbtn, false)
+  gtk.widget_set_halign(swbtn, gtk.Align.CENTER)
+  @static cbarg1 :cstring = "SID1"
+  fmt.printf("cbarg1: %p\n", cbarg1)
+  gobj.signal_connect(swbtn, "notify::active",
+                      cast(gobj.Callback)SwitchActivatedCB, rawptr(cbarg1))
+  gtk.box_append(cast(^gtk.Box)hbox, swbtn)
 
-  switch = Gtk.Switch(active=True, halign=Gtk.Align.CENTER)
-  gobj.signal_connect(switch, "notify::active",
-                      cast(gobj.Callback)SwitchActivatedCB, appwin)
-  gtk.box_append(cast(^gtk.Box)hbox, switch)
+  swbtn = gtk.switch_new()
+  gtk.switch_set_active(cast(^gtk.Switch)swbtn, true)
+  gtk.widget_set_halign(swbtn, gtk.Align.CENTER)
+    @static cbarg2 :cstring = "STD2"
+  gobj.signal_connect(swbtn, "notify::active",
+                      cast(gobj.Callback)SwitchActivatedCB, rawptr(cbarg2))
+  gtk.box_append(cast(^gtk.Box)hbox, swbtn)
 
   gtk.window_present(appwin)
 }
