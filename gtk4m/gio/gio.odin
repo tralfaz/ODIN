@@ -3690,101 +3690,1346 @@ foreign libgio2 {
     @(link_name = "g_action_get_type")
     action_get_type :: proc() -> gobj.Type ---
 
+    @(link_name = "g_action_get_name")
+    action_get_name :: proc(action: ^Action) -> cstring ---
+
+    @(link_name = "g_action_get_parameter_type")
+    action_get_parameter_type :: proc(action: ^Action) -> ^glib.VariantType ---
+
+    @(link_name = "g_action_get_state_type")
+    action_get_state_type :: proc(action: ^Action) -> ^glib.VariantType ---
+
+    @(link_name = "g_action_get_state_hint")
+    action_get_state_hint :: proc(action: ^Action) -> ^glib.Variant ---
+
+    @(link_name = "g_action_get_enabled")
+    action_get_enabled :: proc(action: ^Action) -> glib.boolean ---
+
+    @(link_name = "g_action_get_state")
+    action_get_state :: proc(action: ^Action) -> ^glib.Variant ---
+
+    @(link_name = "g_action_change_state")
+    action_change_state :: proc(action: ^Action, value: ^glib.Variant) ---
+
+    @(link_name = "g_action_activate")
+    action_activate :: proc(action: ^Action, parameter: ^glib.Variant) ---
+
+    @(link_name = "g_action_name_is_valid")
+    action_name_is_valid :: proc(action_name: cstring) -> glib.boolean ---
+
+    @(link_name = "g_action_parse_detailed_name")
+    action_parse_detailed_name :: proc(detailed_name: cstring, action_name: ^cstring, target_value: ^^glib.Variant, error: ^^glib.Error) -> glib.boolean ---
+
+    @(link_name = "g_action_print_detailed_name")
+    action_print_detailed_name :: proc(action_name: cstring, target_value: ^glib.Variant) -> cstring ---
+
     @(link_name = "g_action_group_get_type")
     action_group_get_type :: proc() -> gobj.Type ---
+
+    @(link_name = "g_action_group_has_action")
+    action_group_has_action :: proc(action_group: ^ActionGroup, action_name: cstring) -> glib.boolean ---
+
+    @(link_name = "g_action_group_list_actions")
+    action_group_list_actions :: proc(action_group: ^ActionGroup) -> ^cstring ---
+
+    @(link_name = "g_action_group_get_action_parameter_type")
+    action_group_get_action_parameter_type :: proc(action_group: ^ActionGroup, action_name: cstring) -> ^glib.VariantType ---
+
+    @(link_name = "g_action_group_get_action_state_type")
+    action_group_get_action_state_type :: proc(action_group: ^ActionGroup, action_name: cstring) -> ^glib.VariantType ---
+
+    @(link_name = "g_action_group_get_action_state_hint")
+    action_group_get_action_state_hint :: proc(action_group: ^ActionGroup, action_name: cstring) -> ^glib.Variant ---
+
+    @(link_name = "g_action_group_get_action_enabled")
+    action_group_get_action_enabled :: proc(action_group: ^ActionGroup, action_name: cstring) -> glib.boolean ---
+
+    @(link_name = "g_action_group_get_action_state")
+    action_group_get_action_state :: proc(action_group: ^ActionGroup, action_name: cstring) -> ^glib.Variant ---
+
+    @(link_name = "g_action_group_change_action_state")
+    action_group_change_action_state :: proc(action_group: ^ActionGroup, action_name: cstring, value: ^glib.Variant) ---
+
+    @(link_name = "g_action_group_activate_action")
+    action_group_activate_action :: proc(action_group: ^ActionGroup, action_name: cstring, parameter: ^glib.Variant) ---
+
+    @(link_name = "g_action_group_action_added")
+    action_group_action_added :: proc(action_group: ^ActionGroup, action_name: cstring) ---
+
+    @(link_name = "g_action_group_action_removed")
+    action_group_action_removed :: proc(action_group: ^ActionGroup, action_name: cstring) ---
+
+    @(link_name = "g_action_group_action_enabled_changed")
+    action_group_action_enabled_changed :: proc(action_group: ^ActionGroup, action_name: cstring, enabled: glib.boolean) ---
+
+    @(link_name = "g_action_group_action_state_changed")
+    action_group_action_state_changed :: proc(action_group: ^ActionGroup, action_name: cstring, state: ^glib.Variant) ---
+
+    @(link_name = "g_action_group_query_action")
+    action_group_query_action :: proc(action_group: ^ActionGroup, action_name: cstring, enabled: ^glib.boolean, parameter_type: ^^glib.VariantType, state_type: ^^glib.VariantType, state_hint: ^^glib.Variant, state: ^^glib.Variant) -> glib.boolean ---
+
+    @(link_name = "g_dbus_connection_export_action_group")
+    dbus_connection_export_action_group :: proc(connection: ^DBusConnection, object_path: cstring, action_group: ^ActionGroup, error: ^^glib.Error) -> glib.uint_ ---
+
+    @(link_name = "g_dbus_connection_unexport_action_group")
+    dbus_connection_unexport_action_group :: proc(connection: ^DBusConnection, export_id: glib.uint_) ---
 
     @(link_name = "g_action_map_get_type")
     action_map_get_type :: proc() -> gobj.Type ---
 
+    @(link_name = "g_action_map_lookup_action")
+    action_map_lookup_action :: proc(action_map: ^ActionMap, action_name: cstring) -> ^Action ---
+
+    @(link_name = "g_action_map_add_action")
+    action_map_add_action :: proc(action_map: ^ActionMap, action: ^Action) ---
+
+    @(link_name = "g_action_map_remove_action")
+    action_map_remove_action :: proc(action_map: ^ActionMap, action_name: cstring) ---
+
+    @(link_name = "g_action_map_add_action_entries")
+    action_map_add_action_entries :: proc(action_map: ^ActionMap, entries: [^]ActionEntry, n_entries: glib.int_, user_data: glib.pointer) ---
+
+    @(link_name = "g_action_map_remove_action_entries")
+    action_map_remove_action_entries :: proc(action_map: ^ActionMap, entries: [^]ActionEntry, n_entries: glib.int_) ---
+
     @(link_name = "g_app_info_get_type")
     app_info_get_type :: proc() -> gobj.Type ---
+
+    @(link_name = "g_app_info_create_from_commandline")
+    app_info_create_from_commandline :: proc(commandline: cstring, application_name: cstring, flags: AppInfoCreateFlags, error: ^^glib.Error) -> ^AppInfo ---
+
+    @(link_name = "g_app_info_dup")
+    app_info_dup :: proc(appinfo: ^AppInfo) -> ^AppInfo ---
+
+    @(link_name = "g_app_info_equal")
+    app_info_equal :: proc(appinfo1: ^AppInfo, appinfo2: ^AppInfo) -> glib.boolean ---
+
+    @(link_name = "g_app_info_get_id")
+    app_info_get_id :: proc(appinfo: ^AppInfo) -> cstring ---
+
+    @(link_name = "g_app_info_get_name")
+    app_info_get_name :: proc(appinfo: ^AppInfo) -> cstring ---
+
+    @(link_name = "g_app_info_get_display_name")
+    app_info_get_display_name :: proc(appinfo: ^AppInfo) -> cstring ---
+
+    @(link_name = "g_app_info_get_description")
+    app_info_get_description :: proc(appinfo: ^AppInfo) -> cstring ---
+
+    @(link_name = "g_app_info_get_executable")
+    app_info_get_executable :: proc(appinfo: ^AppInfo) -> cstring ---
+
+    @(link_name = "g_app_info_get_commandline")
+    app_info_get_commandline :: proc(appinfo: ^AppInfo) -> cstring ---
+
+    @(link_name = "g_app_info_get_icon")
+    app_info_get_icon :: proc(appinfo: ^AppInfo) -> ^Icon ---
+
+    @(link_name = "g_app_info_launch")
+    app_info_launch :: proc(appinfo: ^AppInfo, files: [^]glib.List, context_p: ^AppLaunchContext, error: ^^glib.Error) -> glib.boolean ---
+
+    @(link_name = "g_app_info_supports_uris")
+    app_info_supports_uris :: proc(appinfo: ^AppInfo) -> glib.boolean ---
+
+    @(link_name = "g_app_info_supports_files")
+    app_info_supports_files :: proc(appinfo: ^AppInfo) -> glib.boolean ---
+
+    @(link_name = "g_app_info_launch_uris")
+    app_info_launch_uris :: proc(appinfo: ^AppInfo, uris: [^]glib.List, context_p: ^AppLaunchContext, error: ^^glib.Error) -> glib.boolean ---
+
+    @(link_name = "g_app_info_launch_uris_async")
+    app_info_launch_uris_async :: proc(appinfo: ^AppInfo, uris: [^]glib.List, context_p: ^AppLaunchContext, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer) ---
+
+    @(link_name = "g_app_info_launch_uris_finish")
+    app_info_launch_uris_finish :: proc(appinfo: ^AppInfo, result: ^AsyncResult, error: ^^glib.Error) -> glib.boolean ---
+
+    @(link_name = "g_app_info_should_show")
+    app_info_should_show :: proc(appinfo: ^AppInfo) -> glib.boolean ---
+
+    @(link_name = "g_app_info_set_as_default_for_type")
+    app_info_set_as_default_for_type :: proc(appinfo: ^AppInfo, content_type: cstring, error: ^^glib.Error) -> glib.boolean ---
+
+    @(link_name = "g_app_info_set_as_default_for_extension")
+    app_info_set_as_default_for_extension :: proc(appinfo: ^AppInfo, extension: cstring, error: ^^glib.Error) -> glib.boolean ---
+
+    @(link_name = "g_app_info_add_supports_type")
+    app_info_add_supports_type :: proc(appinfo: ^AppInfo, content_type: cstring, error: ^^glib.Error) -> glib.boolean ---
+
+    @(link_name = "g_app_info_can_remove_supports_type")
+    app_info_can_remove_supports_type :: proc(appinfo: ^AppInfo) -> glib.boolean ---
+
+    @(link_name = "g_app_info_remove_supports_type")
+    app_info_remove_supports_type :: proc(appinfo: ^AppInfo, content_type: cstring, error: ^^glib.Error) -> glib.boolean ---
+
+    @(link_name = "g_app_info_get_supported_types")
+    app_info_get_supported_types :: proc(appinfo: ^AppInfo) -> ^cstring ---
+
+    @(link_name = "g_app_info_can_delete")
+    app_info_can_delete :: proc(appinfo: ^AppInfo) -> glib.boolean ---
+
+    @(link_name = "g_app_info_delete")
+    app_info_delete :: proc(appinfo: ^AppInfo) -> glib.boolean ---
+
+    @(link_name = "g_app_info_set_as_last_used_for_type")
+    app_info_set_as_last_used_for_type :: proc(appinfo: ^AppInfo, content_type: cstring, error: ^^glib.Error) -> glib.boolean ---
+
+    @(link_name = "g_app_info_get_all")
+    app_info_get_all :: proc() -> ^glib.List ---
+
+    @(link_name = "g_app_info_get_all_for_type")
+    app_info_get_all_for_type :: proc(content_type: cstring) -> ^glib.List ---
+
+    @(link_name = "g_app_info_get_recommended_for_type")
+    app_info_get_recommended_for_type :: proc(content_type: cstring) -> ^glib.List ---
+
+    @(link_name = "g_app_info_get_fallback_for_type")
+    app_info_get_fallback_for_type :: proc(content_type: cstring) -> ^glib.List ---
+
+    @(link_name = "g_app_info_reset_type_associations")
+    app_info_reset_type_associations :: proc(content_type: cstring) ---
+
+    @(link_name = "g_app_info_get_default_for_type")
+    app_info_get_default_for_type :: proc(content_type: cstring, must_support_uris: glib.boolean) -> ^AppInfo ---
+
+    @(link_name = "g_app_info_get_default_for_type_async")
+    app_info_get_default_for_type_async :: proc(content_type: cstring, must_support_uris: glib.boolean, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer) ---
+
+    @(link_name = "g_app_info_get_default_for_type_finish")
+    app_info_get_default_for_type_finish :: proc(result: ^AsyncResult, error: ^^glib.Error) -> ^AppInfo ---
+
+    @(link_name = "g_app_info_get_default_for_uri_scheme")
+    app_info_get_default_for_uri_scheme :: proc(uri_scheme: cstring) -> ^AppInfo ---
+
+    @(link_name = "g_app_info_get_default_for_uri_scheme_async")
+    app_info_get_default_for_uri_scheme_async :: proc(uri_scheme: cstring, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer) ---
+
+    @(link_name = "g_app_info_get_default_for_uri_scheme_finish")
+    app_info_get_default_for_uri_scheme_finish :: proc(result: ^AsyncResult, error: ^^glib.Error) -> ^AppInfo ---
+
+    @(link_name = "g_app_info_launch_default_for_uri")
+    app_info_launch_default_for_uri :: proc(uri: cstring, context_p: ^AppLaunchContext, error: ^^glib.Error) -> glib.boolean ---
+
+    @(link_name = "g_app_info_launch_default_for_uri_async")
+    app_info_launch_default_for_uri_async :: proc(uri: cstring, context_p: ^AppLaunchContext, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer) ---
+
+    @(link_name = "g_app_info_launch_default_for_uri_finish")
+    app_info_launch_default_for_uri_finish :: proc(result: ^AsyncResult, error: ^^glib.Error) -> glib.boolean ---
 
     @(link_name = "g_app_launch_context_get_type")
     app_launch_context_get_type :: proc() -> gobj.Type ---
 
+    @(link_name = "g_app_launch_context_new")
+    app_launch_context_new :: proc() -> ^AppLaunchContext ---
+
+    @(link_name = "g_app_launch_context_setenv")
+    app_launch_context_setenv :: proc(context_p: ^AppLaunchContext, variable: cstring, value: cstring) ---
+
+    @(link_name = "g_app_launch_context_unsetenv")
+    app_launch_context_unsetenv :: proc(context_p: ^AppLaunchContext, variable: cstring) ---
+
+    @(link_name = "g_app_launch_context_get_environment")
+    app_launch_context_get_environment :: proc(context_p: ^AppLaunchContext) -> ^cstring ---
+
+    @(link_name = "g_app_launch_context_get_display")
+    app_launch_context_get_display :: proc(context_p: ^AppLaunchContext, info: ^AppInfo, files: [^]glib.List) -> cstring ---
+
+    @(link_name = "g_app_launch_context_get_startup_notify_id")
+    app_launch_context_get_startup_notify_id :: proc(context_p: ^AppLaunchContext, info: ^AppInfo, files: [^]glib.List) -> cstring ---
+
+    @(link_name = "g_app_launch_context_launch_failed")
+    app_launch_context_launch_failed :: proc(context_p: ^AppLaunchContext, startup_notify_id: cstring) ---
+
     @(link_name = "g_app_info_monitor_get_type")
     app_info_monitor_get_type :: proc() -> gobj.Type ---
+
+    @(link_name = "g_app_info_monitor_get")
+    app_info_monitor_get :: proc() -> ^AppInfoMonitor ---
 
     @(link_name = "g_application_get_type")
     application_get_type :: proc() -> gobj.Type ---
 
+    @(link_name = "g_application_id_is_valid")
+    application_id_is_valid :: proc(application_id: cstring) -> glib.boolean ---
+
+    @(link_name = "g_application_new")
+    application_new :: proc(application_id: cstring, flags: ApplicationFlags) -> ^Application ---
+
+    @(link_name = "g_application_get_application_id")
+    application_get_application_id :: proc(application: ^Application) -> cstring ---
+
+    @(link_name = "g_application_set_application_id")
+    application_set_application_id :: proc(application: ^Application, application_id: cstring) ---
+
+    @(link_name = "g_application_get_version")
+    application_get_version :: proc(application: ^Application) -> cstring ---
+
+    @(link_name = "g_application_set_version")
+    application_set_version :: proc(application: ^Application, version: cstring) ---
+
+    @(link_name = "g_application_get_dbus_connection")
+    application_get_dbus_connection :: proc(application: ^Application) -> ^DBusConnection ---
+
+    @(link_name = "g_application_get_dbus_object_path")
+    application_get_dbus_object_path :: proc(application: ^Application) -> cstring ---
+
+    @(link_name = "g_application_get_inactivity_timeout")
+    application_get_inactivity_timeout :: proc(application: ^Application) -> glib.uint_ ---
+
+    @(link_name = "g_application_set_inactivity_timeout")
+    application_set_inactivity_timeout :: proc(application: ^Application, inactivity_timeout: glib.uint_) ---
+
+    @(link_name = "g_application_get_flags")
+    application_get_flags :: proc(application: ^Application) -> ApplicationFlags ---
+
+    @(link_name = "g_application_set_flags")
+    application_set_flags :: proc(application: ^Application, flags: ApplicationFlags) ---
+
+    @(link_name = "g_application_get_resource_base_path")
+    application_get_resource_base_path :: proc(application: ^Application) -> cstring ---
+
+    @(link_name = "g_application_set_resource_base_path")
+    application_set_resource_base_path :: proc(application: ^Application, resource_path: cstring) ---
+
+    @(link_name = "g_application_set_action_group")
+    application_set_action_group :: proc(application: ^Application, action_group: ^ActionGroup) ---
+
+    @(link_name = "g_application_add_main_option_entries")
+    application_add_main_option_entries :: proc(application: ^Application, entries: [^]glib.OptionEntry) ---
+
+    @(link_name = "g_application_add_main_option")
+    application_add_main_option :: proc(application: ^Application, long_name: cstring, short_name: glib.char, flags: glib.OptionFlags, arg: glib.OptionArg, description: cstring, arg_description: cstring) ---
+
+    @(link_name = "g_application_add_option_group")
+    application_add_option_group :: proc(application: ^Application, group: ^glib.OptionGroup) ---
+
+    @(link_name = "g_application_set_option_context_parameter_string")
+    application_set_option_context_parameter_string :: proc(application: ^Application, parameter_string: cstring) ---
+
+    @(link_name = "g_application_set_option_context_summary")
+    application_set_option_context_summary :: proc(application: ^Application, summary: cstring) ---
+
+    @(link_name = "g_application_set_option_context_description")
+    application_set_option_context_description :: proc(application: ^Application, description: cstring) ---
+
+    @(link_name = "g_application_get_is_registered")
+    application_get_is_registered :: proc(application: ^Application) -> glib.boolean ---
+
+    @(link_name = "g_application_get_is_remote")
+    application_get_is_remote :: proc(application: ^Application) -> glib.boolean ---
+
+    @(link_name = "g_application_register")
+    application_register :: proc(application: ^Application, cancellable: ^Cancellable, error: ^^glib.Error) -> glib.boolean ---
+
+    @(link_name = "g_application_hold")
+    application_hold :: proc(application: ^Application) ---
+
+    @(link_name = "g_application_release")
+    application_release :: proc(application: ^Application) ---
+
+    @(link_name = "g_application_activate")
+    application_activate :: proc(application: ^Application) ---
+
+    @(link_name = "g_application_open")
+    application_open :: proc(application: ^Application, files: [^]^File, n_files: glib.int_, hint: cstring) ---
+
+    @(link_name = "g_application_run")
+    application_run :: proc(application: ^Application, argc: i32, argv: ^cstring) -> i32 ---
+
+    @(link_name = "g_application_quit")
+    application_quit :: proc(application: ^Application) ---
+
+    @(link_name = "g_application_get_default")
+    application_get_default :: proc() -> ^Application ---
+
+    @(link_name = "g_application_set_default")
+    application_set_default :: proc(application: ^Application) ---
+
+    @(link_name = "g_application_mark_busy")
+    application_mark_busy :: proc(application: ^Application) ---
+
+    @(link_name = "g_application_unmark_busy")
+    application_unmark_busy :: proc(application: ^Application) ---
+
+    @(link_name = "g_application_get_is_busy")
+    application_get_is_busy :: proc(application: ^Application) -> glib.boolean ---
+
+    @(link_name = "g_application_send_notification")
+    application_send_notification :: proc(application: ^Application, id: cstring, notification: ^Notification) ---
+
+    @(link_name = "g_application_withdraw_notification")
+    application_withdraw_notification :: proc(application: ^Application, id: cstring) ---
+
+    @(link_name = "g_application_bind_busy_property")
+    application_bind_busy_property :: proc(application: ^Application, object: glib.pointer, property: cstring) ---
+
+    @(link_name = "g_application_unbind_busy_property")
+    application_unbind_busy_property :: proc(application: ^Application, object: glib.pointer, property: cstring) ---
+
     @(link_name = "g_application_command_line_get_type")
     application_command_line_get_type :: proc() -> gobj.Type ---
+
+    @(link_name = "g_application_command_line_get_arguments")
+    application_command_line_get_arguments :: proc(cmdline: ^ApplicationCommandLine, argc: ^i32) -> ^cstring ---
+
+    @(link_name = "g_application_command_line_get_options_dict")
+    application_command_line_get_options_dict :: proc(cmdline: ^ApplicationCommandLine) -> ^glib.VariantDict ---
+
+    @(link_name = "g_application_command_line_get_stdin")
+    application_command_line_get_stdin :: proc(cmdline: ^ApplicationCommandLine) -> ^InputStream ---
+
+    @(link_name = "g_application_command_line_get_environ")
+    application_command_line_get_environ :: proc(cmdline: ^ApplicationCommandLine) -> ^cstring ---
+
+    @(link_name = "g_application_command_line_getenv")
+    application_command_line_getenv :: proc(cmdline: ^ApplicationCommandLine, name: cstring) -> cstring ---
+
+    @(link_name = "g_application_command_line_get_cwd")
+    application_command_line_get_cwd :: proc(cmdline: ^ApplicationCommandLine) -> cstring ---
+
+    @(link_name = "g_application_command_line_get_is_remote")
+    application_command_line_get_is_remote :: proc(cmdline: ^ApplicationCommandLine) -> glib.boolean ---
+
+    @(link_name = "g_application_command_line_print_literal")
+    application_command_line_print_literal :: proc(cmdline: ^ApplicationCommandLine, message: cstring) ---
+
+    @(link_name = "g_application_command_line_printerr_literal")
+    application_command_line_printerr_literal :: proc(cmdline: ^ApplicationCommandLine, message: cstring) ---
+
+    @(link_name = "g_application_command_line_print")
+    application_command_line_print :: proc(cmdline: ^ApplicationCommandLine, format: cstring, #c_vararg var_args: ..any) ---
+
+    @(link_name = "g_application_command_line_printerr")
+    application_command_line_printerr :: proc(cmdline: ^ApplicationCommandLine, format: cstring, #c_vararg var_args: ..any) ---
+
+    @(link_name = "g_application_command_line_get_exit_status")
+    application_command_line_get_exit_status :: proc(cmdline: ^ApplicationCommandLine) -> i32 ---
+
+    @(link_name = "g_application_command_line_set_exit_status")
+    application_command_line_set_exit_status :: proc(cmdline: ^ApplicationCommandLine, exit_status: i32) ---
+
+    @(link_name = "g_application_command_line_get_platform_data")
+    application_command_line_get_platform_data :: proc(cmdline: ^ApplicationCommandLine) -> ^glib.Variant ---
+
+    @(link_name = "g_application_command_line_create_file_for_arg")
+    application_command_line_create_file_for_arg :: proc(cmdline: ^ApplicationCommandLine, arg: cstring) -> ^File ---
+
+    @(link_name = "g_application_command_line_done")
+    application_command_line_done :: proc(cmdline: ^ApplicationCommandLine) ---
 
     @(link_name = "g_initable_get_type")
     initable_get_type :: proc() -> gobj.Type ---
 
+    @(link_name = "g_initable_init")
+    initable_init :: proc(initable: ^Initable, cancellable: ^Cancellable, error: ^^glib.Error) -> glib.boolean ---
+
+    @(link_name = "g_initable_new")
+    initable_new :: proc(object_type: gobj.Type, cancellable: ^Cancellable, error: ^^glib.Error, first_property_name: cstring, #c_vararg var_args: ..any) -> glib.pointer ---
+
+    @(link_name = "g_initable_newv")
+    initable_newv :: proc(object_type: gobj.Type, n_parameters: glib.uint_, parameters: [^]gobj.Parameter, cancellable: ^Cancellable, error: ^^glib.Error) -> glib.pointer ---
+
+    @(link_name = "g_initable_new_valist")
+    initable_new_valist :: proc(object_type: gobj.Type, first_property_name: cstring, var_args: libc.va_list, cancellable: ^Cancellable, error: ^^glib.Error) -> ^gobj.Object ---
+
     @(link_name = "g_async_initable_get_type")
     async_initable_get_type :: proc() -> gobj.Type ---
+
+    @(link_name = "g_async_initable_init_async")
+    async_initable_init_async :: proc(initable: ^AsyncInitable, io_priority: i32, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer) ---
+
+    @(link_name = "g_async_initable_init_finish")
+    async_initable_init_finish :: proc(initable: ^AsyncInitable, res: [^]AsyncResult, error: ^^glib.Error) -> glib.boolean ---
+
+    @(link_name = "g_async_initable_new_async")
+    async_initable_new_async :: proc(object_type: gobj.Type, io_priority: i32, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer, first_property_name: cstring, #c_vararg var_args: ..any) ---
+
+    @(link_name = "g_async_initable_newv_async")
+    async_initable_newv_async :: proc(object_type: gobj.Type, n_parameters: glib.uint_, parameters: [^]gobj.Parameter, io_priority: i32, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer) ---
+
+    @(link_name = "g_async_initable_new_valist_async")
+    async_initable_new_valist_async :: proc(object_type: gobj.Type, first_property_name: cstring, var_args: libc.va_list, io_priority: i32, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer) ---
+
+    @(link_name = "g_async_initable_new_finish")
+    async_initable_new_finish :: proc(initable: ^AsyncInitable, res: [^]AsyncResult, error: ^^glib.Error) -> ^gobj.Object ---
 
     @(link_name = "g_async_result_get_type")
     async_result_get_type :: proc() -> gobj.Type ---
 
+    @(link_name = "g_async_result_get_user_data")
+    async_result_get_user_data :: proc(res: [^]AsyncResult) -> glib.pointer ---
+
+    @(link_name = "g_async_result_get_source_object")
+    async_result_get_source_object :: proc(res: [^]AsyncResult) -> ^gobj.Object ---
+
+    @(link_name = "g_async_result_legacy_propagate_error")
+    async_result_legacy_propagate_error :: proc(res: [^]AsyncResult, error: ^^glib.Error) -> glib.boolean ---
+
+    @(link_name = "g_async_result_is_tagged")
+    async_result_is_tagged :: proc(res: [^]AsyncResult, source_tag: glib.pointer) -> glib.boolean ---
+
     @(link_name = "g_input_stream_get_type")
     input_stream_get_type :: proc() -> gobj.Type ---
+
+    @(link_name = "g_input_stream_read")
+    input_stream_read :: proc(stream: ^InputStream, buffer: rawptr, count: glib.size, cancellable: ^Cancellable, error: ^^glib.Error) -> glib.ssize ---
+
+    @(link_name = "g_input_stream_read_all")
+    input_stream_read_all :: proc(stream: ^InputStream, buffer: rawptr, count: glib.size, bytes_read: ^glib.size, cancellable: ^Cancellable, error: ^^glib.Error) -> glib.boolean ---
+
+    @(link_name = "g_input_stream_read_bytes")
+    input_stream_read_bytes :: proc(stream: ^InputStream, count: glib.size, cancellable: ^Cancellable, error: ^^glib.Error) -> ^glib.Bytes ---
+
+    @(link_name = "g_input_stream_skip")
+    input_stream_skip :: proc(stream: ^InputStream, count: glib.size, cancellable: ^Cancellable, error: ^^glib.Error) -> glib.ssize ---
+
+    @(link_name = "g_input_stream_close")
+    input_stream_close :: proc(stream: ^InputStream, cancellable: ^Cancellable, error: ^^glib.Error) -> glib.boolean ---
+
+    @(link_name = "g_input_stream_read_async")
+    input_stream_read_async :: proc(stream: ^InputStream, buffer: rawptr, count: glib.size, io_priority: i32, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer) ---
+
+    @(link_name = "g_input_stream_read_finish")
+    input_stream_read_finish :: proc(stream: ^InputStream, result: ^AsyncResult, error: ^^glib.Error) -> glib.ssize ---
+
+    @(link_name = "g_input_stream_read_all_async")
+    input_stream_read_all_async :: proc(stream: ^InputStream, buffer: rawptr, count: glib.size, io_priority: i32, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer) ---
+
+    @(link_name = "g_input_stream_read_all_finish")
+    input_stream_read_all_finish :: proc(stream: ^InputStream, result: ^AsyncResult, bytes_read: ^glib.size, error: ^^glib.Error) -> glib.boolean ---
+
+    @(link_name = "g_input_stream_read_bytes_async")
+    input_stream_read_bytes_async :: proc(stream: ^InputStream, count: glib.size, io_priority: i32, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer) ---
+
+    @(link_name = "g_input_stream_read_bytes_finish")
+    input_stream_read_bytes_finish :: proc(stream: ^InputStream, result: ^AsyncResult, error: ^^glib.Error) -> ^glib.Bytes ---
+
+    @(link_name = "g_input_stream_skip_async")
+    input_stream_skip_async :: proc(stream: ^InputStream, count: glib.size, io_priority: i32, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer) ---
+
+    @(link_name = "g_input_stream_skip_finish")
+    input_stream_skip_finish :: proc(stream: ^InputStream, result: ^AsyncResult, error: ^^glib.Error) -> glib.ssize ---
+
+    @(link_name = "g_input_stream_close_async")
+    input_stream_close_async :: proc(stream: ^InputStream, io_priority: i32, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer) ---
+
+    @(link_name = "g_input_stream_close_finish")
+    input_stream_close_finish :: proc(stream: ^InputStream, result: ^AsyncResult, error: ^^glib.Error) -> glib.boolean ---
+
+    @(link_name = "g_input_stream_is_closed")
+    input_stream_is_closed :: proc(stream: ^InputStream) -> glib.boolean ---
+
+    @(link_name = "g_input_stream_has_pending")
+    input_stream_has_pending :: proc(stream: ^InputStream) -> glib.boolean ---
+
+    @(link_name = "g_input_stream_set_pending")
+    input_stream_set_pending :: proc(stream: ^InputStream, error: ^^glib.Error) -> glib.boolean ---
+
+    @(link_name = "g_input_stream_clear_pending")
+    input_stream_clear_pending :: proc(stream: ^InputStream) ---
 
     @(link_name = "g_filter_input_stream_get_type")
     filter_input_stream_get_type :: proc() -> gobj.Type ---
 
+    @(link_name = "g_filter_input_stream_get_base_stream")
+    filter_input_stream_get_base_stream :: proc(stream: ^FilterInputStream) -> ^InputStream ---
+
+    @(link_name = "g_filter_input_stream_get_close_base_stream")
+    filter_input_stream_get_close_base_stream :: proc(stream: ^FilterInputStream) -> glib.boolean ---
+
+    @(link_name = "g_filter_input_stream_set_close_base_stream")
+    filter_input_stream_set_close_base_stream :: proc(stream: ^FilterInputStream, close_base: glib.boolean) ---
+
     @(link_name = "g_buffered_input_stream_get_type")
     buffered_input_stream_get_type :: proc() -> gobj.Type ---
+
+    @(link_name = "g_buffered_input_stream_new")
+    buffered_input_stream_new :: proc(base_stream: ^InputStream) -> ^InputStream ---
+
+    @(link_name = "g_buffered_input_stream_new_sized")
+    buffered_input_stream_new_sized :: proc(base_stream: ^InputStream, size_p: glib.size) -> ^InputStream ---
+
+    @(link_name = "g_buffered_input_stream_get_buffer_size")
+    buffered_input_stream_get_buffer_size :: proc(stream: ^BufferedInputStream) -> glib.size ---
+
+    @(link_name = "g_buffered_input_stream_set_buffer_size")
+    buffered_input_stream_set_buffer_size :: proc(stream: ^BufferedInputStream, size_p: glib.size) ---
+
+    @(link_name = "g_buffered_input_stream_get_available")
+    buffered_input_stream_get_available :: proc(stream: ^BufferedInputStream) -> glib.size ---
+
+    @(link_name = "g_buffered_input_stream_peek")
+    buffered_input_stream_peek :: proc(stream: ^BufferedInputStream, buffer: rawptr, offset_p: glib.size, count: glib.size) -> glib.size ---
+
+    @(link_name = "g_buffered_input_stream_peek_buffer")
+    buffered_input_stream_peek_buffer :: proc(stream: ^BufferedInputStream, count: ^glib.size) -> rawptr ---
+
+    @(link_name = "g_buffered_input_stream_fill")
+    buffered_input_stream_fill :: proc(stream: ^BufferedInputStream, count: glib.ssize, cancellable: ^Cancellable, error: ^^glib.Error) -> glib.ssize ---
+
+    @(link_name = "g_buffered_input_stream_fill_async")
+    buffered_input_stream_fill_async :: proc(stream: ^BufferedInputStream, count: glib.ssize, io_priority: i32, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer) ---
+
+    @(link_name = "g_buffered_input_stream_fill_finish")
+    buffered_input_stream_fill_finish :: proc(stream: ^BufferedInputStream, result: ^AsyncResult, error: ^^glib.Error) -> glib.ssize ---
+
+    @(link_name = "g_buffered_input_stream_read_byte")
+    buffered_input_stream_read_byte :: proc(stream: ^BufferedInputStream, cancellable: ^Cancellable, error: ^^glib.Error) -> i32 ---
 
     @(link_name = "g_output_stream_get_type")
     output_stream_get_type :: proc() -> gobj.Type ---
 
+    @(link_name = "g_output_stream_write")
+    output_stream_write :: proc(stream: ^OutputStream, buffer: rawptr, count: glib.size, cancellable: ^Cancellable, error: ^^glib.Error) -> glib.ssize ---
+
+    @(link_name = "g_output_stream_write_all")
+    output_stream_write_all :: proc(stream: ^OutputStream, buffer: rawptr, count: glib.size, bytes_written: ^glib.size, cancellable: ^Cancellable, error: ^^glib.Error) -> glib.boolean ---
+
+    @(link_name = "g_output_stream_writev")
+    output_stream_writev :: proc(stream: ^OutputStream, vectors: [^]OutputVector, n_vectors: glib.size, bytes_written: ^glib.size, cancellable: ^Cancellable, error: ^^glib.Error) -> glib.boolean ---
+
+    @(link_name = "g_output_stream_writev_all")
+    output_stream_writev_all :: proc(stream: ^OutputStream, vectors: [^]OutputVector, n_vectors: glib.size, bytes_written: ^glib.size, cancellable: ^Cancellable, error: ^^glib.Error) -> glib.boolean ---
+
+    @(link_name = "g_output_stream_printf")
+    output_stream_printf :: proc(stream: ^OutputStream, bytes_written: ^glib.size, cancellable: ^Cancellable, error: ^^glib.Error, format: cstring, #c_vararg var_args: ..any) -> glib.boolean ---
+
+    @(link_name = "g_output_stream_vprintf")
+    output_stream_vprintf :: proc(stream: ^OutputStream, bytes_written: ^glib.size, cancellable: ^Cancellable, error: ^^glib.Error, format: cstring, #c_vararg var_args: ..any) -> glib.boolean ---
+
+    @(link_name = "g_output_stream_write_bytes")
+    output_stream_write_bytes :: proc(stream: ^OutputStream, bytes: [^]glib.Bytes, cancellable: ^Cancellable, error: ^^glib.Error) -> glib.ssize ---
+
+    @(link_name = "g_output_stream_splice")
+    output_stream_splice :: proc(stream: ^OutputStream, source: ^InputStream, flags: OutputStreamSpliceFlags, cancellable: ^Cancellable, error: ^^glib.Error) -> glib.ssize ---
+
+    @(link_name = "g_output_stream_flush")
+    output_stream_flush :: proc(stream: ^OutputStream, cancellable: ^Cancellable, error: ^^glib.Error) -> glib.boolean ---
+
+    @(link_name = "g_output_stream_close")
+    output_stream_close :: proc(stream: ^OutputStream, cancellable: ^Cancellable, error: ^^glib.Error) -> glib.boolean ---
+
+    @(link_name = "g_output_stream_write_async")
+    output_stream_write_async :: proc(stream: ^OutputStream, buffer: rawptr, count: glib.size, io_priority: i32, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer) ---
+
+    @(link_name = "g_output_stream_write_finish")
+    output_stream_write_finish :: proc(stream: ^OutputStream, result: ^AsyncResult, error: ^^glib.Error) -> glib.ssize ---
+
+    @(link_name = "g_output_stream_write_all_async")
+    output_stream_write_all_async :: proc(stream: ^OutputStream, buffer: rawptr, count: glib.size, io_priority: i32, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer) ---
+
+    @(link_name = "g_output_stream_write_all_finish")
+    output_stream_write_all_finish :: proc(stream: ^OutputStream, result: ^AsyncResult, bytes_written: ^glib.size, error: ^^glib.Error) -> glib.boolean ---
+
+    @(link_name = "g_output_stream_writev_async")
+    output_stream_writev_async :: proc(stream: ^OutputStream, vectors: [^]OutputVector, n_vectors: glib.size, io_priority: i32, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer) ---
+
+    @(link_name = "g_output_stream_writev_finish")
+    output_stream_writev_finish :: proc(stream: ^OutputStream, result: ^AsyncResult, bytes_written: ^glib.size, error: ^^glib.Error) -> glib.boolean ---
+
+    @(link_name = "g_output_stream_writev_all_async")
+    output_stream_writev_all_async :: proc(stream: ^OutputStream, vectors: [^]OutputVector, n_vectors: glib.size, io_priority: i32, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer) ---
+
+    @(link_name = "g_output_stream_writev_all_finish")
+    output_stream_writev_all_finish :: proc(stream: ^OutputStream, result: ^AsyncResult, bytes_written: ^glib.size, error: ^^glib.Error) -> glib.boolean ---
+
+    @(link_name = "g_output_stream_write_bytes_async")
+    output_stream_write_bytes_async :: proc(stream: ^OutputStream, bytes: [^]glib.Bytes, io_priority: i32, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer) ---
+
+    @(link_name = "g_output_stream_write_bytes_finish")
+    output_stream_write_bytes_finish :: proc(stream: ^OutputStream, result: ^AsyncResult, error: ^^glib.Error) -> glib.ssize ---
+
+    @(link_name = "g_output_stream_splice_async")
+    output_stream_splice_async :: proc(stream: ^OutputStream, source: ^InputStream, flags: OutputStreamSpliceFlags, io_priority: i32, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer) ---
+
+    @(link_name = "g_output_stream_splice_finish")
+    output_stream_splice_finish :: proc(stream: ^OutputStream, result: ^AsyncResult, error: ^^glib.Error) -> glib.ssize ---
+
+    @(link_name = "g_output_stream_flush_async")
+    output_stream_flush_async :: proc(stream: ^OutputStream, io_priority: i32, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer) ---
+
+    @(link_name = "g_output_stream_flush_finish")
+    output_stream_flush_finish :: proc(stream: ^OutputStream, result: ^AsyncResult, error: ^^glib.Error) -> glib.boolean ---
+
+    @(link_name = "g_output_stream_close_async")
+    output_stream_close_async :: proc(stream: ^OutputStream, io_priority: i32, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer) ---
+
+    @(link_name = "g_output_stream_close_finish")
+    output_stream_close_finish :: proc(stream: ^OutputStream, result: ^AsyncResult, error: ^^glib.Error) -> glib.boolean ---
+
+    @(link_name = "g_output_stream_is_closed")
+    output_stream_is_closed :: proc(stream: ^OutputStream) -> glib.boolean ---
+
+    @(link_name = "g_output_stream_is_closing")
+    output_stream_is_closing :: proc(stream: ^OutputStream) -> glib.boolean ---
+
+    @(link_name = "g_output_stream_has_pending")
+    output_stream_has_pending :: proc(stream: ^OutputStream) -> glib.boolean ---
+
+    @(link_name = "g_output_stream_set_pending")
+    output_stream_set_pending :: proc(stream: ^OutputStream, error: ^^glib.Error) -> glib.boolean ---
+
+    @(link_name = "g_output_stream_clear_pending")
+    output_stream_clear_pending :: proc(stream: ^OutputStream) ---
+
     @(link_name = "g_filter_output_stream_get_type")
     filter_output_stream_get_type :: proc() -> gobj.Type ---
+
+    @(link_name = "g_filter_output_stream_get_base_stream")
+    filter_output_stream_get_base_stream :: proc(stream: ^FilterOutputStream) -> ^OutputStream ---
+
+    @(link_name = "g_filter_output_stream_get_close_base_stream")
+    filter_output_stream_get_close_base_stream :: proc(stream: ^FilterOutputStream) -> glib.boolean ---
+
+    @(link_name = "g_filter_output_stream_set_close_base_stream")
+    filter_output_stream_set_close_base_stream :: proc(stream: ^FilterOutputStream, close_base: glib.boolean) ---
 
     @(link_name = "g_buffered_output_stream_get_type")
     buffered_output_stream_get_type :: proc() -> gobj.Type ---
 
+    @(link_name = "g_buffered_output_stream_new")
+    buffered_output_stream_new :: proc(base_stream: ^OutputStream) -> ^OutputStream ---
+
+    @(link_name = "g_buffered_output_stream_new_sized")
+    buffered_output_stream_new_sized :: proc(base_stream: ^OutputStream, size_p: glib.size) -> ^OutputStream ---
+
+    @(link_name = "g_buffered_output_stream_get_buffer_size")
+    buffered_output_stream_get_buffer_size :: proc(stream: ^BufferedOutputStream) -> glib.size ---
+
+    @(link_name = "g_buffered_output_stream_set_buffer_size")
+    buffered_output_stream_set_buffer_size :: proc(stream: ^BufferedOutputStream, size_p: glib.size) ---
+
+    @(link_name = "g_buffered_output_stream_get_auto_grow")
+    buffered_output_stream_get_auto_grow :: proc(stream: ^BufferedOutputStream) -> glib.boolean ---
+
+    @(link_name = "g_buffered_output_stream_set_auto_grow")
+    buffered_output_stream_set_auto_grow :: proc(stream: ^BufferedOutputStream, auto_grow: glib.boolean) ---
+
     @(link_name = "g_bytes_icon_get_type")
     bytes_icon_get_type :: proc() -> gobj.Type ---
+
+    @(link_name = "g_bytes_icon_new")
+    bytes_icon_new :: proc(bytes: [^]glib.Bytes) -> ^Icon ---
+
+    @(link_name = "g_bytes_icon_get_bytes")
+    bytes_icon_get_bytes :: proc(icon: ^BytesIcon) -> ^glib.Bytes ---
 
     @(link_name = "g_cancellable_get_type")
     cancellable_get_type :: proc() -> gobj.Type ---
 
+    @(link_name = "g_cancellable_new")
+    cancellable_new :: proc() -> ^Cancellable ---
+
+    @(link_name = "g_cancellable_is_cancelled")
+    cancellable_is_cancelled :: proc(cancellable: ^Cancellable) -> glib.boolean ---
+
+    @(link_name = "g_cancellable_set_error_if_cancelled")
+    cancellable_set_error_if_cancelled :: proc(cancellable: ^Cancellable, error: ^^glib.Error) -> glib.boolean ---
+
+    @(link_name = "g_cancellable_get_fd")
+    cancellable_get_fd :: proc(cancellable: ^Cancellable) -> i32 ---
+
+    @(link_name = "g_cancellable_make_pollfd")
+    cancellable_make_pollfd :: proc(cancellable: ^Cancellable, pollfd: ^glib.PollFD) -> glib.boolean ---
+
+    @(link_name = "g_cancellable_release_fd")
+    cancellable_release_fd :: proc(cancellable: ^Cancellable) ---
+
+    @(link_name = "g_cancellable_source_new")
+    cancellable_source_new :: proc(cancellable: ^Cancellable) -> ^glib.Source ---
+
+    @(link_name = "g_cancellable_get_current")
+    cancellable_get_current :: proc() -> ^Cancellable ---
+
+    @(link_name = "g_cancellable_push_current")
+    cancellable_push_current :: proc(cancellable: ^Cancellable) ---
+
+    @(link_name = "g_cancellable_pop_current")
+    cancellable_pop_current :: proc(cancellable: ^Cancellable) ---
+
+    @(link_name = "g_cancellable_reset")
+    cancellable_reset :: proc(cancellable: ^Cancellable) ---
+
+    @(link_name = "g_cancellable_connect")
+    cancellable_connect :: proc(cancellable: ^Cancellable, callback: gobj.Callback, data: glib.pointer, data_destroy_func: glib.DestroyNotify) -> glib.ulong ---
+
+    @(link_name = "g_cancellable_disconnect")
+    cancellable_disconnect :: proc(cancellable: ^Cancellable, handler_id: glib.ulong) ---
+
+    @(link_name = "g_cancellable_cancel")
+    cancellable_cancel :: proc(cancellable: ^Cancellable) ---
+
     @(link_name = "g_converter_get_type")
     converter_get_type :: proc() -> gobj.Type ---
+
+    @(link_name = "g_converter_convert")
+    converter_convert :: proc(converter: ^Converter, inbuf: rawptr, inbuf_size: glib.size, outbuf: rawptr, outbuf_size: glib.size, flags: ConverterFlags, bytes_read: ^glib.size, bytes_written: ^glib.size, error: ^^glib.Error) -> ConverterResult ---
+
+    @(link_name = "g_converter_reset")
+    converter_reset :: proc(converter: ^Converter) ---
+
+    @(link_name = "g_converter_convert_bytes")
+    converter_convert_bytes :: proc(converter: ^Converter, bytes: [^]glib.Bytes, error: ^^glib.Error) -> ^glib.Bytes ---
 
     @(link_name = "g_charset_converter_get_type")
     charset_converter_get_type :: proc() -> gobj.Type ---
 
+    @(link_name = "g_charset_converter_new")
+    charset_converter_new :: proc(to_charset: cstring, from_charset: cstring, error: ^^glib.Error) -> ^CharsetConverter ---
+
+    @(link_name = "g_charset_converter_set_use_fallback")
+    charset_converter_set_use_fallback :: proc(converter: ^CharsetConverter, use_fallback: glib.boolean) ---
+
+    @(link_name = "g_charset_converter_get_use_fallback")
+    charset_converter_get_use_fallback :: proc(converter: ^CharsetConverter) -> glib.boolean ---
+
+    @(link_name = "g_charset_converter_get_num_fallbacks")
+    charset_converter_get_num_fallbacks :: proc(converter: ^CharsetConverter) -> glib.uint_ ---
+
+    @(link_name = "g_content_type_equals")
+    content_type_equals :: proc(type1: cstring, type2: cstring) -> glib.boolean ---
+
+    @(link_name = "g_content_type_is_a")
+    content_type_is_a :: proc(type: cstring, supertype: cstring) -> glib.boolean ---
+
+    @(link_name = "g_content_type_is_mime_type")
+    content_type_is_mime_type :: proc(type: cstring, mime_type: cstring) -> glib.boolean ---
+
+    @(link_name = "g_content_type_is_unknown")
+    content_type_is_unknown :: proc(type: cstring) -> glib.boolean ---
+
+    @(link_name = "g_content_type_get_description")
+    content_type_get_description :: proc(type: cstring) -> cstring ---
+
+    @(link_name = "g_content_type_get_mime_type")
+    content_type_get_mime_type :: proc(type: cstring) -> cstring ---
+
+    @(link_name = "g_content_type_get_icon")
+    content_type_get_icon :: proc(type: cstring) -> ^Icon ---
+
+    @(link_name = "g_content_type_get_symbolic_icon")
+    content_type_get_symbolic_icon :: proc(type: cstring) -> ^Icon ---
+
+    @(link_name = "g_content_type_get_generic_icon_name")
+    content_type_get_generic_icon_name :: proc(type: cstring) -> cstring ---
+
+    @(link_name = "g_content_type_can_be_executable")
+    content_type_can_be_executable :: proc(type: cstring) -> glib.boolean ---
+
+    @(link_name = "g_content_type_from_mime_type")
+    content_type_from_mime_type :: proc(mime_type: cstring) -> cstring ---
+
+    @(link_name = "g_content_type_guess")
+    content_type_guess :: proc(filename: cstring, data: ^glib.uchar, data_size: glib.size, result_uncertain: ^glib.boolean) -> cstring ---
+
+    @(link_name = "g_content_type_guess_for_tree")
+    content_type_guess_for_tree :: proc(root: ^File) -> ^cstring ---
+
+    @(link_name = "g_content_types_get_registered")
+    content_types_get_registered :: proc() -> ^glib.List ---
+
+    @(link_name = "g_content_type_get_mime_dirs")
+    content_type_get_mime_dirs :: proc() -> ^cstring ---
+
+    @(link_name = "g_content_type_set_mime_dirs")
+    content_type_set_mime_dirs :: proc(dirs: [^]cstring) ---
+
     @(link_name = "g_converter_input_stream_get_type")
     converter_input_stream_get_type :: proc() -> gobj.Type ---
+
+    @(link_name = "g_converter_input_stream_new")
+    converter_input_stream_new :: proc(base_stream: ^InputStream, converter: ^Converter) -> ^InputStream ---
+
+    @(link_name = "g_converter_input_stream_get_converter")
+    converter_input_stream_get_converter :: proc(converter_stream: ^ConverterInputStream) -> ^Converter ---
 
     @(link_name = "g_converter_output_stream_get_type")
     converter_output_stream_get_type :: proc() -> gobj.Type ---
 
+    @(link_name = "g_converter_output_stream_new")
+    converter_output_stream_new :: proc(base_stream: ^OutputStream, converter: ^Converter) -> ^OutputStream ---
+
+    @(link_name = "g_converter_output_stream_get_converter")
+    converter_output_stream_get_converter :: proc(converter_stream: ^ConverterOutputStream) -> ^Converter ---
+
     @(link_name = "g_credentials_get_type")
     credentials_get_type :: proc() -> gobj.Type ---
+
+    @(link_name = "g_credentials_new")
+    credentials_new :: proc() -> ^Credentials ---
+
+    @(link_name = "g_credentials_to_string")
+    credentials_to_string :: proc(credentials: [^]Credentials) -> cstring ---
+
+    @(link_name = "g_credentials_get_native")
+    credentials_get_native :: proc(credentials: [^]Credentials, native_type: CredentialsType) -> glib.pointer ---
+
+    @(link_name = "g_credentials_set_native")
+    credentials_set_native :: proc(credentials: [^]Credentials, native_type: CredentialsType, native: glib.pointer) ---
+
+    @(link_name = "g_credentials_is_same_user")
+    credentials_is_same_user :: proc(credentials: [^]Credentials, other_credentials: [^]Credentials, error: ^^glib.Error) -> glib.boolean ---
 
     @(link_name = "g_datagram_based_get_type")
     datagram_based_get_type :: proc() -> gobj.Type ---
 
+    @(link_name = "g_datagram_based_receive_messages")
+    datagram_based_receive_messages :: proc(datagram_based: ^DatagramBased, messages: [^]InputMessage, num_messages: glib.uint_, flags: glib.int_, timeout: glib.int64, cancellable: ^Cancellable, error: ^^glib.Error) -> glib.int_ ---
+
+    @(link_name = "g_datagram_based_send_messages")
+    datagram_based_send_messages :: proc(datagram_based: ^DatagramBased, messages: [^]OutputMessage, num_messages: glib.uint_, flags: glib.int_, timeout: glib.int64, cancellable: ^Cancellable, error: ^^glib.Error) -> glib.int_ ---
+
+    @(link_name = "g_datagram_based_create_source")
+    datagram_based_create_source :: proc(datagram_based: ^DatagramBased, condition: glib.IOCondition, cancellable: ^Cancellable) -> ^glib.Source ---
+
+    @(link_name = "g_datagram_based_condition_check")
+    datagram_based_condition_check :: proc(datagram_based: ^DatagramBased, condition: glib.IOCondition) -> glib.IOCondition ---
+
+    @(link_name = "g_datagram_based_condition_wait")
+    datagram_based_condition_wait :: proc(datagram_based: ^DatagramBased, condition: glib.IOCondition, timeout: glib.int64, cancellable: ^Cancellable, error: ^^glib.Error) -> glib.boolean ---
+
     @(link_name = "g_data_input_stream_get_type")
     data_input_stream_get_type :: proc() -> gobj.Type ---
+
+    @(link_name = "g_data_input_stream_new")
+    data_input_stream_new :: proc(base_stream: ^InputStream) -> ^DataInputStream ---
+
+    @(link_name = "g_data_input_stream_set_byte_order")
+    data_input_stream_set_byte_order :: proc(stream: ^DataInputStream, order: DataStreamByteOrder) ---
+
+    @(link_name = "g_data_input_stream_get_byte_order")
+    data_input_stream_get_byte_order :: proc(stream: ^DataInputStream) -> DataStreamByteOrder ---
+
+    @(link_name = "g_data_input_stream_set_newline_type")
+    data_input_stream_set_newline_type :: proc(stream: ^DataInputStream, type: DataStreamNewlineType) ---
+
+    @(link_name = "g_data_input_stream_get_newline_type")
+    data_input_stream_get_newline_type :: proc(stream: ^DataInputStream) -> DataStreamNewlineType ---
+
+    @(link_name = "g_data_input_stream_read_byte")
+    data_input_stream_read_byte :: proc(stream: ^DataInputStream, cancellable: ^Cancellable, error: ^^glib.Error) -> glib.uchar ---
+
+    @(link_name = "g_data_input_stream_read_int16")
+    data_input_stream_read_int16 :: proc(stream: ^DataInputStream, cancellable: ^Cancellable, error: ^^glib.Error) -> glib.int16 ---
+
+    @(link_name = "g_data_input_stream_read_uint16")
+    data_input_stream_read_uint16 :: proc(stream: ^DataInputStream, cancellable: ^Cancellable, error: ^^glib.Error) -> glib.uint16 ---
+
+    @(link_name = "g_data_input_stream_read_int32")
+    data_input_stream_read_int32 :: proc(stream: ^DataInputStream, cancellable: ^Cancellable, error: ^^glib.Error) -> glib.int32 ---
+
+    @(link_name = "g_data_input_stream_read_uint32")
+    data_input_stream_read_uint32 :: proc(stream: ^DataInputStream, cancellable: ^Cancellable, error: ^^glib.Error) -> glib.uint32 ---
+
+    @(link_name = "g_data_input_stream_read_int64")
+    data_input_stream_read_int64 :: proc(stream: ^DataInputStream, cancellable: ^Cancellable, error: ^^glib.Error) -> glib.int64 ---
+
+    @(link_name = "g_data_input_stream_read_uint64")
+    data_input_stream_read_uint64 :: proc(stream: ^DataInputStream, cancellable: ^Cancellable, error: ^^glib.Error) -> glib.uint64 ---
+
+    @(link_name = "g_data_input_stream_read_line")
+    data_input_stream_read_line :: proc(stream: ^DataInputStream, length: ^glib.size, cancellable: ^Cancellable, error: ^^glib.Error) -> cstring ---
+
+    @(link_name = "g_data_input_stream_read_line_utf8")
+    data_input_stream_read_line_utf8 :: proc(stream: ^DataInputStream, length: ^glib.size, cancellable: ^Cancellable, error: ^^glib.Error) -> cstring ---
+
+    @(link_name = "g_data_input_stream_read_line_async")
+    data_input_stream_read_line_async :: proc(stream: ^DataInputStream, io_priority: glib.int_, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer) ---
+
+    @(link_name = "g_data_input_stream_read_line_finish")
+    data_input_stream_read_line_finish :: proc(stream: ^DataInputStream, result: ^AsyncResult, length: ^glib.size, error: ^^glib.Error) -> cstring ---
+
+    @(link_name = "g_data_input_stream_read_line_finish_utf8")
+    data_input_stream_read_line_finish_utf8 :: proc(stream: ^DataInputStream, result: ^AsyncResult, length: ^glib.size, error: ^^glib.Error) -> cstring ---
+
+    @(link_name = "g_data_input_stream_read_until")
+    data_input_stream_read_until :: proc(stream: ^DataInputStream, stop_chars: [^]glib.char, length: ^glib.size, cancellable: ^Cancellable, error: ^^glib.Error) -> cstring ---
+
+    @(link_name = "g_data_input_stream_read_until_async")
+    data_input_stream_read_until_async :: proc(stream: ^DataInputStream, stop_chars: [^]glib.char, io_priority: glib.int_, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer) ---
+
+    @(link_name = "g_data_input_stream_read_until_finish")
+    data_input_stream_read_until_finish :: proc(stream: ^DataInputStream, result: ^AsyncResult, length: ^glib.size, error: ^^glib.Error) -> cstring ---
+
+    @(link_name = "g_data_input_stream_read_upto")
+    data_input_stream_read_upto :: proc(stream: ^DataInputStream, stop_chars: [^]glib.char, stop_chars_len: glib.ssize, length: ^glib.size, cancellable: ^Cancellable, error: ^^glib.Error) -> cstring ---
+
+    @(link_name = "g_data_input_stream_read_upto_async")
+    data_input_stream_read_upto_async :: proc(stream: ^DataInputStream, stop_chars: [^]glib.char, stop_chars_len: glib.ssize, io_priority: glib.int_, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer) ---
+
+    @(link_name = "g_data_input_stream_read_upto_finish")
+    data_input_stream_read_upto_finish :: proc(stream: ^DataInputStream, result: ^AsyncResult, length: ^glib.size, error: ^^glib.Error) -> cstring ---
 
     @(link_name = "g_data_output_stream_get_type")
     data_output_stream_get_type :: proc() -> gobj.Type ---
 
+    @(link_name = "g_data_output_stream_new")
+    data_output_stream_new :: proc(base_stream: ^OutputStream) -> ^DataOutputStream ---
+
+    @(link_name = "g_data_output_stream_set_byte_order")
+    data_output_stream_set_byte_order :: proc(stream: ^DataOutputStream, order: DataStreamByteOrder) ---
+
+    @(link_name = "g_data_output_stream_get_byte_order")
+    data_output_stream_get_byte_order :: proc(stream: ^DataOutputStream) -> DataStreamByteOrder ---
+
+    @(link_name = "g_data_output_stream_put_byte")
+    data_output_stream_put_byte :: proc(stream: ^DataOutputStream, data: glib.uchar, cancellable: ^Cancellable, error: ^^glib.Error) -> glib.boolean ---
+
+    @(link_name = "g_data_output_stream_put_int16")
+    data_output_stream_put_int16 :: proc(stream: ^DataOutputStream, data: glib.int16, cancellable: ^Cancellable, error: ^^glib.Error) -> glib.boolean ---
+
+    @(link_name = "g_data_output_stream_put_uint16")
+    data_output_stream_put_uint16 :: proc(stream: ^DataOutputStream, data: glib.uint16, cancellable: ^Cancellable, error: ^^glib.Error) -> glib.boolean ---
+
+    @(link_name = "g_data_output_stream_put_int32")
+    data_output_stream_put_int32 :: proc(stream: ^DataOutputStream, data: glib.int32, cancellable: ^Cancellable, error: ^^glib.Error) -> glib.boolean ---
+
+    @(link_name = "g_data_output_stream_put_uint32")
+    data_output_stream_put_uint32 :: proc(stream: ^DataOutputStream, data: glib.uint32, cancellable: ^Cancellable, error: ^^glib.Error) -> glib.boolean ---
+
+    @(link_name = "g_data_output_stream_put_int64")
+    data_output_stream_put_int64 :: proc(stream: ^DataOutputStream, data: glib.int64, cancellable: ^Cancellable, error: ^^glib.Error) -> glib.boolean ---
+
+    @(link_name = "g_data_output_stream_put_uint64")
+    data_output_stream_put_uint64 :: proc(stream: ^DataOutputStream, data: glib.uint64, cancellable: ^Cancellable, error: ^^glib.Error) -> glib.boolean ---
+
+    @(link_name = "g_data_output_stream_put_string")
+    data_output_stream_put_string :: proc(stream: ^DataOutputStream, str: cstring, cancellable: ^Cancellable, error: ^^glib.Error) -> glib.boolean ---
+
     @(link_name = "g_dbus_action_group_get_type")
     dbus_action_group_get_type :: proc() -> gobj.Type ---
+
+    @(link_name = "g_dbus_action_group_get")
+    dbus_action_group_get :: proc(connection: ^DBusConnection, bus_name: cstring, object_path: cstring) -> ^DBusActionGroup ---
+
+    @(link_name = "g_dbus_address_escape_value")
+    dbus_address_escape_value :: proc(string_p: cstring) -> cstring ---
+
+    @(link_name = "g_dbus_is_address")
+    dbus_is_address :: proc(string_p: cstring) -> glib.boolean ---
+
+    @(link_name = "g_dbus_is_supported_address")
+    dbus_is_supported_address :: proc(string_p: cstring, error: ^^glib.Error) -> glib.boolean ---
+
+    @(link_name = "g_dbus_address_get_stream")
+    dbus_address_get_stream :: proc(address: [^]glib.char, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer) ---
+
+    @(link_name = "g_dbus_address_get_stream_finish")
+    dbus_address_get_stream_finish :: proc(res: [^]AsyncResult, out_guid: ^cstring, error: ^^glib.Error) -> ^IOStream ---
+
+    @(link_name = "g_dbus_address_get_stream_sync")
+    dbus_address_get_stream_sync :: proc(address: [^]glib.char, out_guid: ^cstring, cancellable: ^Cancellable, error: ^^glib.Error) -> ^IOStream ---
+
+    @(link_name = "g_dbus_address_get_for_bus_sync")
+    dbus_address_get_for_bus_sync :: proc(bus_type: BusType, cancellable: ^Cancellable, error: ^^glib.Error) -> cstring ---
 
     @(link_name = "g_dbus_auth_observer_get_type")
     dbus_auth_observer_get_type :: proc() -> gobj.Type ---
 
+    @(link_name = "g_dbus_auth_observer_new")
+    dbus_auth_observer_new :: proc() -> ^DBusAuthObserver ---
+
+    @(link_name = "g_dbus_auth_observer_authorize_authenticated_peer")
+    dbus_auth_observer_authorize_authenticated_peer :: proc(observer: ^DBusAuthObserver, stream: ^IOStream, credentials: [^]Credentials) -> glib.boolean ---
+
+    @(link_name = "g_dbus_auth_observer_allow_mechanism")
+    dbus_auth_observer_allow_mechanism :: proc(observer: ^DBusAuthObserver, mechanism: cstring) -> glib.boolean ---
+
     @(link_name = "g_dbus_connection_get_type")
     dbus_connection_get_type :: proc() -> gobj.Type ---
+
+    @(link_name = "g_bus_get")
+    bus_get :: proc(bus_type: BusType, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer) ---
+
+    @(link_name = "g_bus_get_finish")
+    bus_get_finish :: proc(res: [^]AsyncResult, error: ^^glib.Error) -> ^DBusConnection ---
+
+    @(link_name = "g_bus_get_sync")
+    bus_get_sync :: proc(bus_type: BusType, cancellable: ^Cancellable, error: ^^glib.Error) -> ^DBusConnection ---
+
+    @(link_name = "g_dbus_connection_new")
+    dbus_connection_new :: proc(stream: ^IOStream, guid: cstring, flags: DBusConnectionFlags, observer: ^DBusAuthObserver, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer) ---
+
+    @(link_name = "g_dbus_connection_new_finish")
+    dbus_connection_new_finish :: proc(res: [^]AsyncResult, error: ^^glib.Error) -> ^DBusConnection ---
+
+    @(link_name = "g_dbus_connection_new_sync")
+    dbus_connection_new_sync :: proc(stream: ^IOStream, guid: cstring, flags: DBusConnectionFlags, observer: ^DBusAuthObserver, cancellable: ^Cancellable, error: ^^glib.Error) -> ^DBusConnection ---
+
+    @(link_name = "g_dbus_connection_new_for_address")
+    dbus_connection_new_for_address :: proc(address: [^]glib.char, flags: DBusConnectionFlags, observer: ^DBusAuthObserver, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer) ---
+
+    @(link_name = "g_dbus_connection_new_for_address_finish")
+    dbus_connection_new_for_address_finish :: proc(res: [^]AsyncResult, error: ^^glib.Error) -> ^DBusConnection ---
+
+    @(link_name = "g_dbus_connection_new_for_address_sync")
+    dbus_connection_new_for_address_sync :: proc(address: [^]glib.char, flags: DBusConnectionFlags, observer: ^DBusAuthObserver, cancellable: ^Cancellable, error: ^^glib.Error) -> ^DBusConnection ---
+
+    @(link_name = "g_dbus_connection_start_message_processing")
+    dbus_connection_start_message_processing :: proc(connection: ^DBusConnection) ---
+
+    @(link_name = "g_dbus_connection_is_closed")
+    dbus_connection_is_closed :: proc(connection: ^DBusConnection) -> glib.boolean ---
+
+    @(link_name = "g_dbus_connection_get_stream")
+    dbus_connection_get_stream :: proc(connection: ^DBusConnection) -> ^IOStream ---
+
+    @(link_name = "g_dbus_connection_get_guid")
+    dbus_connection_get_guid :: proc(connection: ^DBusConnection) -> cstring ---
+
+    @(link_name = "g_dbus_connection_get_unique_name")
+    dbus_connection_get_unique_name :: proc(connection: ^DBusConnection) -> cstring ---
+
+    @(link_name = "g_dbus_connection_get_peer_credentials")
+    dbus_connection_get_peer_credentials :: proc(connection: ^DBusConnection) -> ^Credentials ---
+
+    @(link_name = "g_dbus_connection_get_last_serial")
+    dbus_connection_get_last_serial :: proc(connection: ^DBusConnection) -> glib.uint32 ---
+
+    @(link_name = "g_dbus_connection_get_exit_on_close")
+    dbus_connection_get_exit_on_close :: proc(connection: ^DBusConnection) -> glib.boolean ---
+
+    @(link_name = "g_dbus_connection_set_exit_on_close")
+    dbus_connection_set_exit_on_close :: proc(connection: ^DBusConnection, exit_on_close: glib.boolean) ---
+
+    @(link_name = "g_dbus_connection_get_capabilities")
+    dbus_connection_get_capabilities :: proc(connection: ^DBusConnection) -> DBusCapabilityFlags ---
+
+    @(link_name = "g_dbus_connection_get_flags")
+    dbus_connection_get_flags :: proc(connection: ^DBusConnection) -> DBusConnectionFlags ---
+
+    @(link_name = "g_dbus_connection_close")
+    dbus_connection_close :: proc(connection: ^DBusConnection, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer) ---
+
+    @(link_name = "g_dbus_connection_close_finish")
+    dbus_connection_close_finish :: proc(connection: ^DBusConnection, res: [^]AsyncResult, error: ^^glib.Error) -> glib.boolean ---
+
+    @(link_name = "g_dbus_connection_close_sync")
+    dbus_connection_close_sync :: proc(connection: ^DBusConnection, cancellable: ^Cancellable, error: ^^glib.Error) -> glib.boolean ---
+
+    @(link_name = "g_dbus_connection_flush")
+    dbus_connection_flush :: proc(connection: ^DBusConnection, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer) ---
+
+    @(link_name = "g_dbus_connection_flush_finish")
+    dbus_connection_flush_finish :: proc(connection: ^DBusConnection, res: [^]AsyncResult, error: ^^glib.Error) -> glib.boolean ---
+
+    @(link_name = "g_dbus_connection_flush_sync")
+    dbus_connection_flush_sync :: proc(connection: ^DBusConnection, cancellable: ^Cancellable, error: ^^glib.Error) -> glib.boolean ---
+
+    @(link_name = "g_dbus_connection_send_message")
+    dbus_connection_send_message :: proc(connection: ^DBusConnection, message: ^DBusMessage, flags: DBusSendMessageFlags, out_serial: ^glib.uint32, error: ^^glib.Error) -> glib.boolean ---
+
+    @(link_name = "g_dbus_connection_send_message_with_reply")
+    dbus_connection_send_message_with_reply :: proc(connection: ^DBusConnection, message: ^DBusMessage, flags: DBusSendMessageFlags, timeout_msec: glib.int_, out_serial: ^glib.uint32, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer) ---
+
+    @(link_name = "g_dbus_connection_send_message_with_reply_finish")
+    dbus_connection_send_message_with_reply_finish :: proc(connection: ^DBusConnection, res: [^]AsyncResult, error: ^^glib.Error) -> ^DBusMessage ---
+
+    @(link_name = "g_dbus_connection_send_message_with_reply_sync")
+    dbus_connection_send_message_with_reply_sync :: proc(connection: ^DBusConnection, message: ^DBusMessage, flags: DBusSendMessageFlags, timeout_msec: glib.int_, out_serial: ^glib.uint32, cancellable: ^Cancellable, error: ^^glib.Error) -> ^DBusMessage ---
+
+    @(link_name = "g_dbus_connection_emit_signal")
+    dbus_connection_emit_signal :: proc(connection: ^DBusConnection, destination_bus_name: cstring, object_path: cstring, interface_name: cstring, signal_name: cstring, parameters: [^]glib.Variant, error: ^^glib.Error) -> glib.boolean ---
+
+    @(link_name = "g_dbus_connection_call")
+    dbus_connection_call :: proc(connection: ^DBusConnection, bus_name: cstring, object_path: cstring, interface_name: cstring, method_name: cstring, parameters: [^]glib.Variant, reply_type: ^glib.VariantType, flags: DBusCallFlags, timeout_msec: glib.int_, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer) ---
+
+    @(link_name = "g_dbus_connection_call_finish")
+    dbus_connection_call_finish :: proc(connection: ^DBusConnection, res: [^]AsyncResult, error: ^^glib.Error) -> ^glib.Variant ---
+
+    @(link_name = "g_dbus_connection_call_sync")
+    dbus_connection_call_sync :: proc(connection: ^DBusConnection, bus_name: cstring, object_path: cstring, interface_name: cstring, method_name: cstring, parameters: [^]glib.Variant, reply_type: ^glib.VariantType, flags: DBusCallFlags, timeout_msec: glib.int_, cancellable: ^Cancellable, error: ^^glib.Error) -> ^glib.Variant ---
+
+    @(link_name = "g_dbus_connection_register_object")
+    dbus_connection_register_object :: proc(connection: ^DBusConnection, object_path: cstring, interface_info: ^DBusInterfaceInfo, vtable: ^DBusInterfaceVTable, user_data: glib.pointer, user_data_free_func: glib.DestroyNotify, error: ^^glib.Error) -> glib.uint_ ---
+
+    @(link_name = "g_dbus_connection_register_object_with_closures")
+    dbus_connection_register_object_with_closures :: proc(connection: ^DBusConnection, object_path: cstring, interface_info: ^DBusInterfaceInfo, method_call_closure: ^gobj.Closure, get_property_closure: ^gobj.Closure, set_property_closure: ^gobj.Closure, error: ^^glib.Error) -> glib.uint_ ---
+
+    @(link_name = "g_dbus_connection_register_object_with_closures2")
+    dbus_connection_register_object_with_closures2 :: proc(connection: ^DBusConnection, object_path: cstring, interface_info: ^DBusInterfaceInfo, method_call_closure: ^gobj.Closure, get_property_closure: ^gobj.Closure, set_property_closure: ^gobj.Closure, error: ^^glib.Error) -> glib.uint_ ---
+
+    @(link_name = "g_dbus_connection_unregister_object")
+    dbus_connection_unregister_object :: proc(connection: ^DBusConnection, registration_id: glib.uint_) -> glib.boolean ---
+
+    @(link_name = "g_dbus_connection_register_subtree")
+    dbus_connection_register_subtree :: proc(connection: ^DBusConnection, object_path: cstring, vtable: ^DBusSubtreeVTable, flags: DBusSubtreeFlags, user_data: glib.pointer, user_data_free_func: glib.DestroyNotify, error: ^^glib.Error) -> glib.uint_ ---
+
+    @(link_name = "g_dbus_connection_unregister_subtree")
+    dbus_connection_unregister_subtree :: proc(connection: ^DBusConnection, registration_id: glib.uint_) -> glib.boolean ---
+
+    @(link_name = "g_dbus_connection_signal_subscribe")
+    dbus_connection_signal_subscribe :: proc(connection: ^DBusConnection, sender: cstring, interface_name: cstring, member: cstring, object_path: cstring, arg0: cstring, flags: DBusSignalFlags, callback: DBusSignalCallback, user_data: glib.pointer, user_data_free_func: glib.DestroyNotify) -> glib.uint_ ---
+
+    @(link_name = "g_dbus_connection_signal_unsubscribe")
+    dbus_connection_signal_unsubscribe :: proc(connection: ^DBusConnection, subscription_id: glib.uint_) ---
+
+    @(link_name = "g_dbus_connection_add_filter")
+    dbus_connection_add_filter :: proc(connection: ^DBusConnection, filter_function: DBusMessageFilterFunction, user_data: glib.pointer, user_data_free_func: glib.DestroyNotify) -> glib.uint_ ---
+
+    @(link_name = "g_dbus_connection_remove_filter")
+    dbus_connection_remove_filter :: proc(connection: ^DBusConnection, filter_id: glib.uint_) ---
 
     @(link_name = "g_dbus_error_quark")
     dbus_error_quark :: proc() -> glib.Quark ---
 
+    @(link_name = "g_dbus_error_is_remote_error")
+    dbus_error_is_remote_error :: proc(error: ^glib.Error) -> glib.boolean ---
+
+    @(link_name = "g_dbus_error_get_remote_error")
+    dbus_error_get_remote_error :: proc(error: ^glib.Error) -> cstring ---
+
+    @(link_name = "g_dbus_error_strip_remote_error")
+    dbus_error_strip_remote_error :: proc(error: ^glib.Error) -> glib.boolean ---
+
+    @(link_name = "g_dbus_error_register_error")
+    dbus_error_register_error :: proc(error_domain: glib.Quark, error_code: glib.int_, dbus_error_name: cstring) -> glib.boolean ---
+
+    @(link_name = "g_dbus_error_unregister_error")
+    dbus_error_unregister_error :: proc(error_domain: glib.Quark, error_code: glib.int_, dbus_error_name: cstring) -> glib.boolean ---
+
+    @(link_name = "g_dbus_error_register_error_domain")
+    dbus_error_register_error_domain :: proc(error_domain_quark_name: cstring, quark_volatile: ^glib.size, entries: [^]DBusErrorEntry, num_entries: glib.uint_) ---
+
+    @(link_name = "g_dbus_error_new_for_dbus_error")
+    dbus_error_new_for_dbus_error :: proc(dbus_error_name: cstring, dbus_error_message: cstring) -> ^glib.Error ---
+
+    @(link_name = "g_dbus_error_set_dbus_error")
+    dbus_error_set_dbus_error :: proc(error: ^^glib.Error, dbus_error_name: cstring, dbus_error_message: cstring, format: cstring, #c_vararg var_args: ..any) ---
+
+    @(link_name = "g_dbus_error_set_dbus_error_valist")
+    dbus_error_set_dbus_error_valist :: proc(error: ^^glib.Error, dbus_error_name: cstring, dbus_error_message: cstring, format: cstring, #c_vararg var_args: ..any) ---
+
+    @(link_name = "g_dbus_error_encode_gerror")
+    dbus_error_encode_gerror :: proc(error: ^glib.Error) -> cstring ---
+
     @(link_name = "g_dbus_interface_get_type")
     dbus_interface_get_type :: proc() -> gobj.Type ---
 
+    @(link_name = "g_dbus_interface_get_info")
+    dbus_interface_get_info :: proc(interface_: ^DBusInterface) -> ^DBusInterfaceInfo ---
+
+    @(link_name = "g_dbus_interface_get_object")
+    dbus_interface_get_object :: proc(interface_: ^DBusInterface) -> ^DBusObject ---
+
+    @(link_name = "g_dbus_interface_set_object")
+    dbus_interface_set_object :: proc(interface_: ^DBusInterface, object: ^DBusObject) ---
+
+    @(link_name = "g_dbus_interface_dup_object")
+    dbus_interface_dup_object :: proc(interface_: ^DBusInterface) -> ^DBusObject ---
+
     @(link_name = "g_dbus_interface_skeleton_get_type")
     dbus_interface_skeleton_get_type :: proc() -> gobj.Type ---
+
+    @(link_name = "g_dbus_interface_skeleton_get_flags")
+    dbus_interface_skeleton_get_flags :: proc(interface_: ^DBusInterfaceSkeleton) -> DBusInterfaceSkeletonFlags ---
+
+    @(link_name = "g_dbus_interface_skeleton_set_flags")
+    dbus_interface_skeleton_set_flags :: proc(interface_: ^DBusInterfaceSkeleton, flags: DBusInterfaceSkeletonFlags) ---
+
+    @(link_name = "g_dbus_interface_skeleton_get_info")
+    dbus_interface_skeleton_get_info :: proc(interface_: ^DBusInterfaceSkeleton) -> ^DBusInterfaceInfo ---
+
+    @(link_name = "g_dbus_interface_skeleton_get_vtable")
+    dbus_interface_skeleton_get_vtable :: proc(interface_: ^DBusInterfaceSkeleton) -> ^DBusInterfaceVTable ---
+
+    @(link_name = "g_dbus_interface_skeleton_get_properties")
+    dbus_interface_skeleton_get_properties :: proc(interface_: ^DBusInterfaceSkeleton) -> ^glib.Variant ---
+
+    @(link_name = "g_dbus_interface_skeleton_flush")
+    dbus_interface_skeleton_flush :: proc(interface_: ^DBusInterfaceSkeleton) ---
+
+    @(link_name = "g_dbus_interface_skeleton_export")
+    dbus_interface_skeleton_export :: proc(interface_: ^DBusInterfaceSkeleton, connection: ^DBusConnection, object_path: cstring, error: ^^glib.Error) -> glib.boolean ---
+
+    @(link_name = "g_dbus_interface_skeleton_unexport")
+    dbus_interface_skeleton_unexport :: proc(interface_: ^DBusInterfaceSkeleton) ---
+
+    @(link_name = "g_dbus_interface_skeleton_unexport_from_connection")
+    dbus_interface_skeleton_unexport_from_connection :: proc(interface_: ^DBusInterfaceSkeleton, connection: ^DBusConnection) ---
+
+    @(link_name = "g_dbus_interface_skeleton_get_connection")
+    dbus_interface_skeleton_get_connection :: proc(interface_: ^DBusInterfaceSkeleton) -> ^DBusConnection ---
+
+    @(link_name = "g_dbus_interface_skeleton_get_connections")
+    dbus_interface_skeleton_get_connections :: proc(interface_: ^DBusInterfaceSkeleton) -> ^glib.List ---
+
+    @(link_name = "g_dbus_interface_skeleton_has_connection")
+    dbus_interface_skeleton_has_connection :: proc(interface_: ^DBusInterfaceSkeleton, connection: ^DBusConnection) -> glib.boolean ---
+
+    @(link_name = "g_dbus_interface_skeleton_get_object_path")
+    dbus_interface_skeleton_get_object_path :: proc(interface_: ^DBusInterfaceSkeleton) -> cstring ---
+
+    @(link_name = "g_dbus_annotation_info_lookup")
+    dbus_annotation_info_lookup :: proc(annotations: [^]^DBusAnnotationInfo, name: cstring) -> cstring ---
+
+    @(link_name = "g_dbus_interface_info_lookup_method")
+    dbus_interface_info_lookup_method :: proc(info: ^DBusInterfaceInfo, name: cstring) -> ^DBusMethodInfo ---
+
+    @(link_name = "g_dbus_interface_info_lookup_signal")
+    dbus_interface_info_lookup_signal :: proc(info: ^DBusInterfaceInfo, name: cstring) -> ^DBusSignalInfo ---
+
+    @(link_name = "g_dbus_interface_info_lookup_property")
+    dbus_interface_info_lookup_property :: proc(info: ^DBusInterfaceInfo, name: cstring) -> ^DBusPropertyInfo ---
+
+    @(link_name = "g_dbus_interface_info_cache_build")
+    dbus_interface_info_cache_build :: proc(info: ^DBusInterfaceInfo) ---
+
+    @(link_name = "g_dbus_interface_info_cache_release")
+    dbus_interface_info_cache_release :: proc(info: ^DBusInterfaceInfo) ---
+
+    @(link_name = "g_dbus_interface_info_generate_xml")
+    dbus_interface_info_generate_xml :: proc(info: ^DBusInterfaceInfo, indent: glib.uint_, string_builder: ^glib.String) ---
+
+    @(link_name = "g_dbus_node_info_new_for_xml")
+    dbus_node_info_new_for_xml :: proc(xml_data: cstring, error: ^^glib.Error) -> ^DBusNodeInfo ---
+
+    @(link_name = "g_dbus_node_info_lookup_interface")
+    dbus_node_info_lookup_interface :: proc(info: ^DBusNodeInfo, name: cstring) -> ^DBusInterfaceInfo ---
+
+    @(link_name = "g_dbus_node_info_generate_xml")
+    dbus_node_info_generate_xml :: proc(info: ^DBusNodeInfo, indent: glib.uint_, string_builder: ^glib.String) ---
+
+    @(link_name = "g_dbus_node_info_ref")
+    dbus_node_info_ref :: proc(info: ^DBusNodeInfo) -> ^DBusNodeInfo ---
+
+    @(link_name = "g_dbus_interface_info_ref")
+    dbus_interface_info_ref :: proc(info: ^DBusInterfaceInfo) -> ^DBusInterfaceInfo ---
+
+    @(link_name = "g_dbus_method_info_ref")
+    dbus_method_info_ref :: proc(info: ^DBusMethodInfo) -> ^DBusMethodInfo ---
+
+    @(link_name = "g_dbus_signal_info_ref")
+    dbus_signal_info_ref :: proc(info: ^DBusSignalInfo) -> ^DBusSignalInfo ---
+
+    @(link_name = "g_dbus_property_info_ref")
+    dbus_property_info_ref :: proc(info: ^DBusPropertyInfo) -> ^DBusPropertyInfo ---
+
+    @(link_name = "g_dbus_arg_info_ref")
+    dbus_arg_info_ref :: proc(info: ^DBusArgInfo) -> ^DBusArgInfo ---
+
+    @(link_name = "g_dbus_annotation_info_ref")
+    dbus_annotation_info_ref :: proc(info: ^DBusAnnotationInfo) -> ^DBusAnnotationInfo ---
+
+    @(link_name = "g_dbus_node_info_unref")
+    dbus_node_info_unref :: proc(info: ^DBusNodeInfo) ---
+
+    @(link_name = "g_dbus_interface_info_unref")
+    dbus_interface_info_unref :: proc(info: ^DBusInterfaceInfo) ---
+
+    @(link_name = "g_dbus_method_info_unref")
+    dbus_method_info_unref :: proc(info: ^DBusMethodInfo) ---
+
+    @(link_name = "g_dbus_signal_info_unref")
+    dbus_signal_info_unref :: proc(info: ^DBusSignalInfo) ---
+
+    @(link_name = "g_dbus_property_info_unref")
+    dbus_property_info_unref :: proc(info: ^DBusPropertyInfo) ---
+
+    @(link_name = "g_dbus_arg_info_unref")
+    dbus_arg_info_unref :: proc(info: ^DBusArgInfo) ---
+
+    @(link_name = "g_dbus_annotation_info_unref")
+    dbus_annotation_info_unref :: proc(info: ^DBusAnnotationInfo) ---
 
     @(link_name = "g_dbus_node_info_get_type")
     dbus_node_info_get_type :: proc() -> gobj.Type ---
@@ -3810,113 +5055,1739 @@ foreign libgio2 {
     @(link_name = "g_dbus_menu_model_get_type")
     dbus_menu_model_get_type :: proc() -> gobj.Type ---
 
+    @(link_name = "g_dbus_menu_model_get")
+    dbus_menu_model_get :: proc(connection: ^DBusConnection, bus_name: cstring, object_path: cstring) -> ^DBusMenuModel ---
+
     @(link_name = "g_dbus_message_get_type")
     dbus_message_get_type :: proc() -> gobj.Type ---
+
+    @(link_name = "g_dbus_message_new")
+    dbus_message_new :: proc() -> ^DBusMessage ---
+
+    @(link_name = "g_dbus_message_new_signal")
+    dbus_message_new_signal :: proc(path: cstring, interface_: cstring, signal: cstring) -> ^DBusMessage ---
+
+    @(link_name = "g_dbus_message_new_method_call")
+    dbus_message_new_method_call :: proc(name: cstring, path: cstring, interface_: cstring, method: cstring) -> ^DBusMessage ---
+
+    @(link_name = "g_dbus_message_new_method_reply")
+    dbus_message_new_method_reply :: proc(method_call_message: ^DBusMessage) -> ^DBusMessage ---
+
+    @(link_name = "g_dbus_message_new_method_error")
+    dbus_message_new_method_error :: proc(method_call_message: ^DBusMessage, error_name: cstring, error_message_format: cstring, #c_vararg var_args: ..any) -> ^DBusMessage ---
+
+    @(link_name = "g_dbus_message_new_method_error_valist")
+    dbus_message_new_method_error_valist :: proc(method_call_message: ^DBusMessage, error_name: cstring, error_message_format: cstring, #c_vararg var_args: ..any) -> ^DBusMessage ---
+
+    @(link_name = "g_dbus_message_new_method_error_literal")
+    dbus_message_new_method_error_literal :: proc(method_call_message: ^DBusMessage, error_name: cstring, error_message: cstring) -> ^DBusMessage ---
+
+    @(link_name = "g_dbus_message_print")
+    dbus_message_print :: proc(message: ^DBusMessage, indent: glib.uint_) -> cstring ---
+
+    @(link_name = "g_dbus_message_get_locked")
+    dbus_message_get_locked :: proc(message: ^DBusMessage) -> glib.boolean ---
+
+    @(link_name = "g_dbus_message_lock")
+    dbus_message_lock :: proc(message: ^DBusMessage) ---
+
+    @(link_name = "g_dbus_message_copy")
+    dbus_message_copy :: proc(message: ^DBusMessage, error: ^^glib.Error) -> ^DBusMessage ---
+
+    @(link_name = "g_dbus_message_get_byte_order")
+    dbus_message_get_byte_order :: proc(message: ^DBusMessage) -> DBusMessageByteOrder ---
+
+    @(link_name = "g_dbus_message_set_byte_order")
+    dbus_message_set_byte_order :: proc(message: ^DBusMessage, byte_order: DBusMessageByteOrder) ---
+
+    @(link_name = "g_dbus_message_get_message_type")
+    dbus_message_get_message_type :: proc(message: ^DBusMessage) -> DBusMessageType ---
+
+    @(link_name = "g_dbus_message_set_message_type")
+    dbus_message_set_message_type :: proc(message: ^DBusMessage, type: DBusMessageType) ---
+
+    @(link_name = "g_dbus_message_get_flags")
+    dbus_message_get_flags :: proc(message: ^DBusMessage) -> DBusMessageFlags ---
+
+    @(link_name = "g_dbus_message_set_flags")
+    dbus_message_set_flags :: proc(message: ^DBusMessage, flags: DBusMessageFlags) ---
+
+    @(link_name = "g_dbus_message_get_serial")
+    dbus_message_get_serial :: proc(message: ^DBusMessage) -> glib.uint32 ---
+
+    @(link_name = "g_dbus_message_set_serial")
+    dbus_message_set_serial :: proc(message: ^DBusMessage, serial: glib.uint32) ---
+
+    @(link_name = "g_dbus_message_get_header")
+    dbus_message_get_header :: proc(message: ^DBusMessage, header_field: DBusMessageHeaderField) -> ^glib.Variant ---
+
+    @(link_name = "g_dbus_message_set_header")
+    dbus_message_set_header :: proc(message: ^DBusMessage, header_field: DBusMessageHeaderField, value: ^glib.Variant) ---
+
+    @(link_name = "g_dbus_message_get_header_fields")
+    dbus_message_get_header_fields :: proc(message: ^DBusMessage) -> ^glib.uchar ---
+
+    @(link_name = "g_dbus_message_get_body")
+    dbus_message_get_body :: proc(message: ^DBusMessage) -> ^glib.Variant ---
+
+    @(link_name = "g_dbus_message_set_body")
+    dbus_message_set_body :: proc(message: ^DBusMessage, body: ^glib.Variant) ---
+
+    @(link_name = "g_dbus_message_get_reply_serial")
+    dbus_message_get_reply_serial :: proc(message: ^DBusMessage) -> glib.uint32 ---
+
+    @(link_name = "g_dbus_message_set_reply_serial")
+    dbus_message_set_reply_serial :: proc(message: ^DBusMessage, value: glib.uint32) ---
+
+    @(link_name = "g_dbus_message_get_interface")
+    dbus_message_get_interface :: proc(message: ^DBusMessage) -> cstring ---
+
+    @(link_name = "g_dbus_message_set_interface")
+    dbus_message_set_interface :: proc(message: ^DBusMessage, value: cstring) ---
+
+    @(link_name = "g_dbus_message_get_member")
+    dbus_message_get_member :: proc(message: ^DBusMessage) -> cstring ---
+
+    @(link_name = "g_dbus_message_set_member")
+    dbus_message_set_member :: proc(message: ^DBusMessage, value: cstring) ---
+
+    @(link_name = "g_dbus_message_get_path")
+    dbus_message_get_path :: proc(message: ^DBusMessage) -> cstring ---
+
+    @(link_name = "g_dbus_message_set_path")
+    dbus_message_set_path :: proc(message: ^DBusMessage, value: cstring) ---
+
+    @(link_name = "g_dbus_message_get_sender")
+    dbus_message_get_sender :: proc(message: ^DBusMessage) -> cstring ---
+
+    @(link_name = "g_dbus_message_set_sender")
+    dbus_message_set_sender :: proc(message: ^DBusMessage, value: cstring) ---
+
+    @(link_name = "g_dbus_message_get_destination")
+    dbus_message_get_destination :: proc(message: ^DBusMessage) -> cstring ---
+
+    @(link_name = "g_dbus_message_set_destination")
+    dbus_message_set_destination :: proc(message: ^DBusMessage, value: cstring) ---
+
+    @(link_name = "g_dbus_message_get_error_name")
+    dbus_message_get_error_name :: proc(message: ^DBusMessage) -> cstring ---
+
+    @(link_name = "g_dbus_message_set_error_name")
+    dbus_message_set_error_name :: proc(message: ^DBusMessage, value: cstring) ---
+
+    @(link_name = "g_dbus_message_get_signature")
+    dbus_message_get_signature :: proc(message: ^DBusMessage) -> cstring ---
+
+    @(link_name = "g_dbus_message_set_signature")
+    dbus_message_set_signature :: proc(message: ^DBusMessage, value: cstring) ---
+
+    @(link_name = "g_dbus_message_get_num_unix_fds")
+    dbus_message_get_num_unix_fds :: proc(message: ^DBusMessage) -> glib.uint32 ---
+
+    @(link_name = "g_dbus_message_set_num_unix_fds")
+    dbus_message_set_num_unix_fds :: proc(message: ^DBusMessage, value: glib.uint32) ---
+
+    @(link_name = "g_dbus_message_get_arg0")
+    dbus_message_get_arg0 :: proc(message: ^DBusMessage) -> cstring ---
+
+    @(link_name = "g_dbus_message_get_arg0_path")
+    dbus_message_get_arg0_path :: proc(message: ^DBusMessage) -> cstring ---
+
+    @(link_name = "g_dbus_message_new_from_blob")
+    dbus_message_new_from_blob :: proc(blob: ^glib.uchar, blob_len: glib.size, capabilities: DBusCapabilityFlags, error: ^^glib.Error) -> ^DBusMessage ---
+
+    @(link_name = "g_dbus_message_bytes_needed")
+    dbus_message_bytes_needed :: proc(blob: ^glib.uchar, blob_len: glib.size, error: ^^glib.Error) -> glib.ssize ---
+
+    @(link_name = "g_dbus_message_to_blob")
+    dbus_message_to_blob :: proc(message: ^DBusMessage, out_size: ^glib.size, capabilities: DBusCapabilityFlags, error: ^^glib.Error) -> ^glib.uchar ---
+
+    @(link_name = "g_dbus_message_to_gerror")
+    dbus_message_to_gerror :: proc(message: ^DBusMessage, error: ^^glib.Error) -> glib.boolean ---
 
     @(link_name = "g_dbus_method_invocation_get_type")
     dbus_method_invocation_get_type :: proc() -> gobj.Type ---
 
+    @(link_name = "g_dbus_method_invocation_get_sender")
+    dbus_method_invocation_get_sender :: proc(invocation: ^DBusMethodInvocation) -> cstring ---
+
+    @(link_name = "g_dbus_method_invocation_get_object_path")
+    dbus_method_invocation_get_object_path :: proc(invocation: ^DBusMethodInvocation) -> cstring ---
+
+    @(link_name = "g_dbus_method_invocation_get_interface_name")
+    dbus_method_invocation_get_interface_name :: proc(invocation: ^DBusMethodInvocation) -> cstring ---
+
+    @(link_name = "g_dbus_method_invocation_get_method_name")
+    dbus_method_invocation_get_method_name :: proc(invocation: ^DBusMethodInvocation) -> cstring ---
+
+    @(link_name = "g_dbus_method_invocation_get_method_info")
+    dbus_method_invocation_get_method_info :: proc(invocation: ^DBusMethodInvocation) -> ^DBusMethodInfo ---
+
+    @(link_name = "g_dbus_method_invocation_get_property_info")
+    dbus_method_invocation_get_property_info :: proc(invocation: ^DBusMethodInvocation) -> ^DBusPropertyInfo ---
+
+    @(link_name = "g_dbus_method_invocation_get_connection")
+    dbus_method_invocation_get_connection :: proc(invocation: ^DBusMethodInvocation) -> ^DBusConnection ---
+
+    @(link_name = "g_dbus_method_invocation_get_message")
+    dbus_method_invocation_get_message :: proc(invocation: ^DBusMethodInvocation) -> ^DBusMessage ---
+
+    @(link_name = "g_dbus_method_invocation_get_parameters")
+    dbus_method_invocation_get_parameters :: proc(invocation: ^DBusMethodInvocation) -> ^glib.Variant ---
+
+    @(link_name = "g_dbus_method_invocation_get_user_data")
+    dbus_method_invocation_get_user_data :: proc(invocation: ^DBusMethodInvocation) -> glib.pointer ---
+
+    @(link_name = "g_dbus_method_invocation_return_value")
+    dbus_method_invocation_return_value :: proc(invocation: ^DBusMethodInvocation, parameters: [^]glib.Variant) ---
+
+    @(link_name = "g_dbus_method_invocation_return_error")
+    dbus_method_invocation_return_error :: proc(invocation: ^DBusMethodInvocation, domain: glib.Quark, code: glib.int_, format: cstring, #c_vararg var_args: ..any) ---
+
+    @(link_name = "g_dbus_method_invocation_return_error_valist")
+    dbus_method_invocation_return_error_valist :: proc(invocation: ^DBusMethodInvocation, domain: glib.Quark, code: glib.int_, format: cstring, #c_vararg var_args: ..any) ---
+
+    @(link_name = "g_dbus_method_invocation_return_error_literal")
+    dbus_method_invocation_return_error_literal :: proc(invocation: ^DBusMethodInvocation, domain: glib.Quark, code: glib.int_, message: cstring) ---
+
+    @(link_name = "g_dbus_method_invocation_return_gerror")
+    dbus_method_invocation_return_gerror :: proc(invocation: ^DBusMethodInvocation, error: ^glib.Error) ---
+
+    @(link_name = "g_dbus_method_invocation_take_error")
+    dbus_method_invocation_take_error :: proc(invocation: ^DBusMethodInvocation, error: ^glib.Error) ---
+
+    @(link_name = "g_dbus_method_invocation_return_dbus_error")
+    dbus_method_invocation_return_dbus_error :: proc(invocation: ^DBusMethodInvocation, error_name: cstring, error_message: cstring) ---
+
+    @(link_name = "g_bus_own_name")
+    bus_own_name :: proc(bus_type: BusType, name: cstring, flags: BusNameOwnerFlags, bus_acquired_handler: BusAcquiredCallback, name_acquired_handler: BusNameAcquiredCallback, name_lost_handler: BusNameLostCallback, user_data: glib.pointer, user_data_free_func: glib.DestroyNotify) -> glib.uint_ ---
+
+    @(link_name = "g_bus_own_name_on_connection")
+    bus_own_name_on_connection :: proc(connection: ^DBusConnection, name: cstring, flags: BusNameOwnerFlags, name_acquired_handler: BusNameAcquiredCallback, name_lost_handler: BusNameLostCallback, user_data: glib.pointer, user_data_free_func: glib.DestroyNotify) -> glib.uint_ ---
+
+    @(link_name = "g_bus_own_name_with_closures")
+    bus_own_name_with_closures :: proc(bus_type: BusType, name: cstring, flags: BusNameOwnerFlags, bus_acquired_closure: ^gobj.Closure, name_acquired_closure: ^gobj.Closure, name_lost_closure: ^gobj.Closure) -> glib.uint_ ---
+
+    @(link_name = "g_bus_own_name_on_connection_with_closures")
+    bus_own_name_on_connection_with_closures :: proc(connection: ^DBusConnection, name: cstring, flags: BusNameOwnerFlags, name_acquired_closure: ^gobj.Closure, name_lost_closure: ^gobj.Closure) -> glib.uint_ ---
+
+    @(link_name = "g_bus_unown_name")
+    bus_unown_name :: proc(owner_id: glib.uint_) ---
+
+    @(link_name = "g_bus_watch_name")
+    bus_watch_name :: proc(bus_type: BusType, name: cstring, flags: BusNameWatcherFlags, name_appeared_handler: BusNameAppearedCallback, name_vanished_handler: BusNameVanishedCallback, user_data: glib.pointer, user_data_free_func: glib.DestroyNotify) -> glib.uint_ ---
+
+    @(link_name = "g_bus_watch_name_on_connection")
+    bus_watch_name_on_connection :: proc(connection: ^DBusConnection, name: cstring, flags: BusNameWatcherFlags, name_appeared_handler: BusNameAppearedCallback, name_vanished_handler: BusNameVanishedCallback, user_data: glib.pointer, user_data_free_func: glib.DestroyNotify) -> glib.uint_ ---
+
+    @(link_name = "g_bus_watch_name_with_closures")
+    bus_watch_name_with_closures :: proc(bus_type: BusType, name: cstring, flags: BusNameWatcherFlags, name_appeared_closure: ^gobj.Closure, name_vanished_closure: ^gobj.Closure) -> glib.uint_ ---
+
+    @(link_name = "g_bus_watch_name_on_connection_with_closures")
+    bus_watch_name_on_connection_with_closures :: proc(connection: ^DBusConnection, name: cstring, flags: BusNameWatcherFlags, name_appeared_closure: ^gobj.Closure, name_vanished_closure: ^gobj.Closure) -> glib.uint_ ---
+
+    @(link_name = "g_bus_unwatch_name")
+    bus_unwatch_name :: proc(watcher_id: glib.uint_) ---
+
     @(link_name = "g_dbus_object_get_type")
     dbus_object_get_type :: proc() -> gobj.Type ---
+
+    @(link_name = "g_dbus_object_get_object_path")
+    dbus_object_get_object_path :: proc(object: ^DBusObject) -> cstring ---
+
+    @(link_name = "g_dbus_object_get_interfaces")
+    dbus_object_get_interfaces :: proc(object: ^DBusObject) -> ^glib.List ---
+
+    @(link_name = "g_dbus_object_get_interface")
+    dbus_object_get_interface :: proc(object: ^DBusObject, interface_name: cstring) -> ^DBusInterface ---
 
     @(link_name = "g_dbus_object_manager_get_type")
     dbus_object_manager_get_type :: proc() -> gobj.Type ---
 
+    @(link_name = "g_dbus_object_manager_get_object_path")
+    dbus_object_manager_get_object_path :: proc(manager: ^DBusObjectManager) -> cstring ---
+
+    @(link_name = "g_dbus_object_manager_get_objects")
+    dbus_object_manager_get_objects :: proc(manager: ^DBusObjectManager) -> ^glib.List ---
+
+    @(link_name = "g_dbus_object_manager_get_object")
+    dbus_object_manager_get_object :: proc(manager: ^DBusObjectManager, object_path: cstring) -> ^DBusObject ---
+
+    @(link_name = "g_dbus_object_manager_get_interface")
+    dbus_object_manager_get_interface :: proc(manager: ^DBusObjectManager, object_path: cstring, interface_name: cstring) -> ^DBusInterface ---
+
     @(link_name = "g_dbus_object_manager_client_get_type")
     dbus_object_manager_client_get_type :: proc() -> gobj.Type ---
+
+    @(link_name = "g_dbus_object_manager_client_new")
+    dbus_object_manager_client_new :: proc(connection: ^DBusConnection, flags: DBusObjectManagerClientFlags, name: cstring, object_path: cstring, get_proxy_type_func: DBusProxyTypeFunc, get_proxy_type_user_data: glib.pointer, get_proxy_type_destroy_notify: glib.DestroyNotify, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer) ---
+
+    @(link_name = "g_dbus_object_manager_client_new_finish")
+    dbus_object_manager_client_new_finish :: proc(res: [^]AsyncResult, error: ^^glib.Error) -> ^DBusObjectManager ---
+
+    @(link_name = "g_dbus_object_manager_client_new_sync")
+    dbus_object_manager_client_new_sync :: proc(connection: ^DBusConnection, flags: DBusObjectManagerClientFlags, name: cstring, object_path: cstring, get_proxy_type_func: DBusProxyTypeFunc, get_proxy_type_user_data: glib.pointer, get_proxy_type_destroy_notify: glib.DestroyNotify, cancellable: ^Cancellable, error: ^^glib.Error) -> ^DBusObjectManager ---
+
+    @(link_name = "g_dbus_object_manager_client_new_for_bus")
+    dbus_object_manager_client_new_for_bus :: proc(bus_type: BusType, flags: DBusObjectManagerClientFlags, name: cstring, object_path: cstring, get_proxy_type_func: DBusProxyTypeFunc, get_proxy_type_user_data: glib.pointer, get_proxy_type_destroy_notify: glib.DestroyNotify, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer) ---
+
+    @(link_name = "g_dbus_object_manager_client_new_for_bus_finish")
+    dbus_object_manager_client_new_for_bus_finish :: proc(res: [^]AsyncResult, error: ^^glib.Error) -> ^DBusObjectManager ---
+
+    @(link_name = "g_dbus_object_manager_client_new_for_bus_sync")
+    dbus_object_manager_client_new_for_bus_sync :: proc(bus_type: BusType, flags: DBusObjectManagerClientFlags, name: cstring, object_path: cstring, get_proxy_type_func: DBusProxyTypeFunc, get_proxy_type_user_data: glib.pointer, get_proxy_type_destroy_notify: glib.DestroyNotify, cancellable: ^Cancellable, error: ^^glib.Error) -> ^DBusObjectManager ---
+
+    @(link_name = "g_dbus_object_manager_client_get_connection")
+    dbus_object_manager_client_get_connection :: proc(manager: ^DBusObjectManagerClient) -> ^DBusConnection ---
+
+    @(link_name = "g_dbus_object_manager_client_get_flags")
+    dbus_object_manager_client_get_flags :: proc(manager: ^DBusObjectManagerClient) -> DBusObjectManagerClientFlags ---
+
+    @(link_name = "g_dbus_object_manager_client_get_name")
+    dbus_object_manager_client_get_name :: proc(manager: ^DBusObjectManagerClient) -> cstring ---
+
+    @(link_name = "g_dbus_object_manager_client_get_name_owner")
+    dbus_object_manager_client_get_name_owner :: proc(manager: ^DBusObjectManagerClient) -> cstring ---
 
     @(link_name = "g_dbus_object_manager_server_get_type")
     dbus_object_manager_server_get_type :: proc() -> gobj.Type ---
 
+    @(link_name = "g_dbus_object_manager_server_new")
+    dbus_object_manager_server_new :: proc(object_path: cstring) -> ^DBusObjectManagerServer ---
+
+    @(link_name = "g_dbus_object_manager_server_get_connection")
+    dbus_object_manager_server_get_connection :: proc(manager: ^DBusObjectManagerServer) -> ^DBusConnection ---
+
+    @(link_name = "g_dbus_object_manager_server_set_connection")
+    dbus_object_manager_server_set_connection :: proc(manager: ^DBusObjectManagerServer, connection: ^DBusConnection) ---
+
+    @(link_name = "g_dbus_object_manager_server_export")
+    dbus_object_manager_server_export :: proc(manager: ^DBusObjectManagerServer, object: ^DBusObjectSkeleton) ---
+
+    @(link_name = "g_dbus_object_manager_server_export_uniquely")
+    dbus_object_manager_server_export_uniquely :: proc(manager: ^DBusObjectManagerServer, object: ^DBusObjectSkeleton) ---
+
+    @(link_name = "g_dbus_object_manager_server_is_exported")
+    dbus_object_manager_server_is_exported :: proc(manager: ^DBusObjectManagerServer, object: ^DBusObjectSkeleton) -> glib.boolean ---
+
+    @(link_name = "g_dbus_object_manager_server_unexport")
+    dbus_object_manager_server_unexport :: proc(manager: ^DBusObjectManagerServer, object_path: cstring) -> glib.boolean ---
+
     @(link_name = "g_dbus_object_proxy_get_type")
     dbus_object_proxy_get_type :: proc() -> gobj.Type ---
+
+    @(link_name = "g_dbus_object_proxy_new")
+    dbus_object_proxy_new :: proc(connection: ^DBusConnection, object_path: cstring) -> ^DBusObjectProxy ---
+
+    @(link_name = "g_dbus_object_proxy_get_connection")
+    dbus_object_proxy_get_connection :: proc(proxy: ^DBusObjectProxy) -> ^DBusConnection ---
 
     @(link_name = "g_dbus_object_skeleton_get_type")
     dbus_object_skeleton_get_type :: proc() -> gobj.Type ---
 
+    @(link_name = "g_dbus_object_skeleton_new")
+    dbus_object_skeleton_new :: proc(object_path: cstring) -> ^DBusObjectSkeleton ---
+
+    @(link_name = "g_dbus_object_skeleton_flush")
+    dbus_object_skeleton_flush :: proc(object: ^DBusObjectSkeleton) ---
+
+    @(link_name = "g_dbus_object_skeleton_add_interface")
+    dbus_object_skeleton_add_interface :: proc(object: ^DBusObjectSkeleton, interface_: ^DBusInterfaceSkeleton) ---
+
+    @(link_name = "g_dbus_object_skeleton_remove_interface")
+    dbus_object_skeleton_remove_interface :: proc(object: ^DBusObjectSkeleton, interface_: ^DBusInterfaceSkeleton) ---
+
+    @(link_name = "g_dbus_object_skeleton_remove_interface_by_name")
+    dbus_object_skeleton_remove_interface_by_name :: proc(object: ^DBusObjectSkeleton, interface_name: cstring) ---
+
+    @(link_name = "g_dbus_object_skeleton_set_object_path")
+    dbus_object_skeleton_set_object_path :: proc(object: ^DBusObjectSkeleton, object_path: cstring) ---
+
     @(link_name = "g_dbus_proxy_get_type")
     dbus_proxy_get_type :: proc() -> gobj.Type ---
+
+    @(link_name = "g_dbus_proxy_new")
+    dbus_proxy_new :: proc(connection: ^DBusConnection, flags: DBusProxyFlags, info: ^DBusInterfaceInfo, name: cstring, object_path: cstring, interface_name: cstring, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer) ---
+
+    @(link_name = "g_dbus_proxy_new_finish")
+    dbus_proxy_new_finish :: proc(res: [^]AsyncResult, error: ^^glib.Error) -> ^DBusProxy ---
+
+    @(link_name = "g_dbus_proxy_new_sync")
+    dbus_proxy_new_sync :: proc(connection: ^DBusConnection, flags: DBusProxyFlags, info: ^DBusInterfaceInfo, name: cstring, object_path: cstring, interface_name: cstring, cancellable: ^Cancellable, error: ^^glib.Error) -> ^DBusProxy ---
+
+    @(link_name = "g_dbus_proxy_new_for_bus")
+    dbus_proxy_new_for_bus :: proc(bus_type: BusType, flags: DBusProxyFlags, info: ^DBusInterfaceInfo, name: cstring, object_path: cstring, interface_name: cstring, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer) ---
+
+    @(link_name = "g_dbus_proxy_new_for_bus_finish")
+    dbus_proxy_new_for_bus_finish :: proc(res: [^]AsyncResult, error: ^^glib.Error) -> ^DBusProxy ---
+
+    @(link_name = "g_dbus_proxy_new_for_bus_sync")
+    dbus_proxy_new_for_bus_sync :: proc(bus_type: BusType, flags: DBusProxyFlags, info: ^DBusInterfaceInfo, name: cstring, object_path: cstring, interface_name: cstring, cancellable: ^Cancellable, error: ^^glib.Error) -> ^DBusProxy ---
+
+    @(link_name = "g_dbus_proxy_get_connection")
+    dbus_proxy_get_connection :: proc(proxy: ^DBusProxy) -> ^DBusConnection ---
+
+    @(link_name = "g_dbus_proxy_get_flags")
+    dbus_proxy_get_flags :: proc(proxy: ^DBusProxy) -> DBusProxyFlags ---
+
+    @(link_name = "g_dbus_proxy_get_name")
+    dbus_proxy_get_name :: proc(proxy: ^DBusProxy) -> cstring ---
+
+    @(link_name = "g_dbus_proxy_get_name_owner")
+    dbus_proxy_get_name_owner :: proc(proxy: ^DBusProxy) -> cstring ---
+
+    @(link_name = "g_dbus_proxy_get_object_path")
+    dbus_proxy_get_object_path :: proc(proxy: ^DBusProxy) -> cstring ---
+
+    @(link_name = "g_dbus_proxy_get_interface_name")
+    dbus_proxy_get_interface_name :: proc(proxy: ^DBusProxy) -> cstring ---
+
+    @(link_name = "g_dbus_proxy_get_default_timeout")
+    dbus_proxy_get_default_timeout :: proc(proxy: ^DBusProxy) -> glib.int_ ---
+
+    @(link_name = "g_dbus_proxy_set_default_timeout")
+    dbus_proxy_set_default_timeout :: proc(proxy: ^DBusProxy, timeout_msec: glib.int_) ---
+
+    @(link_name = "g_dbus_proxy_get_interface_info")
+    dbus_proxy_get_interface_info :: proc(proxy: ^DBusProxy) -> ^DBusInterfaceInfo ---
+
+    @(link_name = "g_dbus_proxy_set_interface_info")
+    dbus_proxy_set_interface_info :: proc(proxy: ^DBusProxy, info: ^DBusInterfaceInfo) ---
+
+    @(link_name = "g_dbus_proxy_get_cached_property")
+    dbus_proxy_get_cached_property :: proc(proxy: ^DBusProxy, property_name: cstring) -> ^glib.Variant ---
+
+    @(link_name = "g_dbus_proxy_set_cached_property")
+    dbus_proxy_set_cached_property :: proc(proxy: ^DBusProxy, property_name: cstring, value: ^glib.Variant) ---
+
+    @(link_name = "g_dbus_proxy_get_cached_property_names")
+    dbus_proxy_get_cached_property_names :: proc(proxy: ^DBusProxy) -> ^cstring ---
+
+    @(link_name = "g_dbus_proxy_call")
+    dbus_proxy_call :: proc(proxy: ^DBusProxy, method_name: cstring, parameters: [^]glib.Variant, flags: DBusCallFlags, timeout_msec: glib.int_, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer) ---
+
+    @(link_name = "g_dbus_proxy_call_finish")
+    dbus_proxy_call_finish :: proc(proxy: ^DBusProxy, res: [^]AsyncResult, error: ^^glib.Error) -> ^glib.Variant ---
+
+    @(link_name = "g_dbus_proxy_call_sync")
+    dbus_proxy_call_sync :: proc(proxy: ^DBusProxy, method_name: cstring, parameters: [^]glib.Variant, flags: DBusCallFlags, timeout_msec: glib.int_, cancellable: ^Cancellable, error: ^^glib.Error) -> ^glib.Variant ---
 
     @(link_name = "g_dbus_server_get_type")
     dbus_server_get_type :: proc() -> gobj.Type ---
 
+    @(link_name = "g_dbus_server_new_sync")
+    dbus_server_new_sync :: proc(address: [^]glib.char, flags: DBusServerFlags, guid: cstring, observer: ^DBusAuthObserver, cancellable: ^Cancellable, error: ^^glib.Error) -> ^DBusServer ---
+
+    @(link_name = "g_dbus_server_get_client_address")
+    dbus_server_get_client_address :: proc(server: ^DBusServer) -> cstring ---
+
+    @(link_name = "g_dbus_server_get_guid")
+    dbus_server_get_guid :: proc(server: ^DBusServer) -> cstring ---
+
+    @(link_name = "g_dbus_server_get_flags")
+    dbus_server_get_flags :: proc(server: ^DBusServer) -> DBusServerFlags ---
+
+    @(link_name = "g_dbus_server_start")
+    dbus_server_start :: proc(server: ^DBusServer) ---
+
+    @(link_name = "g_dbus_server_stop")
+    dbus_server_stop :: proc(server: ^DBusServer) ---
+
+    @(link_name = "g_dbus_server_is_active")
+    dbus_server_is_active :: proc(server: ^DBusServer) -> glib.boolean ---
+
+    @(link_name = "g_dbus_is_guid")
+    dbus_is_guid :: proc(string_p: cstring) -> glib.boolean ---
+
+    @(link_name = "g_dbus_generate_guid")
+    dbus_generate_guid :: proc() -> cstring ---
+
+    @(link_name = "g_dbus_is_name")
+    dbus_is_name :: proc(string_p: cstring) -> glib.boolean ---
+
+    @(link_name = "g_dbus_is_unique_name")
+    dbus_is_unique_name :: proc(string_p: cstring) -> glib.boolean ---
+
+    @(link_name = "g_dbus_is_member_name")
+    dbus_is_member_name :: proc(string_p: cstring) -> glib.boolean ---
+
+    @(link_name = "g_dbus_is_interface_name")
+    dbus_is_interface_name :: proc(string_p: cstring) -> glib.boolean ---
+
+    @(link_name = "g_dbus_is_error_name")
+    dbus_is_error_name :: proc(string_p: cstring) -> glib.boolean ---
+
+    @(link_name = "g_dbus_gvariant_to_gvalue")
+    dbus_gvariant_to_gvalue :: proc(value: ^glib.Variant, out_gvalue: ^gobj.Value) ---
+
+    @(link_name = "g_dbus_gvalue_to_gvariant")
+    dbus_gvalue_to_gvariant :: proc(gvalue: ^gobj.Value, type: ^glib.VariantType) -> ^glib.Variant ---
+
+    @(link_name = "g_dbus_escape_object_path_bytestring")
+    dbus_escape_object_path_bytestring :: proc(bytes: [^]glib.uint8) -> cstring ---
+
+    @(link_name = "g_dbus_escape_object_path")
+    dbus_escape_object_path :: proc(s: cstring) -> cstring ---
+
+    @(link_name = "g_dbus_unescape_object_path")
+    dbus_unescape_object_path :: proc(s: cstring) -> ^glib.uint8 ---
+
     @(link_name = "g_debug_controller_get_type")
     debug_controller_get_type :: proc() -> gobj.Type ---
+
+    @(link_name = "g_debug_controller_get_debug_enabled")
+    debug_controller_get_debug_enabled :: proc(self: ^DebugController) -> glib.boolean ---
+
+    @(link_name = "g_debug_controller_set_debug_enabled")
+    debug_controller_set_debug_enabled :: proc(self: ^DebugController, debug_enabled: glib.boolean) ---
 
     @(link_name = "g_debug_controller_dbus_get_type")
     debug_controller_dbus_get_type :: proc() -> gobj.Type ---
 
+    @(link_name = "g_debug_controller_dbus_new")
+    debug_controller_dbus_new :: proc(connection: ^DBusConnection, cancellable: ^Cancellable, error: ^^glib.Error) -> ^DebugControllerDBus ---
+
+    @(link_name = "g_debug_controller_dbus_stop")
+    debug_controller_dbus_stop :: proc(self: ^DebugControllerDBus) ---
+
     @(link_name = "g_drive_get_type")
     drive_get_type :: proc() -> gobj.Type ---
+
+    @(link_name = "g_drive_get_name")
+    drive_get_name :: proc(drive: ^Drive) -> cstring ---
+
+    @(link_name = "g_drive_get_icon")
+    drive_get_icon :: proc(drive: ^Drive) -> ^Icon ---
+
+    @(link_name = "g_drive_get_symbolic_icon")
+    drive_get_symbolic_icon :: proc(drive: ^Drive) -> ^Icon ---
+
+    @(link_name = "g_drive_has_volumes")
+    drive_has_volumes :: proc(drive: ^Drive) -> glib.boolean ---
+
+    @(link_name = "g_drive_get_volumes")
+    drive_get_volumes :: proc(drive: ^Drive) -> ^glib.List ---
+
+    @(link_name = "g_drive_is_removable")
+    drive_is_removable :: proc(drive: ^Drive) -> glib.boolean ---
+
+    @(link_name = "g_drive_is_media_removable")
+    drive_is_media_removable :: proc(drive: ^Drive) -> glib.boolean ---
+
+    @(link_name = "g_drive_has_media")
+    drive_has_media :: proc(drive: ^Drive) -> glib.boolean ---
+
+    @(link_name = "g_drive_is_media_check_automatic")
+    drive_is_media_check_automatic :: proc(drive: ^Drive) -> glib.boolean ---
+
+    @(link_name = "g_drive_can_poll_for_media")
+    drive_can_poll_for_media :: proc(drive: ^Drive) -> glib.boolean ---
+
+    @(link_name = "g_drive_can_eject")
+    drive_can_eject :: proc(drive: ^Drive) -> glib.boolean ---
+
+    @(link_name = "g_drive_eject")
+    drive_eject :: proc(drive: ^Drive, flags: MountUnmountFlags, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer) ---
+
+    @(link_name = "g_drive_eject_finish")
+    drive_eject_finish :: proc(drive: ^Drive, result: ^AsyncResult, error: ^^glib.Error) -> glib.boolean ---
+
+    @(link_name = "g_drive_poll_for_media")
+    drive_poll_for_media :: proc(drive: ^Drive, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer) ---
+
+    @(link_name = "g_drive_poll_for_media_finish")
+    drive_poll_for_media_finish :: proc(drive: ^Drive, result: ^AsyncResult, error: ^^glib.Error) -> glib.boolean ---
+
+    @(link_name = "g_drive_get_identifier")
+    drive_get_identifier :: proc(drive: ^Drive, kind: cstring) -> cstring ---
+
+    @(link_name = "g_drive_enumerate_identifiers")
+    drive_enumerate_identifiers :: proc(drive: ^Drive) -> ^cstring ---
+
+    @(link_name = "g_drive_get_start_stop_type")
+    drive_get_start_stop_type :: proc(drive: ^Drive) -> DriveStartStopType ---
+
+    @(link_name = "g_drive_can_start")
+    drive_can_start :: proc(drive: ^Drive) -> glib.boolean ---
+
+    @(link_name = "g_drive_can_start_degraded")
+    drive_can_start_degraded :: proc(drive: ^Drive) -> glib.boolean ---
+
+    @(link_name = "g_drive_start")
+    drive_start :: proc(drive: ^Drive, flags: DriveStartFlags, mount_operation: ^MountOperation, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer) ---
+
+    @(link_name = "g_drive_start_finish")
+    drive_start_finish :: proc(drive: ^Drive, result: ^AsyncResult, error: ^^glib.Error) -> glib.boolean ---
+
+    @(link_name = "g_drive_can_stop")
+    drive_can_stop :: proc(drive: ^Drive) -> glib.boolean ---
+
+    @(link_name = "g_drive_stop")
+    drive_stop :: proc(drive: ^Drive, flags: MountUnmountFlags, mount_operation: ^MountOperation, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer) ---
+
+    @(link_name = "g_drive_stop_finish")
+    drive_stop_finish :: proc(drive: ^Drive, result: ^AsyncResult, error: ^^glib.Error) -> glib.boolean ---
+
+    @(link_name = "g_drive_eject_with_operation")
+    drive_eject_with_operation :: proc(drive: ^Drive, flags: MountUnmountFlags, mount_operation: ^MountOperation, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer) ---
+
+    @(link_name = "g_drive_eject_with_operation_finish")
+    drive_eject_with_operation_finish :: proc(drive: ^Drive, result: ^AsyncResult, error: ^^glib.Error) -> glib.boolean ---
+
+    @(link_name = "g_drive_get_sort_key")
+    drive_get_sort_key :: proc(drive: ^Drive) -> cstring ---
 
     @(link_name = "g_dtls_connection_get_type")
     dtls_connection_get_type :: proc() -> gobj.Type ---
 
+    @(link_name = "g_dtls_connection_set_database")
+    dtls_connection_set_database :: proc(conn: ^DtlsConnection, database: ^TlsDatabase) ---
+
+    @(link_name = "g_dtls_connection_get_database")
+    dtls_connection_get_database :: proc(conn: ^DtlsConnection) -> ^TlsDatabase ---
+
+    @(link_name = "g_dtls_connection_set_certificate")
+    dtls_connection_set_certificate :: proc(conn: ^DtlsConnection, certificate: ^TlsCertificate) ---
+
+    @(link_name = "g_dtls_connection_get_certificate")
+    dtls_connection_get_certificate :: proc(conn: ^DtlsConnection) -> ^TlsCertificate ---
+
+    @(link_name = "g_dtls_connection_set_interaction")
+    dtls_connection_set_interaction :: proc(conn: ^DtlsConnection, interaction: ^TlsInteraction) ---
+
+    @(link_name = "g_dtls_connection_get_interaction")
+    dtls_connection_get_interaction :: proc(conn: ^DtlsConnection) -> ^TlsInteraction ---
+
+    @(link_name = "g_dtls_connection_get_peer_certificate")
+    dtls_connection_get_peer_certificate :: proc(conn: ^DtlsConnection) -> ^TlsCertificate ---
+
+    @(link_name = "g_dtls_connection_get_peer_certificate_errors")
+    dtls_connection_get_peer_certificate_errors :: proc(conn: ^DtlsConnection) -> TlsCertificateFlags ---
+
+    @(link_name = "g_dtls_connection_set_require_close_notify")
+    dtls_connection_set_require_close_notify :: proc(conn: ^DtlsConnection, require_close_notify: glib.boolean) ---
+
+    @(link_name = "g_dtls_connection_get_require_close_notify")
+    dtls_connection_get_require_close_notify :: proc(conn: ^DtlsConnection) -> glib.boolean ---
+
+    @(link_name = "g_dtls_connection_set_rehandshake_mode")
+    dtls_connection_set_rehandshake_mode :: proc(conn: ^DtlsConnection, mode: TlsRehandshakeMode) ---
+
+    @(link_name = "g_dtls_connection_get_rehandshake_mode")
+    dtls_connection_get_rehandshake_mode :: proc(conn: ^DtlsConnection) -> TlsRehandshakeMode ---
+
+    @(link_name = "g_dtls_connection_handshake")
+    dtls_connection_handshake :: proc(conn: ^DtlsConnection, cancellable: ^Cancellable, error: ^^glib.Error) -> glib.boolean ---
+
+    @(link_name = "g_dtls_connection_handshake_async")
+    dtls_connection_handshake_async :: proc(conn: ^DtlsConnection, io_priority: i32, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer) ---
+
+    @(link_name = "g_dtls_connection_handshake_finish")
+    dtls_connection_handshake_finish :: proc(conn: ^DtlsConnection, result: ^AsyncResult, error: ^^glib.Error) -> glib.boolean ---
+
+    @(link_name = "g_dtls_connection_shutdown")
+    dtls_connection_shutdown :: proc(conn: ^DtlsConnection, shutdown_read: glib.boolean, shutdown_write: glib.boolean, cancellable: ^Cancellable, error: ^^glib.Error) -> glib.boolean ---
+
+    @(link_name = "g_dtls_connection_shutdown_async")
+    dtls_connection_shutdown_async :: proc(conn: ^DtlsConnection, shutdown_read: glib.boolean, shutdown_write: glib.boolean, io_priority: i32, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer) ---
+
+    @(link_name = "g_dtls_connection_shutdown_finish")
+    dtls_connection_shutdown_finish :: proc(conn: ^DtlsConnection, result: ^AsyncResult, error: ^^glib.Error) -> glib.boolean ---
+
+    @(link_name = "g_dtls_connection_close")
+    dtls_connection_close :: proc(conn: ^DtlsConnection, cancellable: ^Cancellable, error: ^^glib.Error) -> glib.boolean ---
+
+    @(link_name = "g_dtls_connection_close_async")
+    dtls_connection_close_async :: proc(conn: ^DtlsConnection, io_priority: i32, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer) ---
+
+    @(link_name = "g_dtls_connection_close_finish")
+    dtls_connection_close_finish :: proc(conn: ^DtlsConnection, result: ^AsyncResult, error: ^^glib.Error) -> glib.boolean ---
+
+    @(link_name = "g_dtls_connection_emit_accept_certificate")
+    dtls_connection_emit_accept_certificate :: proc(conn: ^DtlsConnection, peer_cert: ^TlsCertificate, errors: TlsCertificateFlags) -> glib.boolean ---
+
+    @(link_name = "g_dtls_connection_set_advertised_protocols")
+    dtls_connection_set_advertised_protocols :: proc(conn: ^DtlsConnection, protocols: [^]cstring) ---
+
+    @(link_name = "g_dtls_connection_get_negotiated_protocol")
+    dtls_connection_get_negotiated_protocol :: proc(conn: ^DtlsConnection) -> cstring ---
+
+    @(link_name = "g_dtls_connection_get_channel_binding_data")
+    dtls_connection_get_channel_binding_data :: proc(conn: ^DtlsConnection, type: TlsChannelBindingType, data: ^glib.ByteArray, error: ^^glib.Error) -> glib.boolean ---
+
+    @(link_name = "g_dtls_connection_get_protocol_version")
+    dtls_connection_get_protocol_version :: proc(conn: ^DtlsConnection) -> TlsProtocolVersion ---
+
+    @(link_name = "g_dtls_connection_get_ciphersuite_name")
+    dtls_connection_get_ciphersuite_name :: proc(conn: ^DtlsConnection) -> cstring ---
+
     @(link_name = "g_dtls_client_connection_get_type")
     dtls_client_connection_get_type :: proc() -> gobj.Type ---
+
+    @(link_name = "g_dtls_client_connection_new")
+    dtls_client_connection_new :: proc(base_socket: ^DatagramBased, server_identity: ^SocketConnectable, error: ^^glib.Error) -> ^DatagramBased ---
+
+    @(link_name = "g_dtls_client_connection_get_validation_flags")
+    dtls_client_connection_get_validation_flags :: proc(conn: ^DtlsClientConnection) -> TlsCertificateFlags ---
+
+    @(link_name = "g_dtls_client_connection_set_validation_flags")
+    dtls_client_connection_set_validation_flags :: proc(conn: ^DtlsClientConnection, flags: TlsCertificateFlags) ---
+
+    @(link_name = "g_dtls_client_connection_get_server_identity")
+    dtls_client_connection_get_server_identity :: proc(conn: ^DtlsClientConnection) -> ^SocketConnectable ---
+
+    @(link_name = "g_dtls_client_connection_set_server_identity")
+    dtls_client_connection_set_server_identity :: proc(conn: ^DtlsClientConnection, identity: ^SocketConnectable) ---
+
+    @(link_name = "g_dtls_client_connection_get_accepted_cas")
+    dtls_client_connection_get_accepted_cas :: proc(conn: ^DtlsClientConnection) -> ^glib.List ---
 
     @(link_name = "g_dtls_server_connection_get_type")
     dtls_server_connection_get_type :: proc() -> gobj.Type ---
 
+    @(link_name = "g_dtls_server_connection_new")
+    dtls_server_connection_new :: proc(base_socket: ^DatagramBased, certificate: ^TlsCertificate, error: ^^glib.Error) -> ^DatagramBased ---
+
     @(link_name = "g_icon_get_type")
     icon_get_type :: proc() -> gobj.Type ---
+
+    @(link_name = "g_icon_hash")
+    icon_hash :: proc(icon: glib.constpointer) -> glib.uint_ ---
+
+    @(link_name = "g_icon_equal")
+    icon_equal :: proc(icon1: ^Icon, icon2: ^Icon) -> glib.boolean ---
+
+    @(link_name = "g_icon_to_string")
+    icon_to_string :: proc(icon: ^Icon) -> cstring ---
+
+    @(link_name = "g_icon_new_for_string")
+    icon_new_for_string :: proc(str: cstring, error: ^^glib.Error) -> ^Icon ---
+
+    @(link_name = "g_icon_serialize")
+    icon_serialize :: proc(icon: ^Icon) -> ^glib.Variant ---
+
+    @(link_name = "g_icon_deserialize")
+    icon_deserialize :: proc(value: ^glib.Variant) -> ^Icon ---
 
     @(link_name = "g_emblem_get_type")
     emblem_get_type :: proc() -> gobj.Type ---
 
+    @(link_name = "g_emblem_new")
+    emblem_new :: proc(icon: ^Icon) -> ^Emblem ---
+
+    @(link_name = "g_emblem_new_with_origin")
+    emblem_new_with_origin :: proc(icon: ^Icon, origin: EmblemOrigin) -> ^Emblem ---
+
+    @(link_name = "g_emblem_get_icon")
+    emblem_get_icon :: proc(emblem: ^Emblem) -> ^Icon ---
+
+    @(link_name = "g_emblem_get_origin")
+    emblem_get_origin :: proc(emblem: ^Emblem) -> EmblemOrigin ---
+
     @(link_name = "g_emblemed_icon_get_type")
     emblemed_icon_get_type :: proc() -> gobj.Type ---
+
+    @(link_name = "g_emblemed_icon_new")
+    emblemed_icon_new :: proc(icon: ^Icon, emblem: ^Emblem) -> ^Icon ---
+
+    @(link_name = "g_emblemed_icon_get_icon")
+    emblemed_icon_get_icon :: proc(emblemed: ^EmblemedIcon) -> ^Icon ---
+
+    @(link_name = "g_emblemed_icon_get_emblems")
+    emblemed_icon_get_emblems :: proc(emblemed: ^EmblemedIcon) -> ^glib.List ---
+
+    @(link_name = "g_emblemed_icon_add_emblem")
+    emblemed_icon_add_emblem :: proc(emblemed: ^EmblemedIcon, emblem: ^Emblem) ---
+
+    @(link_name = "g_emblemed_icon_clear_emblems")
+    emblemed_icon_clear_emblems :: proc(emblemed: ^EmblemedIcon) ---
 
     @(link_name = "g_file_get_type")
     file_get_type :: proc() -> gobj.Type ---
 
+    @(link_name = "g_file_new_for_path")
+    file_new_for_path :: proc(path: cstring) -> ^File ---
+
+    @(link_name = "g_file_new_for_uri")
+    file_new_for_uri :: proc(uri: cstring) -> ^File ---
+
+    @(link_name = "g_file_new_for_commandline_arg")
+    file_new_for_commandline_arg :: proc(arg: cstring) -> ^File ---
+
+    @(link_name = "g_file_new_for_commandline_arg_and_cwd")
+    file_new_for_commandline_arg_and_cwd :: proc(arg: cstring, cwd: cstring) -> ^File ---
+
+    @(link_name = "g_file_new_tmp")
+    file_new_tmp :: proc(tmpl: cstring, iostream: ^^FileIOStream, error: ^^glib.Error) -> ^File ---
+
+    @(link_name = "g_file_new_tmp_async")
+    file_new_tmp_async :: proc(tmpl: cstring, io_priority: i32, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer) ---
+
+    @(link_name = "g_file_new_tmp_finish")
+    file_new_tmp_finish :: proc(result: ^AsyncResult, iostream: ^^FileIOStream, error: ^^glib.Error) -> ^File ---
+
+    @(link_name = "g_file_new_tmp_dir_async")
+    file_new_tmp_dir_async :: proc(tmpl: cstring, io_priority: i32, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer) ---
+
+    @(link_name = "g_file_new_tmp_dir_finish")
+    file_new_tmp_dir_finish :: proc(result: ^AsyncResult, error: ^^glib.Error) -> ^File ---
+
+    @(link_name = "g_file_parse_name")
+    file_parse_name :: proc(parse_name: cstring) -> ^File ---
+
+    @(link_name = "g_file_new_build_filename")
+    file_new_build_filename :: proc(first_element: cstring, #c_vararg var_args: ..any) -> ^File ---
+
+    @(link_name = "g_file_new_build_filenamev")
+    file_new_build_filenamev :: proc(args: [^]cstring) -> ^File ---
+
+    @(link_name = "g_file_dup")
+    file_dup :: proc(file: ^File) -> ^File ---
+
+    @(link_name = "g_file_hash")
+    file_hash :: proc(file: glib.constpointer) -> glib.uint_ ---
+
+    @(link_name = "g_file_equal")
+    file_equal :: proc(file1: ^File, file2: ^File) -> glib.boolean ---
+
+    @(link_name = "g_file_get_basename")
+    file_get_basename :: proc(file: ^File) -> cstring ---
+
+    @(link_name = "g_file_get_path")
+    file_get_path :: proc(file: ^File) -> cstring ---
+
+    @(link_name = "g_file_peek_path")
+    file_peek_path :: proc(file: ^File) -> cstring ---
+
+    @(link_name = "g_file_get_uri")
+    file_get_uri :: proc(file: ^File) -> cstring ---
+
+    @(link_name = "g_file_get_parse_name")
+    file_get_parse_name :: proc(file: ^File) -> cstring ---
+
+    @(link_name = "g_file_get_parent")
+    file_get_parent :: proc(file: ^File) -> ^File ---
+
+    @(link_name = "g_file_has_parent")
+    file_has_parent :: proc(file: ^File, parent: ^File) -> glib.boolean ---
+
+    @(link_name = "g_file_get_child")
+    file_get_child :: proc(file: ^File, name: cstring) -> ^File ---
+
+    @(link_name = "g_file_get_child_for_display_name")
+    file_get_child_for_display_name :: proc(file: ^File, display_name: cstring, error: ^^glib.Error) -> ^File ---
+
+    @(link_name = "g_file_has_prefix")
+    file_has_prefix :: proc(file: ^File, prefix: ^File) -> glib.boolean ---
+
+    @(link_name = "g_file_get_relative_path")
+    file_get_relative_path :: proc(parent: ^File, descendant: ^File) -> cstring ---
+
+    @(link_name = "g_file_resolve_relative_path")
+    file_resolve_relative_path :: proc(file: ^File, relative_path: cstring) -> ^File ---
+
+    @(link_name = "g_file_is_native")
+    file_is_native :: proc(file: ^File) -> glib.boolean ---
+
+    @(link_name = "g_file_has_uri_scheme")
+    file_has_uri_scheme :: proc(file: ^File, uri_scheme: cstring) -> glib.boolean ---
+
+    @(link_name = "g_file_get_uri_scheme")
+    file_get_uri_scheme :: proc(file: ^File) -> cstring ---
+
+    @(link_name = "g_file_read")
+    file_read :: proc(file: ^File, cancellable: ^Cancellable, error: ^^glib.Error) -> ^FileInputStream ---
+
+    @(link_name = "g_file_read_async")
+    file_read_async :: proc(file: ^File, io_priority: i32, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer) ---
+
+    @(link_name = "g_file_read_finish")
+    file_read_finish :: proc(file: ^File, res: [^]AsyncResult, error: ^^glib.Error) -> ^FileInputStream ---
+
+    @(link_name = "g_file_append_to")
+    file_append_to :: proc(file: ^File, flags: FileCreateFlags, cancellable: ^Cancellable, error: ^^glib.Error) -> ^FileOutputStream ---
+
+    @(link_name = "g_file_create")
+    file_create :: proc(file: ^File, flags: FileCreateFlags, cancellable: ^Cancellable, error: ^^glib.Error) -> ^FileOutputStream ---
+
+    @(link_name = "g_file_replace")
+    file_replace :: proc(file: ^File, etag: cstring, make_backup: glib.boolean, flags: FileCreateFlags, cancellable: ^Cancellable, error: ^^glib.Error) -> ^FileOutputStream ---
+
+    @(link_name = "g_file_append_to_async")
+    file_append_to_async :: proc(file: ^File, flags: FileCreateFlags, io_priority: i32, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer) ---
+
+    @(link_name = "g_file_append_to_finish")
+    file_append_to_finish :: proc(file: ^File, res: [^]AsyncResult, error: ^^glib.Error) -> ^FileOutputStream ---
+
+    @(link_name = "g_file_create_async")
+    file_create_async :: proc(file: ^File, flags: FileCreateFlags, io_priority: i32, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer) ---
+
+    @(link_name = "g_file_create_finish")
+    file_create_finish :: proc(file: ^File, res: [^]AsyncResult, error: ^^glib.Error) -> ^FileOutputStream ---
+
+    @(link_name = "g_file_replace_async")
+    file_replace_async :: proc(file: ^File, etag: cstring, make_backup: glib.boolean, flags: FileCreateFlags, io_priority: i32, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer) ---
+
+    @(link_name = "g_file_replace_finish")
+    file_replace_finish :: proc(file: ^File, res: [^]AsyncResult, error: ^^glib.Error) -> ^FileOutputStream ---
+
+    @(link_name = "g_file_open_readwrite")
+    file_open_readwrite :: proc(file: ^File, cancellable: ^Cancellable, error: ^^glib.Error) -> ^FileIOStream ---
+
+    @(link_name = "g_file_open_readwrite_async")
+    file_open_readwrite_async :: proc(file: ^File, io_priority: i32, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer) ---
+
+    @(link_name = "g_file_open_readwrite_finish")
+    file_open_readwrite_finish :: proc(file: ^File, res: [^]AsyncResult, error: ^^glib.Error) -> ^FileIOStream ---
+
+    @(link_name = "g_file_create_readwrite")
+    file_create_readwrite :: proc(file: ^File, flags: FileCreateFlags, cancellable: ^Cancellable, error: ^^glib.Error) -> ^FileIOStream ---
+
+    @(link_name = "g_file_create_readwrite_async")
+    file_create_readwrite_async :: proc(file: ^File, flags: FileCreateFlags, io_priority: i32, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer) ---
+
+    @(link_name = "g_file_create_readwrite_finish")
+    file_create_readwrite_finish :: proc(file: ^File, res: [^]AsyncResult, error: ^^glib.Error) -> ^FileIOStream ---
+
+    @(link_name = "g_file_replace_readwrite")
+    file_replace_readwrite :: proc(file: ^File, etag: cstring, make_backup: glib.boolean, flags: FileCreateFlags, cancellable: ^Cancellable, error: ^^glib.Error) -> ^FileIOStream ---
+
+    @(link_name = "g_file_replace_readwrite_async")
+    file_replace_readwrite_async :: proc(file: ^File, etag: cstring, make_backup: glib.boolean, flags: FileCreateFlags, io_priority: i32, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer) ---
+
+    @(link_name = "g_file_replace_readwrite_finish")
+    file_replace_readwrite_finish :: proc(file: ^File, res: [^]AsyncResult, error: ^^glib.Error) -> ^FileIOStream ---
+
+    @(link_name = "g_file_query_exists")
+    file_query_exists :: proc(file: ^File, cancellable: ^Cancellable) -> glib.boolean ---
+
+    @(link_name = "g_file_query_file_type")
+    file_query_file_type :: proc(file: ^File, flags: FileQueryInfoFlags, cancellable: ^Cancellable) -> FileType ---
+
+    @(link_name = "g_file_query_info")
+    file_query_info :: proc(file: ^File, attributes: cstring, flags: FileQueryInfoFlags, cancellable: ^Cancellable, error: ^^glib.Error) -> ^FileInfo ---
+
+    @(link_name = "g_file_query_info_async")
+    file_query_info_async :: proc(file: ^File, attributes: cstring, flags: FileQueryInfoFlags, io_priority: i32, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer) ---
+
+    @(link_name = "g_file_query_info_finish")
+    file_query_info_finish :: proc(file: ^File, res: [^]AsyncResult, error: ^^glib.Error) -> ^FileInfo ---
+
+    @(link_name = "g_file_query_filesystem_info")
+    file_query_filesystem_info :: proc(file: ^File, attributes: cstring, cancellable: ^Cancellable, error: ^^glib.Error) -> ^FileInfo ---
+
+    @(link_name = "g_file_query_filesystem_info_async")
+    file_query_filesystem_info_async :: proc(file: ^File, attributes: cstring, io_priority: i32, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer) ---
+
+    @(link_name = "g_file_query_filesystem_info_finish")
+    file_query_filesystem_info_finish :: proc(file: ^File, res: [^]AsyncResult, error: ^^glib.Error) -> ^FileInfo ---
+
+    @(link_name = "g_file_find_enclosing_mount")
+    file_find_enclosing_mount :: proc(file: ^File, cancellable: ^Cancellable, error: ^^glib.Error) -> ^Mount ---
+
+    @(link_name = "g_file_find_enclosing_mount_async")
+    file_find_enclosing_mount_async :: proc(file: ^File, io_priority: i32, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer) ---
+
+    @(link_name = "g_file_find_enclosing_mount_finish")
+    file_find_enclosing_mount_finish :: proc(file: ^File, res: [^]AsyncResult, error: ^^glib.Error) -> ^Mount ---
+
+    @(link_name = "g_file_enumerate_children")
+    file_enumerate_children :: proc(file: ^File, attributes: cstring, flags: FileQueryInfoFlags, cancellable: ^Cancellable, error: ^^glib.Error) -> ^FileEnumerator ---
+
+    @(link_name = "g_file_enumerate_children_async")
+    file_enumerate_children_async :: proc(file: ^File, attributes: cstring, flags: FileQueryInfoFlags, io_priority: i32, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer) ---
+
+    @(link_name = "g_file_enumerate_children_finish")
+    file_enumerate_children_finish :: proc(file: ^File, res: [^]AsyncResult, error: ^^glib.Error) -> ^FileEnumerator ---
+
+    @(link_name = "g_file_set_display_name")
+    file_set_display_name :: proc(file: ^File, display_name: cstring, cancellable: ^Cancellable, error: ^^glib.Error) -> ^File ---
+
+    @(link_name = "g_file_set_display_name_async")
+    file_set_display_name_async :: proc(file: ^File, display_name: cstring, io_priority: i32, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer) ---
+
+    @(link_name = "g_file_set_display_name_finish")
+    file_set_display_name_finish :: proc(file: ^File, res: [^]AsyncResult, error: ^^glib.Error) -> ^File ---
+
+    @(link_name = "g_file_delete")
+    file_delete :: proc(file: ^File, cancellable: ^Cancellable, error: ^^glib.Error) -> glib.boolean ---
+
+    @(link_name = "g_file_delete_async")
+    file_delete_async :: proc(file: ^File, io_priority: i32, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer) ---
+
+    @(link_name = "g_file_delete_finish")
+    file_delete_finish :: proc(file: ^File, result: ^AsyncResult, error: ^^glib.Error) -> glib.boolean ---
+
+    @(link_name = "g_file_trash")
+    file_trash :: proc(file: ^File, cancellable: ^Cancellable, error: ^^glib.Error) -> glib.boolean ---
+
+    @(link_name = "g_file_trash_async")
+    file_trash_async :: proc(file: ^File, io_priority: i32, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer) ---
+
+    @(link_name = "g_file_trash_finish")
+    file_trash_finish :: proc(file: ^File, result: ^AsyncResult, error: ^^glib.Error) -> glib.boolean ---
+
+    @(link_name = "g_file_copy")
+    file_copy :: proc(source: ^File, destination: ^File, flags: FileCopyFlags, cancellable: ^Cancellable, progress_callback: FileProgressCallback, progress_callback_data: glib.pointer, error: ^^glib.Error) -> glib.boolean ---
+
+    @(link_name = "g_file_copy_async")
+    file_copy_async :: proc(source: ^File, destination: ^File, flags: FileCopyFlags, io_priority: i32, cancellable: ^Cancellable, progress_callback: FileProgressCallback, progress_callback_data: glib.pointer, callback: AsyncReadyCallback, user_data: glib.pointer) ---
+
+    @(link_name = "g_file_copy_async_with_closures")
+    file_copy_async_with_closures :: proc(source: ^File, destination: ^File, flags: FileCopyFlags, io_priority: i32, cancellable: ^Cancellable, progress_callback_closure: ^gobj.Closure, ready_callback_closure: ^gobj.Closure) ---
+
+    @(link_name = "g_file_copy_finish")
+    file_copy_finish :: proc(file: ^File, res: [^]AsyncResult, error: ^^glib.Error) -> glib.boolean ---
+
+    @(link_name = "g_file_move")
+    file_move :: proc(source: ^File, destination: ^File, flags: FileCopyFlags, cancellable: ^Cancellable, progress_callback: FileProgressCallback, progress_callback_data: glib.pointer, error: ^^glib.Error) -> glib.boolean ---
+
+    @(link_name = "g_file_move_async")
+    file_move_async :: proc(source: ^File, destination: ^File, flags: FileCopyFlags, io_priority: i32, cancellable: ^Cancellable, progress_callback: FileProgressCallback, progress_callback_data: glib.pointer, callback: AsyncReadyCallback, user_data: glib.pointer) ---
+
+    @(link_name = "g_file_move_async_with_closures")
+    file_move_async_with_closures :: proc(source: ^File, destination: ^File, flags: FileCopyFlags, io_priority: i32, cancellable: ^Cancellable, progress_callback_closure: ^gobj.Closure, ready_callback_closure: ^gobj.Closure) ---
+
+    @(link_name = "g_file_move_finish")
+    file_move_finish :: proc(file: ^File, result: ^AsyncResult, error: ^^glib.Error) -> glib.boolean ---
+
+    @(link_name = "g_file_make_directory")
+    file_make_directory :: proc(file: ^File, cancellable: ^Cancellable, error: ^^glib.Error) -> glib.boolean ---
+
+    @(link_name = "g_file_make_directory_async")
+    file_make_directory_async :: proc(file: ^File, io_priority: i32, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer) ---
+
+    @(link_name = "g_file_make_directory_finish")
+    file_make_directory_finish :: proc(file: ^File, result: ^AsyncResult, error: ^^glib.Error) -> glib.boolean ---
+
+    @(link_name = "g_file_make_directory_with_parents")
+    file_make_directory_with_parents :: proc(file: ^File, cancellable: ^Cancellable, error: ^^glib.Error) -> glib.boolean ---
+
+    @(link_name = "g_file_make_symbolic_link")
+    file_make_symbolic_link :: proc(file: ^File, symlink_value: cstring, cancellable: ^Cancellable, error: ^^glib.Error) -> glib.boolean ---
+
+    @(link_name = "g_file_make_symbolic_link_async")
+    file_make_symbolic_link_async :: proc(file: ^File, symlink_value: cstring, io_priority: i32, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer) ---
+
+    @(link_name = "g_file_make_symbolic_link_finish")
+    file_make_symbolic_link_finish :: proc(file: ^File, result: ^AsyncResult, error: ^^glib.Error) -> glib.boolean ---
+
+    @(link_name = "g_file_query_settable_attributes")
+    file_query_settable_attributes :: proc(file: ^File, cancellable: ^Cancellable, error: ^^glib.Error) -> ^FileAttributeInfoList ---
+
+    @(link_name = "g_file_query_writable_namespaces")
+    file_query_writable_namespaces :: proc(file: ^File, cancellable: ^Cancellable, error: ^^glib.Error) -> ^FileAttributeInfoList ---
+
+    @(link_name = "g_file_set_attribute")
+    file_set_attribute :: proc(file: ^File, attribute: cstring, type: FileAttributeType, value_p: glib.pointer, flags: FileQueryInfoFlags, cancellable: ^Cancellable, error: ^^glib.Error) -> glib.boolean ---
+
+    @(link_name = "g_file_set_attributes_from_info")
+    file_set_attributes_from_info :: proc(file: ^File, info: ^FileInfo, flags: FileQueryInfoFlags, cancellable: ^Cancellable, error: ^^glib.Error) -> glib.boolean ---
+
+    @(link_name = "g_file_set_attributes_async")
+    file_set_attributes_async :: proc(file: ^File, info: ^FileInfo, flags: FileQueryInfoFlags, io_priority: i32, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer) ---
+
+    @(link_name = "g_file_set_attributes_finish")
+    file_set_attributes_finish :: proc(file: ^File, result: ^AsyncResult, info: ^^FileInfo, error: ^^glib.Error) -> glib.boolean ---
+
+    @(link_name = "g_file_set_attribute_string")
+    file_set_attribute_string :: proc(file: ^File, attribute: cstring, value: cstring, flags: FileQueryInfoFlags, cancellable: ^Cancellable, error: ^^glib.Error) -> glib.boolean ---
+
+    @(link_name = "g_file_set_attribute_byte_string")
+    file_set_attribute_byte_string :: proc(file: ^File, attribute: cstring, value: cstring, flags: FileQueryInfoFlags, cancellable: ^Cancellable, error: ^^glib.Error) -> glib.boolean ---
+
+    @(link_name = "g_file_set_attribute_uint32")
+    file_set_attribute_uint32 :: proc(file: ^File, attribute: cstring, value: glib.uint32, flags: FileQueryInfoFlags, cancellable: ^Cancellable, error: ^^glib.Error) -> glib.boolean ---
+
+    @(link_name = "g_file_set_attribute_int32")
+    file_set_attribute_int32 :: proc(file: ^File, attribute: cstring, value: glib.int32, flags: FileQueryInfoFlags, cancellable: ^Cancellable, error: ^^glib.Error) -> glib.boolean ---
+
+    @(link_name = "g_file_set_attribute_uint64")
+    file_set_attribute_uint64 :: proc(file: ^File, attribute: cstring, value: glib.uint64, flags: FileQueryInfoFlags, cancellable: ^Cancellable, error: ^^glib.Error) -> glib.boolean ---
+
+    @(link_name = "g_file_set_attribute_int64")
+    file_set_attribute_int64 :: proc(file: ^File, attribute: cstring, value: glib.int64, flags: FileQueryInfoFlags, cancellable: ^Cancellable, error: ^^glib.Error) -> glib.boolean ---
+
+    @(link_name = "g_file_mount_enclosing_volume")
+    file_mount_enclosing_volume :: proc(location: ^File, flags: MountMountFlags, mount_operation: ^MountOperation, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer) ---
+
+    @(link_name = "g_file_mount_enclosing_volume_finish")
+    file_mount_enclosing_volume_finish :: proc(location: ^File, result: ^AsyncResult, error: ^^glib.Error) -> glib.boolean ---
+
+    @(link_name = "g_file_mount_mountable")
+    file_mount_mountable :: proc(file: ^File, flags: MountMountFlags, mount_operation: ^MountOperation, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer) ---
+
+    @(link_name = "g_file_mount_mountable_finish")
+    file_mount_mountable_finish :: proc(file: ^File, result: ^AsyncResult, error: ^^glib.Error) -> ^File ---
+
+    @(link_name = "g_file_unmount_mountable")
+    file_unmount_mountable :: proc(file: ^File, flags: MountUnmountFlags, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer) ---
+
+    @(link_name = "g_file_unmount_mountable_finish")
+    file_unmount_mountable_finish :: proc(file: ^File, result: ^AsyncResult, error: ^^glib.Error) -> glib.boolean ---
+
+    @(link_name = "g_file_unmount_mountable_with_operation")
+    file_unmount_mountable_with_operation :: proc(file: ^File, flags: MountUnmountFlags, mount_operation: ^MountOperation, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer) ---
+
+    @(link_name = "g_file_unmount_mountable_with_operation_finish")
+    file_unmount_mountable_with_operation_finish :: proc(file: ^File, result: ^AsyncResult, error: ^^glib.Error) -> glib.boolean ---
+
+    @(link_name = "g_file_eject_mountable")
+    file_eject_mountable :: proc(file: ^File, flags: MountUnmountFlags, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer) ---
+
+    @(link_name = "g_file_eject_mountable_finish")
+    file_eject_mountable_finish :: proc(file: ^File, result: ^AsyncResult, error: ^^glib.Error) -> glib.boolean ---
+
+    @(link_name = "g_file_eject_mountable_with_operation")
+    file_eject_mountable_with_operation :: proc(file: ^File, flags: MountUnmountFlags, mount_operation: ^MountOperation, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer) ---
+
+    @(link_name = "g_file_eject_mountable_with_operation_finish")
+    file_eject_mountable_with_operation_finish :: proc(file: ^File, result: ^AsyncResult, error: ^^glib.Error) -> glib.boolean ---
+
+    @(link_name = "g_file_build_attribute_list_for_copy")
+    file_build_attribute_list_for_copy :: proc(file: ^File, flags: FileCopyFlags, cancellable: ^Cancellable, error: ^^glib.Error) -> cstring ---
+
+    @(link_name = "g_file_copy_attributes")
+    file_copy_attributes :: proc(source: ^File, destination: ^File, flags: FileCopyFlags, cancellable: ^Cancellable, error: ^^glib.Error) -> glib.boolean ---
+
+    @(link_name = "g_file_monitor_directory")
+    file_monitor_directory :: proc(file: ^File, flags: FileMonitorFlags, cancellable: ^Cancellable, error: ^^glib.Error) -> ^FileMonitor ---
+
+    @(link_name = "g_file_monitor_file")
+    file_monitor_file :: proc(file: ^File, flags: FileMonitorFlags, cancellable: ^Cancellable, error: ^^glib.Error) -> ^FileMonitor ---
+
+    @(link_name = "g_file_monitor")
+    file_monitor :: proc(file: ^File, flags: FileMonitorFlags, cancellable: ^Cancellable, error: ^^glib.Error) -> ^FileMonitor ---
+
+    @(link_name = "g_file_measure_disk_usage")
+    file_measure_disk_usage :: proc(file: ^File, flags: FileMeasureFlags, cancellable: ^Cancellable, progress_callback: FileMeasureProgressCallback, progress_data: glib.pointer, disk_usage: ^glib.uint64, num_dirs: [^]glib.uint64, num_files: [^]glib.uint64, error: ^^glib.Error) -> glib.boolean ---
+
+    @(link_name = "g_file_measure_disk_usage_async")
+    file_measure_disk_usage_async :: proc(file: ^File, flags: FileMeasureFlags, io_priority: glib.int_, cancellable: ^Cancellable, progress_callback: FileMeasureProgressCallback, progress_data: glib.pointer, callback: AsyncReadyCallback, user_data: glib.pointer) ---
+
+    @(link_name = "g_file_measure_disk_usage_finish")
+    file_measure_disk_usage_finish :: proc(file: ^File, result: ^AsyncResult, disk_usage: ^glib.uint64, num_dirs: [^]glib.uint64, num_files: [^]glib.uint64, error: ^^glib.Error) -> glib.boolean ---
+
+    @(link_name = "g_file_start_mountable")
+    file_start_mountable :: proc(file: ^File, flags: DriveStartFlags, start_operation: ^MountOperation, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer) ---
+
+    @(link_name = "g_file_start_mountable_finish")
+    file_start_mountable_finish :: proc(file: ^File, result: ^AsyncResult, error: ^^glib.Error) -> glib.boolean ---
+
+    @(link_name = "g_file_stop_mountable")
+    file_stop_mountable :: proc(file: ^File, flags: MountUnmountFlags, mount_operation: ^MountOperation, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer) ---
+
+    @(link_name = "g_file_stop_mountable_finish")
+    file_stop_mountable_finish :: proc(file: ^File, result: ^AsyncResult, error: ^^glib.Error) -> glib.boolean ---
+
+    @(link_name = "g_file_poll_mountable")
+    file_poll_mountable :: proc(file: ^File, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer) ---
+
+    @(link_name = "g_file_poll_mountable_finish")
+    file_poll_mountable_finish :: proc(file: ^File, result: ^AsyncResult, error: ^^glib.Error) -> glib.boolean ---
+
+    @(link_name = "g_file_query_default_handler")
+    file_query_default_handler :: proc(file: ^File, cancellable: ^Cancellable, error: ^^glib.Error) -> ^AppInfo ---
+
+    @(link_name = "g_file_query_default_handler_async")
+    file_query_default_handler_async :: proc(file: ^File, io_priority: i32, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer) ---
+
+    @(link_name = "g_file_query_default_handler_finish")
+    file_query_default_handler_finish :: proc(file: ^File, result: ^AsyncResult, error: ^^glib.Error) -> ^AppInfo ---
+
+    @(link_name = "g_file_load_contents")
+    file_load_contents :: proc(file: ^File, cancellable: ^Cancellable, contents: [^]cstring, length: ^glib.size, etag_out: ^cstring, error: ^^glib.Error) -> glib.boolean ---
+
+    @(link_name = "g_file_load_contents_async")
+    file_load_contents_async :: proc(file: ^File, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer) ---
+
+    @(link_name = "g_file_load_contents_finish")
+    file_load_contents_finish :: proc(file: ^File, res: [^]AsyncResult, contents: [^]cstring, length: ^glib.size, etag_out: ^cstring, error: ^^glib.Error) -> glib.boolean ---
+
+    @(link_name = "g_file_load_partial_contents_async")
+    file_load_partial_contents_async :: proc(file: ^File, cancellable: ^Cancellable, read_more_callback: FileReadMoreCallback, callback: AsyncReadyCallback, user_data: glib.pointer) ---
+
+    @(link_name = "g_file_load_partial_contents_finish")
+    file_load_partial_contents_finish :: proc(file: ^File, res: [^]AsyncResult, contents: [^]cstring, length: ^glib.size, etag_out: ^cstring, error: ^^glib.Error) -> glib.boolean ---
+
+    @(link_name = "g_file_replace_contents")
+    file_replace_contents :: proc(file: ^File, contents: cstring, length: glib.size, etag: cstring, make_backup: glib.boolean, flags: FileCreateFlags, new_etag: ^cstring, cancellable: ^Cancellable, error: ^^glib.Error) -> glib.boolean ---
+
+    @(link_name = "g_file_replace_contents_async")
+    file_replace_contents_async :: proc(file: ^File, contents: cstring, length: glib.size, etag: cstring, make_backup: glib.boolean, flags: FileCreateFlags, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer) ---
+
+    @(link_name = "g_file_replace_contents_bytes_async")
+    file_replace_contents_bytes_async :: proc(file: ^File, contents: [^]glib.Bytes, etag: cstring, make_backup: glib.boolean, flags: FileCreateFlags, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer) ---
+
+    @(link_name = "g_file_replace_contents_finish")
+    file_replace_contents_finish :: proc(file: ^File, res: [^]AsyncResult, new_etag: ^cstring, error: ^^glib.Error) -> glib.boolean ---
+
+    @(link_name = "g_file_supports_thread_contexts")
+    file_supports_thread_contexts :: proc(file: ^File) -> glib.boolean ---
+
+    @(link_name = "g_file_load_bytes")
+    file_load_bytes :: proc(file: ^File, cancellable: ^Cancellable, etag_out: ^cstring, error: ^^glib.Error) -> ^glib.Bytes ---
+
+    @(link_name = "g_file_load_bytes_async")
+    file_load_bytes_async :: proc(file: ^File, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer) ---
+
+    @(link_name = "g_file_load_bytes_finish")
+    file_load_bytes_finish :: proc(file: ^File, result: ^AsyncResult, etag_out: ^cstring, error: ^^glib.Error) -> ^glib.Bytes ---
+
     @(link_name = "g_file_attribute_info_list_get_type")
     file_attribute_info_list_get_type :: proc() -> gobj.Type ---
+
+    @(link_name = "g_file_attribute_info_list_new")
+    file_attribute_info_list_new :: proc() -> ^FileAttributeInfoList ---
+
+    @(link_name = "g_file_attribute_info_list_ref")
+    file_attribute_info_list_ref :: proc(list: ^FileAttributeInfoList) -> ^FileAttributeInfoList ---
+
+    @(link_name = "g_file_attribute_info_list_unref")
+    file_attribute_info_list_unref :: proc(list: ^FileAttributeInfoList) ---
+
+    @(link_name = "g_file_attribute_info_list_dup")
+    file_attribute_info_list_dup :: proc(list: ^FileAttributeInfoList) -> ^FileAttributeInfoList ---
+
+    @(link_name = "g_file_attribute_info_list_lookup")
+    file_attribute_info_list_lookup :: proc(list: ^FileAttributeInfoList, name: cstring) -> ^FileAttributeInfo ---
+
+    @(link_name = "g_file_attribute_info_list_add")
+    file_attribute_info_list_add :: proc(list: ^FileAttributeInfoList, name: cstring, type: FileAttributeType, flags: FileAttributeInfoFlags) ---
 
     @(link_name = "g_file_enumerator_get_type")
     file_enumerator_get_type :: proc() -> gobj.Type ---
 
+    @(link_name = "g_file_enumerator_next_file")
+    file_enumerator_next_file :: proc(enumerator: ^FileEnumerator, cancellable: ^Cancellable, error: ^^glib.Error) -> ^FileInfo ---
+
+    @(link_name = "g_file_enumerator_close")
+    file_enumerator_close :: proc(enumerator: ^FileEnumerator, cancellable: ^Cancellable, error: ^^glib.Error) -> glib.boolean ---
+
+    @(link_name = "g_file_enumerator_next_files_async")
+    file_enumerator_next_files_async :: proc(enumerator: ^FileEnumerator, num_files: i32, io_priority: i32, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer) ---
+
+    @(link_name = "g_file_enumerator_next_files_finish")
+    file_enumerator_next_files_finish :: proc(enumerator: ^FileEnumerator, result: ^AsyncResult, error: ^^glib.Error) -> ^glib.List ---
+
+    @(link_name = "g_file_enumerator_close_async")
+    file_enumerator_close_async :: proc(enumerator: ^FileEnumerator, io_priority: i32, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer) ---
+
+    @(link_name = "g_file_enumerator_close_finish")
+    file_enumerator_close_finish :: proc(enumerator: ^FileEnumerator, result: ^AsyncResult, error: ^^glib.Error) -> glib.boolean ---
+
+    @(link_name = "g_file_enumerator_is_closed")
+    file_enumerator_is_closed :: proc(enumerator: ^FileEnumerator) -> glib.boolean ---
+
+    @(link_name = "g_file_enumerator_has_pending")
+    file_enumerator_has_pending :: proc(enumerator: ^FileEnumerator) -> glib.boolean ---
+
+    @(link_name = "g_file_enumerator_set_pending")
+    file_enumerator_set_pending :: proc(enumerator: ^FileEnumerator, pending: glib.boolean) ---
+
+    @(link_name = "g_file_enumerator_get_container")
+    file_enumerator_get_container :: proc(enumerator: ^FileEnumerator) -> ^File ---
+
+    @(link_name = "g_file_enumerator_get_child")
+    file_enumerator_get_child :: proc(enumerator: ^FileEnumerator, info: ^FileInfo) -> ^File ---
+
+    @(link_name = "g_file_enumerator_iterate")
+    file_enumerator_iterate :: proc(direnum: ^FileEnumerator, out_info: ^^FileInfo, out_child: ^^File, cancellable: ^Cancellable, error: ^^glib.Error) -> glib.boolean ---
+
     @(link_name = "g_file_icon_get_type")
     file_icon_get_type :: proc() -> gobj.Type ---
+
+    @(link_name = "g_file_icon_new")
+    file_icon_new :: proc(file: ^File) -> ^Icon ---
+
+    @(link_name = "g_file_icon_get_file")
+    file_icon_get_file :: proc(icon: ^FileIcon) -> ^File ---
 
     @(link_name = "g_file_info_get_type")
     file_info_get_type :: proc() -> gobj.Type ---
 
+    @(link_name = "g_file_info_new")
+    file_info_new :: proc() -> ^FileInfo ---
+
+    @(link_name = "g_file_info_dup")
+    file_info_dup :: proc(other: ^FileInfo) -> ^FileInfo ---
+
+    @(link_name = "g_file_info_copy_into")
+    file_info_copy_into :: proc(src_info: ^FileInfo, dest_info: ^FileInfo) ---
+
+    @(link_name = "g_file_info_has_attribute")
+    file_info_has_attribute :: proc(info: ^FileInfo, attribute: cstring) -> glib.boolean ---
+
+    @(link_name = "g_file_info_has_namespace")
+    file_info_has_namespace :: proc(info: ^FileInfo, name_space: cstring) -> glib.boolean ---
+
+    @(link_name = "g_file_info_list_attributes")
+    file_info_list_attributes :: proc(info: ^FileInfo, name_space: cstring) -> ^cstring ---
+
+    @(link_name = "g_file_info_get_attribute_data")
+    file_info_get_attribute_data :: proc(info: ^FileInfo, attribute: cstring, type: ^FileAttributeType, value_pp: ^glib.pointer, status: [^]FileAttributeStatus) -> glib.boolean ---
+
+    @(link_name = "g_file_info_get_attribute_type")
+    file_info_get_attribute_type :: proc(info: ^FileInfo, attribute: cstring) -> FileAttributeType ---
+
+    @(link_name = "g_file_info_remove_attribute")
+    file_info_remove_attribute :: proc(info: ^FileInfo, attribute: cstring) ---
+
+    @(link_name = "g_file_info_get_attribute_status")
+    file_info_get_attribute_status :: proc(info: ^FileInfo, attribute: cstring) -> FileAttributeStatus ---
+
+    @(link_name = "g_file_info_set_attribute_status")
+    file_info_set_attribute_status :: proc(info: ^FileInfo, attribute: cstring, status: FileAttributeStatus) -> glib.boolean ---
+
+    @(link_name = "g_file_info_get_attribute_as_string")
+    file_info_get_attribute_as_string :: proc(info: ^FileInfo, attribute: cstring) -> cstring ---
+
+    @(link_name = "g_file_info_get_attribute_string")
+    file_info_get_attribute_string :: proc(info: ^FileInfo, attribute: cstring) -> cstring ---
+
+    @(link_name = "g_file_info_get_attribute_byte_string")
+    file_info_get_attribute_byte_string :: proc(info: ^FileInfo, attribute: cstring) -> cstring ---
+
+    @(link_name = "g_file_info_get_attribute_boolean")
+    file_info_get_attribute_boolean :: proc(info: ^FileInfo, attribute: cstring) -> glib.boolean ---
+
+    @(link_name = "g_file_info_get_attribute_uint32")
+    file_info_get_attribute_uint32 :: proc(info: ^FileInfo, attribute: cstring) -> glib.uint32 ---
+
+    @(link_name = "g_file_info_get_attribute_int32")
+    file_info_get_attribute_int32 :: proc(info: ^FileInfo, attribute: cstring) -> glib.int32 ---
+
+    @(link_name = "g_file_info_get_attribute_uint64")
+    file_info_get_attribute_uint64 :: proc(info: ^FileInfo, attribute: cstring) -> glib.uint64 ---
+
+    @(link_name = "g_file_info_get_attribute_int64")
+    file_info_get_attribute_int64 :: proc(info: ^FileInfo, attribute: cstring) -> glib.int64 ---
+
+    @(link_name = "g_file_info_get_attribute_object")
+    file_info_get_attribute_object :: proc(info: ^FileInfo, attribute: cstring) -> ^gobj.Object ---
+
+    @(link_name = "g_file_info_get_attribute_stringv")
+    file_info_get_attribute_stringv :: proc(info: ^FileInfo, attribute: cstring) -> ^cstring ---
+
+    @(link_name = "g_file_info_get_attribute_file_path")
+    file_info_get_attribute_file_path :: proc(info: ^FileInfo, attribute: cstring) -> cstring ---
+
+    @(link_name = "g_file_info_set_attribute")
+    file_info_set_attribute :: proc(info: ^FileInfo, attribute: cstring, type: FileAttributeType, value_p: glib.pointer) ---
+
+    @(link_name = "g_file_info_set_attribute_string")
+    file_info_set_attribute_string :: proc(info: ^FileInfo, attribute: cstring, attr_value: cstring) ---
+
+    @(link_name = "g_file_info_set_attribute_byte_string")
+    file_info_set_attribute_byte_string :: proc(info: ^FileInfo, attribute: cstring, attr_value: cstring) ---
+
+    @(link_name = "g_file_info_set_attribute_boolean")
+    file_info_set_attribute_boolean :: proc(info: ^FileInfo, attribute: cstring, attr_value: glib.boolean) ---
+
+    @(link_name = "g_file_info_set_attribute_uint32")
+    file_info_set_attribute_uint32 :: proc(info: ^FileInfo, attribute: cstring, attr_value: glib.uint32) ---
+
+    @(link_name = "g_file_info_set_attribute_int32")
+    file_info_set_attribute_int32 :: proc(info: ^FileInfo, attribute: cstring, attr_value: glib.int32) ---
+
+    @(link_name = "g_file_info_set_attribute_uint64")
+    file_info_set_attribute_uint64 :: proc(info: ^FileInfo, attribute: cstring, attr_value: glib.uint64) ---
+
+    @(link_name = "g_file_info_set_attribute_int64")
+    file_info_set_attribute_int64 :: proc(info: ^FileInfo, attribute: cstring, attr_value: glib.int64) ---
+
+    @(link_name = "g_file_info_set_attribute_object")
+    file_info_set_attribute_object :: proc(info: ^FileInfo, attribute: cstring, attr_value: ^gobj.Object) ---
+
+    @(link_name = "g_file_info_set_attribute_stringv")
+    file_info_set_attribute_stringv :: proc(info: ^FileInfo, attribute: cstring, attr_value: ^cstring) ---
+
+    @(link_name = "g_file_info_set_attribute_file_path")
+    file_info_set_attribute_file_path :: proc(info: ^FileInfo, attribute: cstring, attr_value: cstring) ---
+
+    @(link_name = "g_file_info_clear_status")
+    file_info_clear_status :: proc(info: ^FileInfo) ---
+
+    @(link_name = "g_file_info_get_deletion_date")
+    file_info_get_deletion_date :: proc(info: ^FileInfo) -> ^glib.DateTime ---
+
+    @(link_name = "g_file_info_get_file_type")
+    file_info_get_file_type :: proc(info: ^FileInfo) -> FileType ---
+
+    @(link_name = "g_file_info_get_is_hidden")
+    file_info_get_is_hidden :: proc(info: ^FileInfo) -> glib.boolean ---
+
+    @(link_name = "g_file_info_get_is_backup")
+    file_info_get_is_backup :: proc(info: ^FileInfo) -> glib.boolean ---
+
+    @(link_name = "g_file_info_get_is_symlink")
+    file_info_get_is_symlink :: proc(info: ^FileInfo) -> glib.boolean ---
+
+    @(link_name = "g_file_info_get_name")
+    file_info_get_name :: proc(info: ^FileInfo) -> cstring ---
+
+    @(link_name = "g_file_info_get_display_name")
+    file_info_get_display_name :: proc(info: ^FileInfo) -> cstring ---
+
+    @(link_name = "g_file_info_get_edit_name")
+    file_info_get_edit_name :: proc(info: ^FileInfo) -> cstring ---
+
+    @(link_name = "g_file_info_get_icon")
+    file_info_get_icon :: proc(info: ^FileInfo) -> ^Icon ---
+
+    @(link_name = "g_file_info_get_symbolic_icon")
+    file_info_get_symbolic_icon :: proc(info: ^FileInfo) -> ^Icon ---
+
+    @(link_name = "g_file_info_get_content_type")
+    file_info_get_content_type :: proc(info: ^FileInfo) -> cstring ---
+
+    @(link_name = "g_file_info_get_size")
+    file_info_get_size :: proc(info: ^FileInfo) -> glib.offset ---
+
+    @(link_name = "g_file_info_get_modification_time")
+    file_info_get_modification_time :: proc(info: ^FileInfo, result: ^glib.TimeVal) ---
+
+    @(link_name = "g_file_info_get_modification_date_time")
+    file_info_get_modification_date_time :: proc(info: ^FileInfo) -> ^glib.DateTime ---
+
+    @(link_name = "g_file_info_get_access_date_time")
+    file_info_get_access_date_time :: proc(info: ^FileInfo) -> ^glib.DateTime ---
+
+    @(link_name = "g_file_info_get_creation_date_time")
+    file_info_get_creation_date_time :: proc(info: ^FileInfo) -> ^glib.DateTime ---
+
+    @(link_name = "g_file_info_get_symlink_target")
+    file_info_get_symlink_target :: proc(info: ^FileInfo) -> cstring ---
+
+    @(link_name = "g_file_info_get_etag")
+    file_info_get_etag :: proc(info: ^FileInfo) -> cstring ---
+
+    @(link_name = "g_file_info_get_sort_order")
+    file_info_get_sort_order :: proc(info: ^FileInfo) -> glib.int32 ---
+
+    @(link_name = "g_file_info_set_attribute_mask")
+    file_info_set_attribute_mask :: proc(info: ^FileInfo, mask: ^FileAttributeMatcher) ---
+
+    @(link_name = "g_file_info_unset_attribute_mask")
+    file_info_unset_attribute_mask :: proc(info: ^FileInfo) ---
+
+    @(link_name = "g_file_info_set_file_type")
+    file_info_set_file_type :: proc(info: ^FileInfo, type: FileType) ---
+
+    @(link_name = "g_file_info_set_is_hidden")
+    file_info_set_is_hidden :: proc(info: ^FileInfo, is_hidden: glib.boolean) ---
+
+    @(link_name = "g_file_info_set_is_symlink")
+    file_info_set_is_symlink :: proc(info: ^FileInfo, is_symlink: glib.boolean) ---
+
+    @(link_name = "g_file_info_set_name")
+    file_info_set_name :: proc(info: ^FileInfo, name: cstring) ---
+
+    @(link_name = "g_file_info_set_display_name")
+    file_info_set_display_name :: proc(info: ^FileInfo, display_name: cstring) ---
+
+    @(link_name = "g_file_info_set_edit_name")
+    file_info_set_edit_name :: proc(info: ^FileInfo, edit_name: cstring) ---
+
+    @(link_name = "g_file_info_set_icon")
+    file_info_set_icon :: proc(info: ^FileInfo, icon: ^Icon) ---
+
+    @(link_name = "g_file_info_set_symbolic_icon")
+    file_info_set_symbolic_icon :: proc(info: ^FileInfo, icon: ^Icon) ---
+
+    @(link_name = "g_file_info_set_content_type")
+    file_info_set_content_type :: proc(info: ^FileInfo, content_type: cstring) ---
+
+    @(link_name = "g_file_info_set_size")
+    file_info_set_size :: proc(info: ^FileInfo, size_p: glib.offset) ---
+
+    @(link_name = "g_file_info_set_modification_time")
+    file_info_set_modification_time :: proc(info: ^FileInfo, mtime: ^glib.TimeVal) ---
+
+    @(link_name = "g_file_info_set_modification_date_time")
+    file_info_set_modification_date_time :: proc(info: ^FileInfo, mtime: ^glib.DateTime) ---
+
+    @(link_name = "g_file_info_set_access_date_time")
+    file_info_set_access_date_time :: proc(info: ^FileInfo, atime: ^glib.DateTime) ---
+
+    @(link_name = "g_file_info_set_creation_date_time")
+    file_info_set_creation_date_time :: proc(info: ^FileInfo, creation_time: ^glib.DateTime) ---
+
+    @(link_name = "g_file_info_set_symlink_target")
+    file_info_set_symlink_target :: proc(info: ^FileInfo, symlink_target: cstring) ---
+
+    @(link_name = "g_file_info_set_sort_order")
+    file_info_set_sort_order :: proc(info: ^FileInfo, sort_order: glib.int32) ---
+
     @(link_name = "g_file_attribute_matcher_get_type")
     file_attribute_matcher_get_type :: proc() -> gobj.Type ---
+
+    @(link_name = "g_file_attribute_matcher_new")
+    file_attribute_matcher_new :: proc(attributes: cstring) -> ^FileAttributeMatcher ---
+
+    @(link_name = "g_file_attribute_matcher_ref")
+    file_attribute_matcher_ref :: proc(matcher: ^FileAttributeMatcher) -> ^FileAttributeMatcher ---
+
+    @(link_name = "g_file_attribute_matcher_unref")
+    file_attribute_matcher_unref :: proc(matcher: ^FileAttributeMatcher) ---
+
+    @(link_name = "g_file_attribute_matcher_subtract")
+    file_attribute_matcher_subtract :: proc(matcher: ^FileAttributeMatcher, subtract: ^FileAttributeMatcher) -> ^FileAttributeMatcher ---
+
+    @(link_name = "g_file_attribute_matcher_matches")
+    file_attribute_matcher_matches :: proc(matcher: ^FileAttributeMatcher, attribute: cstring) -> glib.boolean ---
+
+    @(link_name = "g_file_attribute_matcher_matches_only")
+    file_attribute_matcher_matches_only :: proc(matcher: ^FileAttributeMatcher, attribute: cstring) -> glib.boolean ---
+
+    @(link_name = "g_file_attribute_matcher_enumerate_namespace")
+    file_attribute_matcher_enumerate_namespace :: proc(matcher: ^FileAttributeMatcher, ns: cstring) -> glib.boolean ---
+
+    @(link_name = "g_file_attribute_matcher_enumerate_next")
+    file_attribute_matcher_enumerate_next :: proc(matcher: ^FileAttributeMatcher) -> cstring ---
+
+    @(link_name = "g_file_attribute_matcher_to_string")
+    file_attribute_matcher_to_string :: proc(matcher: ^FileAttributeMatcher) -> cstring ---
 
     @(link_name = "g_file_input_stream_get_type")
     file_input_stream_get_type :: proc() -> gobj.Type ---
 
+    @(link_name = "g_file_input_stream_query_info")
+    file_input_stream_query_info :: proc(stream: ^FileInputStream, attributes: cstring, cancellable: ^Cancellable, error: ^^glib.Error) -> ^FileInfo ---
+
+    @(link_name = "g_file_input_stream_query_info_async")
+    file_input_stream_query_info_async :: proc(stream: ^FileInputStream, attributes: cstring, io_priority: i32, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer) ---
+
+    @(link_name = "g_file_input_stream_query_info_finish")
+    file_input_stream_query_info_finish :: proc(stream: ^FileInputStream, result: ^AsyncResult, error: ^^glib.Error) -> ^FileInfo ---
+
     @(link_name = "g_io_error_quark")
     io_error_quark :: proc() -> glib.Quark ---
+
+    @(link_name = "g_io_error_from_errno")
+    io_error_from_errno :: proc(err_no: glib.int_) -> IOErrorEnum ---
+
+    @(link_name = "g_io_error_from_file_error")
+    io_error_from_file_error :: proc(file_error: glib.FileError) -> IOErrorEnum ---
 
     @(link_name = "g_io_stream_get_type")
     io_stream_get_type :: proc() -> gobj.Type ---
 
+    @(link_name = "g_io_stream_get_input_stream")
+    io_stream_get_input_stream :: proc(stream: ^IOStream) -> ^InputStream ---
+
+    @(link_name = "g_io_stream_get_output_stream")
+    io_stream_get_output_stream :: proc(stream: ^IOStream) -> ^OutputStream ---
+
+    @(link_name = "g_io_stream_splice_async")
+    io_stream_splice_async :: proc(stream1: ^IOStream, stream2: ^IOStream, flags: IOStreamSpliceFlags, io_priority: i32, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer) ---
+
+    @(link_name = "g_io_stream_splice_finish")
+    io_stream_splice_finish :: proc(result: ^AsyncResult, error: ^^glib.Error) -> glib.boolean ---
+
+    @(link_name = "g_io_stream_close")
+    io_stream_close :: proc(stream: ^IOStream, cancellable: ^Cancellable, error: ^^glib.Error) -> glib.boolean ---
+
+    @(link_name = "g_io_stream_close_async")
+    io_stream_close_async :: proc(stream: ^IOStream, io_priority: i32, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer) ---
+
+    @(link_name = "g_io_stream_close_finish")
+    io_stream_close_finish :: proc(stream: ^IOStream, result: ^AsyncResult, error: ^^glib.Error) -> glib.boolean ---
+
+    @(link_name = "g_io_stream_is_closed")
+    io_stream_is_closed :: proc(stream: ^IOStream) -> glib.boolean ---
+
+    @(link_name = "g_io_stream_has_pending")
+    io_stream_has_pending :: proc(stream: ^IOStream) -> glib.boolean ---
+
+    @(link_name = "g_io_stream_set_pending")
+    io_stream_set_pending :: proc(stream: ^IOStream, error: ^^glib.Error) -> glib.boolean ---
+
+    @(link_name = "g_io_stream_clear_pending")
+    io_stream_clear_pending :: proc(stream: ^IOStream) ---
+
     @(link_name = "g_file_io_stream_get_type")
     file_io_stream_get_type :: proc() -> gobj.Type ---
+
+    @(link_name = "g_file_io_stream_query_info")
+    file_io_stream_query_info :: proc(stream: ^FileIOStream, attributes: cstring, cancellable: ^Cancellable, error: ^^glib.Error) -> ^FileInfo ---
+
+    @(link_name = "g_file_io_stream_query_info_async")
+    file_io_stream_query_info_async :: proc(stream: ^FileIOStream, attributes: cstring, io_priority: i32, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer) ---
+
+    @(link_name = "g_file_io_stream_query_info_finish")
+    file_io_stream_query_info_finish :: proc(stream: ^FileIOStream, result: ^AsyncResult, error: ^^glib.Error) -> ^FileInfo ---
+
+    @(link_name = "g_file_io_stream_get_etag")
+    file_io_stream_get_etag :: proc(stream: ^FileIOStream) -> cstring ---
 
     @(link_name = "g_file_monitor_get_type")
     file_monitor_get_type :: proc() -> gobj.Type ---
 
+    @(link_name = "g_file_monitor_cancel")
+    file_monitor_cancel :: proc(monitor: ^FileMonitor) -> glib.boolean ---
+
+    @(link_name = "g_file_monitor_is_cancelled")
+    file_monitor_is_cancelled :: proc(monitor: ^FileMonitor) -> glib.boolean ---
+
+    @(link_name = "g_file_monitor_set_rate_limit")
+    file_monitor_set_rate_limit :: proc(monitor: ^FileMonitor, limit_msecs: glib.int_) ---
+
+    @(link_name = "g_file_monitor_emit_event")
+    file_monitor_emit_event :: proc(monitor: ^FileMonitor, child: ^File, other_file: ^File, event_type: FileMonitorEvent) ---
+
     @(link_name = "g_filename_completer_get_type")
     filename_completer_get_type :: proc() -> gobj.Type ---
+
+    @(link_name = "g_filename_completer_new")
+    filename_completer_new :: proc() -> ^FilenameCompleter ---
+
+    @(link_name = "g_filename_completer_get_completion_suffix")
+    filename_completer_get_completion_suffix :: proc(completer: ^FilenameCompleter, initial_text: cstring) -> cstring ---
+
+    @(link_name = "g_filename_completer_get_completions")
+    filename_completer_get_completions :: proc(completer: ^FilenameCompleter, initial_text: cstring) -> ^cstring ---
+
+    @(link_name = "g_filename_completer_set_dirs_only")
+    filename_completer_set_dirs_only :: proc(completer: ^FilenameCompleter, dirs_only: glib.boolean) ---
 
     @(link_name = "g_file_output_stream_get_type")
     file_output_stream_get_type :: proc() -> gobj.Type ---
 
+    @(link_name = "g_file_output_stream_query_info")
+    file_output_stream_query_info :: proc(stream: ^FileOutputStream, attributes: cstring, cancellable: ^Cancellable, error: ^^glib.Error) -> ^FileInfo ---
+
+    @(link_name = "g_file_output_stream_query_info_async")
+    file_output_stream_query_info_async :: proc(stream: ^FileOutputStream, attributes: cstring, io_priority: i32, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer) ---
+
+    @(link_name = "g_file_output_stream_query_info_finish")
+    file_output_stream_query_info_finish :: proc(stream: ^FileOutputStream, result: ^AsyncResult, error: ^^glib.Error) -> ^FileInfo ---
+
+    @(link_name = "g_file_output_stream_get_etag")
+    file_output_stream_get_etag :: proc(stream: ^FileOutputStream) -> cstring ---
+
     @(link_name = "g_inet_address_get_type")
     inet_address_get_type :: proc() -> gobj.Type ---
+
+    @(link_name = "g_inet_address_new_from_string")
+    inet_address_new_from_string :: proc(string_p: cstring) -> ^InetAddress ---
+
+    @(link_name = "g_inet_address_new_from_bytes")
+    inet_address_new_from_bytes :: proc(bytes: [^]glib.uint8, family: SocketFamily) -> ^InetAddress ---
+
+    @(link_name = "g_inet_address_new_loopback")
+    inet_address_new_loopback :: proc(family: SocketFamily) -> ^InetAddress ---
+
+    @(link_name = "g_inet_address_new_any")
+    inet_address_new_any :: proc(family: SocketFamily) -> ^InetAddress ---
+
+    @(link_name = "g_inet_address_equal")
+    inet_address_equal :: proc(address: [^]InetAddress, other_address: [^]InetAddress) -> glib.boolean ---
+
+    @(link_name = "g_inet_address_to_string")
+    inet_address_to_string :: proc(address: [^]InetAddress) -> cstring ---
+
+    @(link_name = "g_inet_address_to_bytes")
+    inet_address_to_bytes :: proc(address: [^]InetAddress) -> ^glib.uint8 ---
+
+    @(link_name = "g_inet_address_get_native_size")
+    inet_address_get_native_size :: proc(address: [^]InetAddress) -> glib.size ---
+
+    @(link_name = "g_inet_address_get_family")
+    inet_address_get_family :: proc(address: [^]InetAddress) -> SocketFamily ---
+
+    @(link_name = "g_inet_address_get_is_any")
+    inet_address_get_is_any :: proc(address: [^]InetAddress) -> glib.boolean ---
+
+    @(link_name = "g_inet_address_get_is_loopback")
+    inet_address_get_is_loopback :: proc(address: [^]InetAddress) -> glib.boolean ---
+
+    @(link_name = "g_inet_address_get_is_link_local")
+    inet_address_get_is_link_local :: proc(address: [^]InetAddress) -> glib.boolean ---
+
+    @(link_name = "g_inet_address_get_is_site_local")
+    inet_address_get_is_site_local :: proc(address: [^]InetAddress) -> glib.boolean ---
+
+    @(link_name = "g_inet_address_get_is_multicast")
+    inet_address_get_is_multicast :: proc(address: [^]InetAddress) -> glib.boolean ---
+
+    @(link_name = "g_inet_address_get_is_mc_global")
+    inet_address_get_is_mc_global :: proc(address: [^]InetAddress) -> glib.boolean ---
+
+    @(link_name = "g_inet_address_get_is_mc_link_local")
+    inet_address_get_is_mc_link_local :: proc(address: [^]InetAddress) -> glib.boolean ---
+
+    @(link_name = "g_inet_address_get_is_mc_node_local")
+    inet_address_get_is_mc_node_local :: proc(address: [^]InetAddress) -> glib.boolean ---
+
+    @(link_name = "g_inet_address_get_is_mc_org_local")
+    inet_address_get_is_mc_org_local :: proc(address: [^]InetAddress) -> glib.boolean ---
+
+    @(link_name = "g_inet_address_get_is_mc_site_local")
+    inet_address_get_is_mc_site_local :: proc(address: [^]InetAddress) -> glib.boolean ---
 
     @(link_name = "g_inet_address_mask_get_type")
     inet_address_mask_get_type :: proc() -> gobj.Type ---
 
+    @(link_name = "g_inet_address_mask_new")
+    inet_address_mask_new :: proc(addr: ^InetAddress, length: glib.uint_, error: ^^glib.Error) -> ^InetAddressMask ---
+
+    @(link_name = "g_inet_address_mask_new_from_string")
+    inet_address_mask_new_from_string :: proc(mask_string: cstring, error: ^^glib.Error) -> ^InetAddressMask ---
+
+    @(link_name = "g_inet_address_mask_to_string")
+    inet_address_mask_to_string :: proc(mask: ^InetAddressMask) -> cstring ---
+
+    @(link_name = "g_inet_address_mask_get_family")
+    inet_address_mask_get_family :: proc(mask: ^InetAddressMask) -> SocketFamily ---
+
+    @(link_name = "g_inet_address_mask_get_address")
+    inet_address_mask_get_address :: proc(mask: ^InetAddressMask) -> ^InetAddress ---
+
+    @(link_name = "g_inet_address_mask_get_length")
+    inet_address_mask_get_length :: proc(mask: ^InetAddressMask) -> glib.uint_ ---
+
+    @(link_name = "g_inet_address_mask_matches")
+    inet_address_mask_matches :: proc(mask: ^InetAddressMask, address: [^]InetAddress) -> glib.boolean ---
+
+    @(link_name = "g_inet_address_mask_equal")
+    inet_address_mask_equal :: proc(mask: ^InetAddressMask, mask2: ^InetAddressMask) -> glib.boolean ---
+
     @(link_name = "g_socket_address_get_type")
     socket_address_get_type :: proc() -> gobj.Type ---
 
+    @(link_name = "g_socket_address_get_family")
+    socket_address_get_family :: proc(address: [^]SocketAddress) -> SocketFamily ---
+
+    @(link_name = "g_socket_address_new_from_native")
+    socket_address_new_from_native :: proc(native: glib.pointer, len: glib.size) -> ^SocketAddress ---
+
+    @(link_name = "g_socket_address_to_native")
+    socket_address_to_native :: proc(address: [^]SocketAddress, dest: glib.pointer, destlen: glib.size, error: ^^glib.Error) -> glib.boolean ---
+
+    @(link_name = "g_socket_address_get_native_size")
+    socket_address_get_native_size :: proc(address: [^]SocketAddress) -> glib.ssize ---
+
     @(link_name = "g_inet_socket_address_get_type")
     inet_socket_address_get_type :: proc() -> gobj.Type ---
+
+    @(link_name = "g_inet_socket_address_new")
+    inet_socket_address_new :: proc(address: [^]InetAddress, port: glib.uint16) -> ^SocketAddress ---
+
+    @(link_name = "g_inet_socket_address_new_from_string")
+    inet_socket_address_new_from_string :: proc(address: cstring, port: glib.uint_) -> ^SocketAddress ---
+
+    @(link_name = "g_inet_socket_address_get_address")
+    inet_socket_address_get_address :: proc(address: [^]InetSocketAddress) -> ^InetAddress ---
+
+    @(link_name = "g_inet_socket_address_get_port")
+    inet_socket_address_get_port :: proc(address: [^]InetSocketAddress) -> glib.uint16 ---
+
+    @(link_name = "g_inet_socket_address_get_flowinfo")
+    inet_socket_address_get_flowinfo :: proc(address: [^]InetSocketAddress) -> glib.uint32 ---
+
+    @(link_name = "g_inet_socket_address_get_scope_id")
+    inet_socket_address_get_scope_id :: proc(address: [^]InetSocketAddress) -> glib.uint32 ---
 
     @(link_name = "g_app_info_create_flags_get_type")
     app_info_create_flags_get_type :: proc() -> gobj.Type ---
@@ -4164,3129 +7035,6 @@ foreign libgio2 {
     @(link_name = "g_settings_bind_flags_get_type")
     settings_bind_flags_get_type :: proc() -> gobj.Type ---
 
-    @(link_name = "g_io_module_get_type")
-    io_module_get_type :: proc() -> gobj.Type ---
-
-    @(link_name = "g_list_model_get_type")
-    list_model_get_type :: proc() -> gobj.Type ---
-
-    @(link_name = "g_list_store_get_type")
-    list_store_get_type :: proc() -> gobj.Type ---
-
-    @(link_name = "g_loadable_icon_get_type")
-    loadable_icon_get_type :: proc() -> gobj.Type ---
-
-    @(link_name = "g_memory_input_stream_get_type")
-    memory_input_stream_get_type :: proc() -> gobj.Type ---
-
-    @(link_name = "g_memory_monitor_get_type")
-    memory_monitor_get_type :: proc() -> gobj.Type ---
-
-    @(link_name = "g_memory_output_stream_get_type")
-    memory_output_stream_get_type :: proc() -> gobj.Type ---
-
-    @(link_name = "g_menu_model_get_type")
-    menu_model_get_type :: proc() -> gobj.Type ---
-
-    @(link_name = "g_menu_attribute_iter_get_type")
-    menu_attribute_iter_get_type :: proc() -> gobj.Type ---
-
-    @(link_name = "g_menu_link_iter_get_type")
-    menu_link_iter_get_type :: proc() -> gobj.Type ---
-
-    @(link_name = "g_menu_get_type")
-    menu_get_type :: proc() -> gobj.Type ---
-
-    @(link_name = "g_menu_item_get_type")
-    menu_item_get_type :: proc() -> gobj.Type ---
-
-    @(link_name = "g_mount_get_type")
-    mount_get_type :: proc() -> gobj.Type ---
-
-   @(link_name = "g_mount_operation_get_type")
-    mount_operation_get_type :: proc() -> gobj.Type ---
-
-    @(link_name = "g_native_socket_address_get_type")
-    native_socket_address_get_type :: proc() -> gobj.Type ---
-
-    @(link_name = "g_volume_monitor_get_type")
-    volume_monitor_get_type :: proc() -> gobj.Type ---
-
-    @(link_name = "g_native_volume_monitor_get_type")
-    native_volume_monitor_get_type :: proc() -> gobj.Type ---
-
-    @(link_name = "g_network_address_get_type")
-    network_address_get_type :: proc() -> gobj.Type ---
-
-    @(link_name = "g_network_monitor_get_type")
-    network_monitor_get_type :: proc() -> gobj.Type ---
-
-    @(link_name = "g_network_service_get_type")
-    network_service_get_type :: proc() -> gobj.Type ---
-
-    @(link_name = "g_notification_get_type")
-    notification_get_type :: proc() -> gobj.Type ---
-
-    @(link_name = "g_permission_get_type")
-    permission_get_type :: proc() -> gobj.Type ---
-
-    @(link_name = "g_pollable_input_stream_get_type")
-    pollable_input_stream_get_type :: proc() -> gobj.Type ---
-
-    @(link_name = "g_pollable_output_stream_get_type")
-    pollable_output_stream_get_type :: proc() -> gobj.Type ---
-
-    @(link_name = "g_power_profile_monitor_get_type")
-    power_profile_monitor_get_type :: proc() -> gobj.Type ---
-
-    @(link_name = "g_property_action_get_type")
-    property_action_get_type :: proc() -> gobj.Type ---
-
-    @(link_name = "g_proxy_get_type")
-    proxy_get_type :: proc() -> gobj.Type ---
-
-    @(link_name = "g_proxy_address_get_type")
-    proxy_address_get_type :: proc() -> gobj.Type ---
-
-    @(link_name = "g_socket_address_enumerator_get_type")
-    socket_address_enumerator_get_type :: proc() -> gobj.Type ---
-
-    @(link_name = "g_proxy_address_enumerator_get_type")
-    proxy_address_enumerator_get_type :: proc() -> gobj.Type ---
-
-    @(link_name = "g_proxy_resolver_get_type")
-    proxy_resolver_get_type :: proc() -> gobj.Type ---
-
-    @(link_name = "g_remote_action_group_get_type")
-    remote_action_group_get_type :: proc() -> gobj.Type ---
-
-    @(link_name = "g_resolver_get_type")
-    resolver_get_type :: proc() -> gobj.Type ---
-
-    @(link_name = "g_resolver_error_quark")
-    resolver_error_quark :: proc() -> glib.Quark ---
-
-    @(link_name = "g_resource_get_type")
-    resource_get_type :: proc() -> gobj.Type ---
-
-    @(link_name = "g_resource_error_quark")
-    resource_error_quark :: proc() -> glib.Quark ---
-
-    @(link_name = "g_seekable_get_type")
-    seekable_get_type :: proc() -> gobj.Type ---
-
-    @(link_name = "g_settings_schema_source_get_type")
-    settings_schema_source_get_type :: proc() -> gobj.Type ---
-
-    @(link_name = "g_settings_schema_get_type")
-    settings_schema_get_type :: proc() -> gobj.Type ---
-
-    @(link_name = "g_settings_schema_key_get_type")
-    settings_schema_key_get_type :: proc() -> gobj.Type ---
-
-    @(link_name = "g_settings_get_type")
-    settings_get_type :: proc() -> gobj.Type ---
-
-    @(link_name = "g_simple_action_get_type")
-    simple_action_get_type :: proc() -> gobj.Type ---
-
-    @(link_name = "g_simple_action_group_get_type")
-    simple_action_group_get_type :: proc() -> gobj.Type ---
-
-    @(link_name = "g_simple_async_result_get_type")
-    simple_async_result_get_type :: proc() -> gobj.Type ---
-
-    @(link_name = "g_simple_io_stream_get_type")
-    simple_io_stream_get_type :: proc() -> gobj.Type ---
-
-    @(link_name = "g_simple_permission_get_type")
-    simple_permission_get_type :: proc() -> gobj.Type ---
-
-    @(link_name = "g_simple_proxy_resolver_get_type")
-    simple_proxy_resolver_get_type :: proc() -> gobj.Type ---
-
-    @(link_name = "g_socket_get_type")
-    socket_get_type :: proc() -> gobj.Type ---
-
-    @(link_name = "g_socket_client_get_type")
-    socket_client_get_type :: proc() -> gobj.Type ---
-
-    @(link_name = "g_socket_connectable_get_type")
-    socket_connectable_get_type :: proc() -> gobj.Type ---
-
-    @(link_name = "g_socket_connection_get_type")
-    socket_connection_get_type :: proc() -> gobj.Type ---
-
-    @(link_name = "g_socket_control_message_get_type")
-    socket_control_message_get_type :: proc() -> gobj.Type ---
-
-    @(link_name = "g_socket_listener_get_type")
-    socket_listener_get_type :: proc() -> gobj.Type ---
-
-    @(link_name = "g_socket_service_get_type")
-    socket_service_get_type :: proc() -> gobj.Type ---
-
-    @(link_name = "g_srv_target_get_type")
-    srv_target_get_type :: proc() -> gobj.Type ---
-
-    @(link_name = "g_subprocess_get_type")
-    subprocess_get_type :: proc() -> gobj.Type ---
-
-    @(link_name = "g_subprocess_launcher_get_type")
-    subprocess_launcher_get_type :: proc() -> gobj.Type ---
-
-    @(link_name = "g_task_get_type")
-    task_get_type :: proc() -> gobj.Type ---
-
-    @(link_name = "g_tcp_connection_get_type")
-    tcp_connection_get_type :: proc() -> gobj.Type ---
-
-    @(link_name = "g_tcp_wrapper_connection_get_type")
-    tcp_wrapper_connection_get_type :: proc() -> gobj.Type ---
-
-    @(link_name = "g_test_dbus_get_type")
-    test_dbus_get_type :: proc() -> gobj.Type ---
-
-    @(link_name = "g_themed_icon_get_type")
-    themed_icon_get_type :: proc() -> gobj.Type ---
-
-    @(link_name = "g_threaded_socket_service_get_type")
-    threaded_socket_service_get_type :: proc() -> gobj.Type ---
-
-    @(link_name = "g_tls_backend_get_type")
-    tls_backend_get_type :: proc() -> gobj.Type ---
-
-    @(link_name = "g_tls_certificate_get_type")
-    tls_certificate_get_type :: proc() -> gobj.Type ---
-
-    @(link_name = "g_tls_connection_get_type")
-    tls_connection_get_type :: proc() -> gobj.Type ---
-
-    @(link_name = "g_tls_error_quark")
-    tls_error_quark :: proc() -> glib.Quark ---
-
-    @(link_name = "g_tls_channel_binding_error_quark")
-    tls_channel_binding_error_quark :: proc() -> glib.Quark ---
-
-    @(link_name = "g_tls_client_connection_get_type")
-    tls_client_connection_get_type :: proc() -> gobj.Type ---
-
-    @(link_name = "g_tls_database_get_type")
-    tls_database_get_type :: proc() -> gobj.Type ---
-
-    @(link_name = "g_tls_file_database_get_type")
-    tls_file_database_get_type :: proc() -> gobj.Type ---
-
-    @(link_name = "g_tls_interaction_get_type")
-    tls_interaction_get_type :: proc() -> gobj.Type ---
-
-    @(link_name = "g_tls_password_get_type")
-    tls_password_get_type :: proc() -> gobj.Type ---
-
-    @(link_name = "g_tls_server_connection_get_type")
-    tls_server_connection_get_type :: proc() -> gobj.Type ---
-
-    @(link_name = "g_unix_connection_get_type")
-    unix_connection_get_type :: proc() -> gobj.Type ---
-
-    @(link_name = "g_unix_credentials_message_get_type")
-    unix_credentials_message_get_type :: proc() -> gobj.Type ---
-
-    @(link_name = "g_unix_fd_list_get_type")
-    unix_fd_list_get_type :: proc() -> gobj.Type ---
-
-    @(link_name = "g_unix_socket_address_get_type")
-    unix_socket_address_get_type :: proc() -> gobj.Type ---
-
-    @(link_name = "g_vfs_get_type")
-    vfs_get_type :: proc() -> gobj.Type ---
-
-    @(link_name = "g_volume_get_type")
-    volume_get_type :: proc() -> gobj.Type ---
-
-    @(link_name = "g_zlib_compressor_get_type")
-    zlib_compressor_get_type :: proc() -> gobj.Type ---
-
-    @(link_name = "g_zlib_decompressor_get_type")
-    zlib_decompressor_get_type :: proc() -> gobj.Type ---
-
-    @(link_name = "g_application_run")
-    application_run :: proc(application: ^Application, argc: i32, argv: ^cstring) -> i32 ---
-
-    @(link_name = "g_file_new_for_path")
-    file_new_for_path :: proc(path: cstring) -> ^File ---
-
-    @(link_name = "g_file_new_for_uri")
-    file_new_for_uri :: proc(uri: cstring) -> ^File ---
-
-    @(link_name = "g_file_query_exists")
-    file_query_exists :: proc(file: ^File, cancellable: ^Cancellable) -> glib.boolean ---
-
-    @(link_name = "g_file_enumerate_children")
-    file_enumerate_children :: proc(file: ^File, attributes: cstring, flags: FileQueryInfoFlags, cancellable: ^Cancellable, error: ^^glib.Error) -> ^FileEnumerator ---
-
-    @(link_name = "g_file_enumerator_next_file")
-    file_enumerator_next_file :: proc(enumerator: ^FileEnumerator, cancellable: ^Cancellable, error: ^^glib.Error) -> ^FileInfo ---
-
-    @(link_name = "g_file_enumerator_close")
-    file_enumerator_close :: proc(enumerator: ^FileEnumerator, cancellable: ^Cancellable, error: ^^glib.Error) -> glib.boolean ---
-
-    @(link_name = "g_file_info_get_name")
-    file_info_get_name :: proc(info: ^FileInfo) -> cstring ---
-
-    @(link_name = "g_file_info_get_display_name")
-    file_info_get_display_name :: proc(info: ^FileInfo) -> cstring ---
-
-    @(link_name = "g_file_info_get_edit_name")
-    file_info_get_edit_name :: proc(info: ^FileInfo) -> cstring ---
-
-    @(link_name = "g_file_load_bytes")
-    file_load_bytes :: proc(file: ^File, cancellable: ^Cancellable, etag_out: ^cstring, error: ^^glib.Error) -> ^glib.Bytes ---
-
-}// libgio2
-
-
-/*
-@(default_calling_convention = "c")
-foreign gio_runic {
-
-@(link_name = "g_action_get_name")
-    action_get_name :: proc(action: ^Action) -> cstring ---
-
-    @(link_name = "g_action_get_parameter_type")
-    action_get_parameter_type :: proc(action: ^Action) -> ^glib.VariantType ---
-
-    @(link_name = "g_action_get_state_type")
-    action_get_state_type :: proc(action: ^Action) -> ^glib.VariantType ---
-
-    @(link_name = "g_action_get_state_hint")
-    action_get_state_hint :: proc(action: ^Action) -> ^glib.Variant ---
-
-    @(link_name = "g_action_get_enabled")
-    action_get_enabled :: proc(action: ^Action) -> glib.boolean ---
-
-    @(link_name = "g_action_get_state")
-    action_get_state :: proc(action: ^Action) -> ^glib.Variant ---
-
-    @(link_name = "g_action_change_state")
-    action_change_state :: proc(action: ^Action, value: ^glib.Variant) ---
-
-    @(link_name = "g_action_activate")
-    action_activate :: proc(action: ^Action, parameter: ^glib.Variant) ---
-
-    @(link_name = "g_action_name_is_valid")
-    action_name_is_valid :: proc(action_name: cstring) -> glib.boolean ---
-
-    @(link_name = "g_action_parse_detailed_name")
-    action_parse_detailed_name :: proc(detailed_name: cstring, action_name: ^cstring, target_value: ^^glib.Variant, error: ^^glib.Error) -> glib.boolean ---
-
-    @(link_name = "g_action_print_detailed_name")
-    action_print_detailed_name :: proc(action_name: cstring, target_value: ^glib.Variant) -> cstring ---
-
-    @(link_name = "g_action_group_has_action")
-    action_group_has_action :: proc(action_group: ^ActionGroup, action_name: cstring) -> glib.boolean ---
-
-    @(link_name = "g_action_group_list_actions")
-    action_group_list_actions :: proc(action_group: ^ActionGroup) -> ^cstring ---
-
-    @(link_name = "g_action_group_get_action_parameter_type")
-    action_group_get_action_parameter_type :: proc(action_group: ^ActionGroup, action_name: cstring) -> ^glib.VariantType ---
-
-    @(link_name = "g_action_group_get_action_state_type")
-    action_group_get_action_state_type :: proc(action_group: ^ActionGroup, action_name: cstring) -> ^glib.VariantType ---
-
-    @(link_name = "g_action_group_get_action_state_hint")
-    action_group_get_action_state_hint :: proc(action_group: ^ActionGroup, action_name: cstring) -> ^glib.Variant ---
-
-    @(link_name = "g_action_group_get_action_enabled")
-    action_group_get_action_enabled :: proc(action_group: ^ActionGroup, action_name: cstring) -> glib.boolean ---
-
-    @(link_name = "g_action_group_get_action_state")
-    action_group_get_action_state :: proc(action_group: ^ActionGroup, action_name: cstring) -> ^glib.Variant ---
-
-    @(link_name = "g_action_group_change_action_state")
-    action_group_change_action_state :: proc(action_group: ^ActionGroup, action_name: cstring, value: ^glib.Variant) ---
-
-    @(link_name = "g_action_group_activate_action")
-    action_group_activate_action :: proc(action_group: ^ActionGroup, action_name: cstring, parameter: ^glib.Variant) ---
-
-    @(link_name = "g_action_group_action_added")
-    action_group_action_added :: proc(action_group: ^ActionGroup, action_name: cstring) ---
-
-    @(link_name = "g_action_group_action_removed")
-    action_group_action_removed :: proc(action_group: ^ActionGroup, action_name: cstring) ---
-
-    @(link_name = "g_action_group_action_enabled_changed")
-    action_group_action_enabled_changed :: proc(action_group: ^ActionGroup, action_name: cstring, enabled: glib.boolean) ---
-
-    @(link_name = "g_action_group_action_state_changed")
-    action_group_action_state_changed :: proc(action_group: ^ActionGroup, action_name: cstring, state: ^glib.Variant) ---
-
-    @(link_name = "g_action_group_query_action")
-    action_group_query_action :: proc(action_group: ^ActionGroup, action_name: cstring, enabled: ^glib.boolean, parameter_type: ^^glib.VariantType, state_type: ^^glib.VariantType, state_hint: ^^glib.Variant, state: ^^glib.Variant) -> glib.boolean ---
-
-    @(link_name = "g_dbus_connection_export_action_group")
-    dbus_connection_export_action_group :: proc(connection: ^DBusConnection, object_path: cstring, action_group: ^ActionGroup, error: ^^glib.Error) -> glib.uint_ ---
-
-    @(link_name = "g_dbus_connection_unexport_action_group")
-    dbus_connection_unexport_action_group :: proc(connection: ^DBusConnection, export_id: glib.uint_) ---
-
-    @(link_name = "g_action_map_lookup_action")
-    action_map_lookup_action :: proc(action_map: ^ActionMap, action_name: cstring) -> ^Action ---
-
-    @(link_name = "g_action_map_add_action")
-    action_map_add_action :: proc(action_map: ^ActionMap, action: ^Action) ---
-
-    @(link_name = "g_action_map_remove_action")
-    action_map_remove_action :: proc(action_map: ^ActionMap, action_name: cstring) ---
-
-    @(link_name = "g_action_map_add_action_entries")
-    action_map_add_action_entries :: proc(action_map: ^ActionMap, entries: [^]ActionEntry, n_entries: glib.int_, user_data: glib.pointer) ---
-
-    @(link_name = "g_action_map_remove_action_entries")
-    action_map_remove_action_entries :: proc(action_map: ^ActionMap, entries: [^]ActionEntry, n_entries: glib.int_) ---
-
-    @(link_name = "g_app_info_create_from_commandline")
-    app_info_create_from_commandline :: proc(commandline: cstring, application_name: cstring, flags: AppInfoCreateFlags, error: ^^glib.Error) -> ^AppInfo ---
-
-    @(link_name = "g_app_info_dup")
-    app_info_dup :: proc(appinfo: ^AppInfo) -> ^AppInfo ---
-
-    @(link_name = "g_app_info_equal")
-    app_info_equal :: proc(appinfo1: ^AppInfo, appinfo2: ^AppInfo) -> glib.boolean ---
-
-    @(link_name = "g_app_info_get_id")
-    app_info_get_id :: proc(appinfo: ^AppInfo) -> cstring ---
-
-    @(link_name = "g_app_info_get_name")
-    app_info_get_name :: proc(appinfo: ^AppInfo) -> cstring ---
-
-    @(link_name = "g_app_info_get_display_name")
-    app_info_get_display_name :: proc(appinfo: ^AppInfo) -> cstring ---
-
-    @(link_name = "g_app_info_get_description")
-    app_info_get_description :: proc(appinfo: ^AppInfo) -> cstring ---
-
-    @(link_name = "g_app_info_get_executable")
-    app_info_get_executable :: proc(appinfo: ^AppInfo) -> cstring ---
-
-    @(link_name = "g_app_info_get_commandline")
-    app_info_get_commandline :: proc(appinfo: ^AppInfo) -> cstring ---
-
-    @(link_name = "g_app_info_get_icon")
-    app_info_get_icon :: proc(appinfo: ^AppInfo) -> ^Icon ---
-
-    @(link_name = "g_app_info_launch")
-    app_info_launch :: proc(appinfo: ^AppInfo, files: [^]glib.List, context_p: ^AppLaunchContext, error: ^^glib.Error) -> glib.boolean ---
-
-    @(link_name = "g_app_info_supports_uris")
-    app_info_supports_uris :: proc(appinfo: ^AppInfo) -> glib.boolean ---
-
-    @(link_name = "g_app_info_supports_files")
-    app_info_supports_files :: proc(appinfo: ^AppInfo) -> glib.boolean ---
-
-    @(link_name = "g_app_info_launch_uris")
-    app_info_launch_uris :: proc(appinfo: ^AppInfo, uris: [^]glib.List, context_p: ^AppLaunchContext, error: ^^glib.Error) -> glib.boolean ---
-
-    @(link_name = "g_app_info_launch_uris_async")
-    app_info_launch_uris_async :: proc(appinfo: ^AppInfo, uris: [^]glib.List, context_p: ^AppLaunchContext, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer) ---
-
-    @(link_name = "g_app_info_launch_uris_finish")
-    app_info_launch_uris_finish :: proc(appinfo: ^AppInfo, result: ^AsyncResult, error: ^^glib.Error) -> glib.boolean ---
-
-    @(link_name = "g_app_info_should_show")
-    app_info_should_show :: proc(appinfo: ^AppInfo) -> glib.boolean ---
-
-    @(link_name = "g_app_info_set_as_default_for_type")
-    app_info_set_as_default_for_type :: proc(appinfo: ^AppInfo, content_type: cstring, error: ^^glib.Error) -> glib.boolean ---
-
-    @(link_name = "g_app_info_set_as_default_for_extension")
-    app_info_set_as_default_for_extension :: proc(appinfo: ^AppInfo, extension: cstring, error: ^^glib.Error) -> glib.boolean ---
-
-    @(link_name = "g_app_info_add_supports_type")
-    app_info_add_supports_type :: proc(appinfo: ^AppInfo, content_type: cstring, error: ^^glib.Error) -> glib.boolean ---
-
-    @(link_name = "g_app_info_can_remove_supports_type")
-    app_info_can_remove_supports_type :: proc(appinfo: ^AppInfo) -> glib.boolean ---
-
-    @(link_name = "g_app_info_remove_supports_type")
-    app_info_remove_supports_type :: proc(appinfo: ^AppInfo, content_type: cstring, error: ^^glib.Error) -> glib.boolean ---
-
-    @(link_name = "g_app_info_get_supported_types")
-    app_info_get_supported_types :: proc(appinfo: ^AppInfo) -> ^cstring ---
-
-    @(link_name = "g_app_info_can_delete")
-    app_info_can_delete :: proc(appinfo: ^AppInfo) -> glib.boolean ---
-
-    @(link_name = "g_app_info_delete")
-    app_info_delete :: proc(appinfo: ^AppInfo) -> glib.boolean ---
-
-    @(link_name = "g_app_info_set_as_last_used_for_type")
-    app_info_set_as_last_used_for_type :: proc(appinfo: ^AppInfo, content_type: cstring, error: ^^glib.Error) -> glib.boolean ---
-
-    @(link_name = "g_app_info_get_all")
-    app_info_get_all :: proc() -> ^glib.List ---
-
-    @(link_name = "g_app_info_get_all_for_type")
-    app_info_get_all_for_type :: proc(content_type: cstring) -> ^glib.List ---
-
-    @(link_name = "g_app_info_get_recommended_for_type")
-    app_info_get_recommended_for_type :: proc(content_type: cstring) -> ^glib.List ---
-
-    @(link_name = "g_app_info_get_fallback_for_type")
-    app_info_get_fallback_for_type :: proc(content_type: cstring) -> ^glib.List ---
-
-    @(link_name = "g_app_info_reset_type_associations")
-    app_info_reset_type_associations :: proc(content_type: cstring) ---
-
-    @(link_name = "g_app_info_get_default_for_type")
-    app_info_get_default_for_type :: proc(content_type: cstring, must_support_uris: glib.boolean) -> ^AppInfo ---
-
-    @(link_name = "g_app_info_get_default_for_type_async")
-    app_info_get_default_for_type_async :: proc(content_type: cstring, must_support_uris: glib.boolean, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer) ---
-
-    @(link_name = "g_app_info_get_default_for_type_finish")
-    app_info_get_default_for_type_finish :: proc(result: ^AsyncResult, error: ^^glib.Error) -> ^AppInfo ---
-
-    @(link_name = "g_app_info_get_default_for_uri_scheme")
-    app_info_get_default_for_uri_scheme :: proc(uri_scheme: cstring) -> ^AppInfo ---
-
-    @(link_name = "g_app_info_get_default_for_uri_scheme_async")
-    app_info_get_default_for_uri_scheme_async :: proc(uri_scheme: cstring, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer) ---
-
-    @(link_name = "g_app_info_get_default_for_uri_scheme_finish")
-    app_info_get_default_for_uri_scheme_finish :: proc(result: ^AsyncResult, error: ^^glib.Error) -> ^AppInfo ---
-
-    @(link_name = "g_app_info_launch_default_for_uri")
-    app_info_launch_default_for_uri :: proc(uri: cstring, context_p: ^AppLaunchContext, error: ^^glib.Error) -> glib.boolean ---
-
-    @(link_name = "g_app_info_launch_default_for_uri_async")
-    app_info_launch_default_for_uri_async :: proc(uri: cstring, context_p: ^AppLaunchContext, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer) ---
-
-    @(link_name = "g_app_info_launch_default_for_uri_finish")
-    app_info_launch_default_for_uri_finish :: proc(result: ^AsyncResult, error: ^^glib.Error) -> glib.boolean ---
-
-    @(link_name = "g_app_launch_context_new")
-    app_launch_context_new :: proc() -> ^AppLaunchContext ---
-
-    @(link_name = "g_app_launch_context_setenv")
-    app_launch_context_setenv :: proc(context_p: ^AppLaunchContext, variable: cstring, value: cstring) ---
-
-    @(link_name = "g_app_launch_context_unsetenv")
-    app_launch_context_unsetenv :: proc(context_p: ^AppLaunchContext, variable: cstring) ---
-
-    @(link_name = "g_app_launch_context_get_environment")
-    app_launch_context_get_environment :: proc(context_p: ^AppLaunchContext) -> ^cstring ---
-
-    @(link_name = "g_app_launch_context_get_display")
-    app_launch_context_get_display :: proc(context_p: ^AppLaunchContext, info: ^AppInfo, files: [^]glib.List) -> cstring ---
-
-    @(link_name = "g_app_launch_context_get_startup_notify_id")
-    app_launch_context_get_startup_notify_id :: proc(context_p: ^AppLaunchContext, info: ^AppInfo, files: [^]glib.List) -> cstring ---
-
-    @(link_name = "g_app_launch_context_launch_failed")
-    app_launch_context_launch_failed :: proc(context_p: ^AppLaunchContext, startup_notify_id: cstring) ---
-
-    @(link_name = "g_app_info_monitor_get")
-    app_info_monitor_get :: proc() -> ^AppInfoMonitor ---
-
-    @(link_name = "g_application_id_is_valid")
-    application_id_is_valid :: proc(application_id: cstring) -> glib.boolean ---
-
-    @(link_name = "g_application_new")
-    application_new :: proc(application_id: cstring, flags: ApplicationFlags) -> ^Application ---
-
-    @(link_name = "g_application_get_application_id")
-    application_get_application_id :: proc(application: ^Application) -> cstring ---
-
-    @(link_name = "g_application_set_application_id")
-    application_set_application_id :: proc(application: ^Application, application_id: cstring) ---
-
-    @(link_name = "g_application_get_version")
-    application_get_version :: proc(application: ^Application) -> cstring ---
-
-    @(link_name = "g_application_set_version")
-    application_set_version :: proc(application: ^Application, version: cstring) ---
-
-    @(link_name = "g_application_get_dbus_connection")
-    application_get_dbus_connection :: proc(application: ^Application) -> ^DBusConnection ---
-
-    @(link_name = "g_application_get_dbus_object_path")
-    application_get_dbus_object_path :: proc(application: ^Application) -> cstring ---
-
-    @(link_name = "g_application_get_inactivity_timeout")
-    application_get_inactivity_timeout :: proc(application: ^Application) -> glib.uint_ ---
-
-    @(link_name = "g_application_set_inactivity_timeout")
-    application_set_inactivity_timeout :: proc(application: ^Application, inactivity_timeout: glib.uint_) ---
-
-    @(link_name = "g_application_get_flags")
-    application_get_flags :: proc(application: ^Application) -> ApplicationFlags ---
-
-    @(link_name = "g_application_set_flags")
-    application_set_flags :: proc(application: ^Application, flags: ApplicationFlags) ---
-
-    @(link_name = "g_application_get_resource_base_path")
-    application_get_resource_base_path :: proc(application: ^Application) -> cstring ---
-
-    @(link_name = "g_application_set_resource_base_path")
-    application_set_resource_base_path :: proc(application: ^Application, resource_path: cstring) ---
-
-    @(link_name = "g_application_set_action_group")
-    application_set_action_group :: proc(application: ^Application, action_group: ^ActionGroup) ---
-
-    @(link_name = "g_application_add_main_option_entries")
-    application_add_main_option_entries :: proc(application: ^Application, entries: [^]glib.OptionEntry) ---
-
-    @(link_name = "g_application_add_main_option")
-    application_add_main_option :: proc(application: ^Application, long_name: cstring, short_name: glib.char, flags: glib.OptionFlags, arg: glib.OptionArg, description: cstring, arg_description: cstring) ---
-
-    @(link_name = "g_application_add_option_group")
-    application_add_option_group :: proc(application: ^Application, group: ^glib.OptionGroup) ---
-
-    @(link_name = "g_application_set_option_context_parameter_string")
-    application_set_option_context_parameter_string :: proc(application: ^Application, parameter_string: cstring) ---
-
-    @(link_name = "g_application_set_option_context_summary")
-    application_set_option_context_summary :: proc(application: ^Application, summary: cstring) ---
-
-    @(link_name = "g_application_set_option_context_description")
-    application_set_option_context_description :: proc(application: ^Application, description: cstring) ---
-
-    @(link_name = "g_application_get_is_registered")
-    application_get_is_registered :: proc(application: ^Application) -> glib.boolean ---
-
-    @(link_name = "g_application_get_is_remote")
-    application_get_is_remote :: proc(application: ^Application) -> glib.boolean ---
-
-    @(link_name = "g_application_register")
-    application_register :: proc(application: ^Application, cancellable: ^Cancellable, error: ^^glib.Error) -> glib.boolean ---
-
-    @(link_name = "g_application_hold")
-    application_hold :: proc(application: ^Application) ---
-
-    @(link_name = "g_application_release")
-    application_release :: proc(application: ^Application) ---
-
-    @(link_name = "g_application_activate")
-    application_activate :: proc(application: ^Application) ---
-
-    @(link_name = "g_application_open")
-    application_open :: proc(application: ^Application, files: [^]^File, n_files: glib.int_, hint: cstring) ---
-
-    @(link_name = "g_application_quit")
-    application_quit :: proc(application: ^Application) ---
-
-    @(link_name = "g_application_get_default")
-    application_get_default :: proc() -> ^Application ---
-
-    @(link_name = "g_application_set_default")
-    application_set_default :: proc(application: ^Application) ---
-
-    @(link_name = "g_application_mark_busy")
-    application_mark_busy :: proc(application: ^Application) ---
-
-    @(link_name = "g_application_unmark_busy")
-    application_unmark_busy :: proc(application: ^Application) ---
-
-    @(link_name = "g_application_get_is_busy")
-    application_get_is_busy :: proc(application: ^Application) -> glib.boolean ---
-
-    @(link_name = "g_application_send_notification")
-    application_send_notification :: proc(application: ^Application, id: cstring, notification: ^Notification) ---
-
-    @(link_name = "g_application_withdraw_notification")
-    application_withdraw_notification :: proc(application: ^Application, id: cstring) ---
-
-    @(link_name = "g_application_bind_busy_property")
-    application_bind_busy_property :: proc(application: ^Application, object: glib.pointer, property: cstring) ---
-
-    @(link_name = "g_application_unbind_busy_property")
-    application_unbind_busy_property :: proc(application: ^Application, object: glib.pointer, property: cstring) ---
-
-    @(link_name = "g_application_command_line_get_arguments")
-    application_command_line_get_arguments :: proc(cmdline: ^ApplicationCommandLine, argc: ^i32) -> ^cstring ---
-
-    @(link_name = "g_application_command_line_get_options_dict")
-    application_command_line_get_options_dict :: proc(cmdline: ^ApplicationCommandLine) -> ^glib.VariantDict ---
-
-    @(link_name = "g_application_command_line_get_stdin")
-    application_command_line_get_stdin :: proc(cmdline: ^ApplicationCommandLine) -> ^InputStream ---
-
-    @(link_name = "g_application_command_line_get_environ")
-    application_command_line_get_environ :: proc(cmdline: ^ApplicationCommandLine) -> ^cstring ---
-
-    @(link_name = "g_application_command_line_getenv")
-    application_command_line_getenv :: proc(cmdline: ^ApplicationCommandLine, name: cstring) -> cstring ---
-
-    @(link_name = "g_application_command_line_get_cwd")
-    application_command_line_get_cwd :: proc(cmdline: ^ApplicationCommandLine) -> cstring ---
-
-    @(link_name = "g_application_command_line_get_is_remote")
-    application_command_line_get_is_remote :: proc(cmdline: ^ApplicationCommandLine) -> glib.boolean ---
-
-    @(link_name = "g_application_command_line_print_literal")
-    application_command_line_print_literal :: proc(cmdline: ^ApplicationCommandLine, message: cstring) ---
-
-    @(link_name = "g_application_command_line_printerr_literal")
-    application_command_line_printerr_literal :: proc(cmdline: ^ApplicationCommandLine, message: cstring) ---
-
-    @(link_name = "g_application_command_line_print")
-    application_command_line_print :: proc(cmdline: ^ApplicationCommandLine, format: cstring, #c_vararg var_args: ..any) ---
-
-    @(link_name = "g_application_command_line_printerr")
-    application_command_line_printerr :: proc(cmdline: ^ApplicationCommandLine, format: cstring, #c_vararg var_args: ..any) ---
-
-    @(link_name = "g_application_command_line_get_exit_status")
-    application_command_line_get_exit_status :: proc(cmdline: ^ApplicationCommandLine) -> i32 ---
-
-    @(link_name = "g_application_command_line_set_exit_status")
-    application_command_line_set_exit_status :: proc(cmdline: ^ApplicationCommandLine, exit_status: i32) ---
-
-    @(link_name = "g_application_command_line_get_platform_data")
-    application_command_line_get_platform_data :: proc(cmdline: ^ApplicationCommandLine) -> ^glib.Variant ---
-
-    @(link_name = "g_application_command_line_create_file_for_arg")
-    application_command_line_create_file_for_arg :: proc(cmdline: ^ApplicationCommandLine, arg: cstring) -> ^File ---
-
-    @(link_name = "g_application_command_line_done")
-    application_command_line_done :: proc(cmdline: ^ApplicationCommandLine) ---
-
-    @(link_name = "g_initable_init")
-    initable_init :: proc(initable: ^Initable, cancellable: ^Cancellable, error: ^^glib.Error) -> glib.boolean ---
-
-    @(link_name = "g_initable_new")
-    initable_new :: proc(object_type: gobj.Type, cancellable: ^Cancellable, error: ^^glib.Error, first_property_name: cstring, #c_vararg var_args: ..any) -> glib.pointer ---
-
-    @(link_name = "g_initable_newv")
-    initable_newv :: proc(object_type: gobj.Type, n_parameters: glib.uint_, parameters: [^]gobj.Parameter, cancellable: ^Cancellable, error: ^^glib.Error) -> glib.pointer ---
-
-    @(link_name = "g_initable_new_valist")
-    initable_new_valist :: proc(object_type: gobj.Type, first_property_name: cstring, var_args: libc.va_list, cancellable: ^Cancellable, error: ^^glib.Error) -> ^gobj.Object ---
-
-    @(link_name = "g_async_initable_init_async")
-    async_initable_init_async :: proc(initable: ^AsyncInitable, io_priority: i32, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer) ---
-
-    @(link_name = "g_async_initable_init_finish")
-    async_initable_init_finish :: proc(initable: ^AsyncInitable, res: [^]AsyncResult, error: ^^glib.Error) -> glib.boolean ---
-
-    @(link_name = "g_async_initable_new_async")
-    async_initable_new_async :: proc(object_type: gobj.Type, io_priority: i32, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer, first_property_name: cstring, #c_vararg var_args: ..any) ---
-
-    @(link_name = "g_async_initable_newv_async")
-    async_initable_newv_async :: proc(object_type: gobj.Type, n_parameters: glib.uint_, parameters: [^]gobj.Parameter, io_priority: i32, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer) ---
-
-    @(link_name = "g_async_initable_new_valist_async")
-    async_initable_new_valist_async :: proc(object_type: gobj.Type, first_property_name: cstring, var_args: libc.va_list, io_priority: i32, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer) ---
-
-    @(link_name = "g_async_initable_new_finish")
-    async_initable_new_finish :: proc(initable: ^AsyncInitable, res: [^]AsyncResult, error: ^^glib.Error) -> ^gobj.Object ---
-
-    @(link_name = "g_async_result_get_user_data")
-    async_result_get_user_data :: proc(res: [^]AsyncResult) -> glib.pointer ---
-
-    @(link_name = "g_async_result_get_source_object")
-    async_result_get_source_object :: proc(res: [^]AsyncResult) -> ^gobj.Object ---
-
-    @(link_name = "g_async_result_legacy_propagate_error")
-    async_result_legacy_propagate_error :: proc(res: [^]AsyncResult, error: ^^glib.Error) -> glib.boolean ---
-
-    @(link_name = "g_async_result_is_tagged")
-    async_result_is_tagged :: proc(res: [^]AsyncResult, source_tag: glib.pointer) -> glib.boolean ---
-
-    @(link_name = "g_input_stream_read")
-    input_stream_read :: proc(stream: ^InputStream, buffer: rawptr, count: glib.size, cancellable: ^Cancellable, error: ^^glib.Error) -> glib.ssize ---
-
-    @(link_name = "g_input_stream_read_all")
-    input_stream_read_all :: proc(stream: ^InputStream, buffer: rawptr, count: glib.size, bytes_read: ^glib.size, cancellable: ^Cancellable, error: ^^glib.Error) -> glib.boolean ---
-
-    @(link_name = "g_input_stream_read_bytes")
-    input_stream_read_bytes :: proc(stream: ^InputStream, count: glib.size, cancellable: ^Cancellable, error: ^^glib.Error) -> ^glib.Bytes ---
-
-    @(link_name = "g_input_stream_skip")
-    input_stream_skip :: proc(stream: ^InputStream, count: glib.size, cancellable: ^Cancellable, error: ^^glib.Error) -> glib.ssize ---
-
-    @(link_name = "g_input_stream_close")
-    input_stream_close :: proc(stream: ^InputStream, cancellable: ^Cancellable, error: ^^glib.Error) -> glib.boolean ---
-
-    @(link_name = "g_input_stream_read_async")
-    input_stream_read_async :: proc(stream: ^InputStream, buffer: rawptr, count: glib.size, io_priority: i32, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer) ---
-
-    @(link_name = "g_input_stream_read_finish")
-    input_stream_read_finish :: proc(stream: ^InputStream, result: ^AsyncResult, error: ^^glib.Error) -> glib.ssize ---
-
-    @(link_name = "g_input_stream_read_all_async")
-    input_stream_read_all_async :: proc(stream: ^InputStream, buffer: rawptr, count: glib.size, io_priority: i32, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer) ---
-
-    @(link_name = "g_input_stream_read_all_finish")
-    input_stream_read_all_finish :: proc(stream: ^InputStream, result: ^AsyncResult, bytes_read: ^glib.size, error: ^^glib.Error) -> glib.boolean ---
-
-    @(link_name = "g_input_stream_read_bytes_async")
-    input_stream_read_bytes_async :: proc(stream: ^InputStream, count: glib.size, io_priority: i32, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer) ---
-
-    @(link_name = "g_input_stream_read_bytes_finish")
-    input_stream_read_bytes_finish :: proc(stream: ^InputStream, result: ^AsyncResult, error: ^^glib.Error) -> ^glib.Bytes ---
-
-    @(link_name = "g_input_stream_skip_async")
-    input_stream_skip_async :: proc(stream: ^InputStream, count: glib.size, io_priority: i32, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer) ---
-
-    @(link_name = "g_input_stream_skip_finish")
-    input_stream_skip_finish :: proc(stream: ^InputStream, result: ^AsyncResult, error: ^^glib.Error) -> glib.ssize ---
-
-    @(link_name = "g_input_stream_close_async")
-    input_stream_close_async :: proc(stream: ^InputStream, io_priority: i32, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer) ---
-
-    @(link_name = "g_input_stream_close_finish")
-    input_stream_close_finish :: proc(stream: ^InputStream, result: ^AsyncResult, error: ^^glib.Error) -> glib.boolean ---
-
-    @(link_name = "g_input_stream_is_closed")
-    input_stream_is_closed :: proc(stream: ^InputStream) -> glib.boolean ---
-
-    @(link_name = "g_input_stream_has_pending")
-    input_stream_has_pending :: proc(stream: ^InputStream) -> glib.boolean ---
-
-    @(link_name = "g_input_stream_set_pending")
-    input_stream_set_pending :: proc(stream: ^InputStream, error: ^^glib.Error) -> glib.boolean ---
-
-    @(link_name = "g_input_stream_clear_pending")
-    input_stream_clear_pending :: proc(stream: ^InputStream) ---
-
-    @(link_name = "g_filter_input_stream_get_base_stream")
-    filter_input_stream_get_base_stream :: proc(stream: ^FilterInputStream) -> ^InputStream ---
-
-    @(link_name = "g_filter_input_stream_get_close_base_stream")
-    filter_input_stream_get_close_base_stream :: proc(stream: ^FilterInputStream) -> glib.boolean ---
-
-    @(link_name = "g_filter_input_stream_set_close_base_stream")
-    filter_input_stream_set_close_base_stream :: proc(stream: ^FilterInputStream, close_base: glib.boolean) ---
-
-    @(link_name = "g_buffered_input_stream_new")
-    buffered_input_stream_new :: proc(base_stream: ^InputStream) -> ^InputStream ---
-
-    @(link_name = "g_buffered_input_stream_new_sized")
-    buffered_input_stream_new_sized :: proc(base_stream: ^InputStream, size_p: glib.size) -> ^InputStream ---
-
-    @(link_name = "g_buffered_input_stream_get_buffer_size")
-    buffered_input_stream_get_buffer_size :: proc(stream: ^BufferedInputStream) -> glib.size ---
-
-    @(link_name = "g_buffered_input_stream_set_buffer_size")
-    buffered_input_stream_set_buffer_size :: proc(stream: ^BufferedInputStream, size_p: glib.size) ---
-
-    @(link_name = "g_buffered_input_stream_get_available")
-    buffered_input_stream_get_available :: proc(stream: ^BufferedInputStream) -> glib.size ---
-
-    @(link_name = "g_buffered_input_stream_peek")
-    buffered_input_stream_peek :: proc(stream: ^BufferedInputStream, buffer: rawptr, offset_p: glib.size, count: glib.size) -> glib.size ---
-
-    @(link_name = "g_buffered_input_stream_peek_buffer")
-    buffered_input_stream_peek_buffer :: proc(stream: ^BufferedInputStream, count: ^glib.size) -> rawptr ---
-
-    @(link_name = "g_buffered_input_stream_fill")
-    buffered_input_stream_fill :: proc(stream: ^BufferedInputStream, count: glib.ssize, cancellable: ^Cancellable, error: ^^glib.Error) -> glib.ssize ---
-
-    @(link_name = "g_buffered_input_stream_fill_async")
-    buffered_input_stream_fill_async :: proc(stream: ^BufferedInputStream, count: glib.ssize, io_priority: i32, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer) ---
-
-    @(link_name = "g_buffered_input_stream_fill_finish")
-    buffered_input_stream_fill_finish :: proc(stream: ^BufferedInputStream, result: ^AsyncResult, error: ^^glib.Error) -> glib.ssize ---
-
-    @(link_name = "g_buffered_input_stream_read_byte")
-    buffered_input_stream_read_byte :: proc(stream: ^BufferedInputStream, cancellable: ^Cancellable, error: ^^glib.Error) -> i32 ---
-
-    @(link_name = "g_output_stream_write")
-    output_stream_write :: proc(stream: ^OutputStream, buffer: rawptr, count: glib.size, cancellable: ^Cancellable, error: ^^glib.Error) -> glib.ssize ---
-
-    @(link_name = "g_output_stream_write_all")
-    output_stream_write_all :: proc(stream: ^OutputStream, buffer: rawptr, count: glib.size, bytes_written: ^glib.size, cancellable: ^Cancellable, error: ^^glib.Error) -> glib.boolean ---
-
-    @(link_name = "g_output_stream_writev")
-    output_stream_writev :: proc(stream: ^OutputStream, vectors: [^]OutputVector, n_vectors: glib.size, bytes_written: ^glib.size, cancellable: ^Cancellable, error: ^^glib.Error) -> glib.boolean ---
-
-    @(link_name = "g_output_stream_writev_all")
-    output_stream_writev_all :: proc(stream: ^OutputStream, vectors: [^]OutputVector, n_vectors: glib.size, bytes_written: ^glib.size, cancellable: ^Cancellable, error: ^^glib.Error) -> glib.boolean ---
-
-    @(link_name = "g_output_stream_printf")
-    output_stream_printf :: proc(stream: ^OutputStream, bytes_written: ^glib.size, cancellable: ^Cancellable, error: ^^glib.Error, format: cstring, #c_vararg var_args: ..any) -> glib.boolean ---
-
-    @(link_name = "g_output_stream_vprintf")
-    output_stream_vprintf :: proc(stream: ^OutputStream, bytes_written: ^glib.size, cancellable: ^Cancellable, error: ^^glib.Error, format: cstring, #c_vararg var_args: ..any) -> glib.boolean ---
-
-    @(link_name = "g_output_stream_write_bytes")
-    output_stream_write_bytes :: proc(stream: ^OutputStream, bytes: [^]glib.Bytes, cancellable: ^Cancellable, error: ^^glib.Error) -> glib.ssize ---
-
-    @(link_name = "g_output_stream_splice")
-    output_stream_splice :: proc(stream: ^OutputStream, source: ^InputStream, flags: OutputStreamSpliceFlags, cancellable: ^Cancellable, error: ^^glib.Error) -> glib.ssize ---
-
-    @(link_name = "g_output_stream_flush")
-    output_stream_flush :: proc(stream: ^OutputStream, cancellable: ^Cancellable, error: ^^glib.Error) -> glib.boolean ---
-
-    @(link_name = "g_output_stream_close")
-    output_stream_close :: proc(stream: ^OutputStream, cancellable: ^Cancellable, error: ^^glib.Error) -> glib.boolean ---
-
-    @(link_name = "g_output_stream_write_async")
-    output_stream_write_async :: proc(stream: ^OutputStream, buffer: rawptr, count: glib.size, io_priority: i32, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer) ---
-
-    @(link_name = "g_output_stream_write_finish")
-    output_stream_write_finish :: proc(stream: ^OutputStream, result: ^AsyncResult, error: ^^glib.Error) -> glib.ssize ---
-
-    @(link_name = "g_output_stream_write_all_async")
-    output_stream_write_all_async :: proc(stream: ^OutputStream, buffer: rawptr, count: glib.size, io_priority: i32, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer) ---
-
-    @(link_name = "g_output_stream_write_all_finish")
-    output_stream_write_all_finish :: proc(stream: ^OutputStream, result: ^AsyncResult, bytes_written: ^glib.size, error: ^^glib.Error) -> glib.boolean ---
-
-    @(link_name = "g_output_stream_writev_async")
-    output_stream_writev_async :: proc(stream: ^OutputStream, vectors: [^]OutputVector, n_vectors: glib.size, io_priority: i32, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer) ---
-
-    @(link_name = "g_output_stream_writev_finish")
-    output_stream_writev_finish :: proc(stream: ^OutputStream, result: ^AsyncResult, bytes_written: ^glib.size, error: ^^glib.Error) -> glib.boolean ---
-
-    @(link_name = "g_output_stream_writev_all_async")
-    output_stream_writev_all_async :: proc(stream: ^OutputStream, vectors: [^]OutputVector, n_vectors: glib.size, io_priority: i32, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer) ---
-
-    @(link_name = "g_output_stream_writev_all_finish")
-    output_stream_writev_all_finish :: proc(stream: ^OutputStream, result: ^AsyncResult, bytes_written: ^glib.size, error: ^^glib.Error) -> glib.boolean ---
-
-    @(link_name = "g_output_stream_write_bytes_async")
-    output_stream_write_bytes_async :: proc(stream: ^OutputStream, bytes: [^]glib.Bytes, io_priority: i32, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer) ---
-
-    @(link_name = "g_output_stream_write_bytes_finish")
-    output_stream_write_bytes_finish :: proc(stream: ^OutputStream, result: ^AsyncResult, error: ^^glib.Error) -> glib.ssize ---
-
-    @(link_name = "g_output_stream_splice_async")
-    output_stream_splice_async :: proc(stream: ^OutputStream, source: ^InputStream, flags: OutputStreamSpliceFlags, io_priority: i32, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer) ---
-
-    @(link_name = "g_output_stream_splice_finish")
-    output_stream_splice_finish :: proc(stream: ^OutputStream, result: ^AsyncResult, error: ^^glib.Error) -> glib.ssize ---
-
-    @(link_name = "g_output_stream_flush_async")
-    output_stream_flush_async :: proc(stream: ^OutputStream, io_priority: i32, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer) ---
-
-    @(link_name = "g_output_stream_flush_finish")
-    output_stream_flush_finish :: proc(stream: ^OutputStream, result: ^AsyncResult, error: ^^glib.Error) -> glib.boolean ---
-
-    @(link_name = "g_output_stream_close_async")
-    output_stream_close_async :: proc(stream: ^OutputStream, io_priority: i32, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer) ---
-
-    @(link_name = "g_output_stream_close_finish")
-    output_stream_close_finish :: proc(stream: ^OutputStream, result: ^AsyncResult, error: ^^glib.Error) -> glib.boolean ---
-
-    @(link_name = "g_output_stream_is_closed")
-    output_stream_is_closed :: proc(stream: ^OutputStream) -> glib.boolean ---
-
-    @(link_name = "g_output_stream_is_closing")
-    output_stream_is_closing :: proc(stream: ^OutputStream) -> glib.boolean ---
-
-    @(link_name = "g_output_stream_has_pending")
-    output_stream_has_pending :: proc(stream: ^OutputStream) -> glib.boolean ---
-
-    @(link_name = "g_output_stream_set_pending")
-    output_stream_set_pending :: proc(stream: ^OutputStream, error: ^^glib.Error) -> glib.boolean ---
-
-    @(link_name = "g_output_stream_clear_pending")
-    output_stream_clear_pending :: proc(stream: ^OutputStream) ---
-
-    @(link_name = "g_filter_output_stream_get_base_stream")
-    filter_output_stream_get_base_stream :: proc(stream: ^FilterOutputStream) -> ^OutputStream ---
-
-    @(link_name = "g_filter_output_stream_get_close_base_stream")
-    filter_output_stream_get_close_base_stream :: proc(stream: ^FilterOutputStream) -> glib.boolean ---
-
-    @(link_name = "g_filter_output_stream_set_close_base_stream")
-    filter_output_stream_set_close_base_stream :: proc(stream: ^FilterOutputStream, close_base: glib.boolean) ---
-
-    @(link_name = "g_buffered_output_stream_new")
-    buffered_output_stream_new :: proc(base_stream: ^OutputStream) -> ^OutputStream ---
-
-    @(link_name = "g_buffered_output_stream_new_sized")
-    buffered_output_stream_new_sized :: proc(base_stream: ^OutputStream, size_p: glib.size) -> ^OutputStream ---
-
-    @(link_name = "g_buffered_output_stream_get_buffer_size")
-    buffered_output_stream_get_buffer_size :: proc(stream: ^BufferedOutputStream) -> glib.size ---
-
-    @(link_name = "g_buffered_output_stream_set_buffer_size")
-    buffered_output_stream_set_buffer_size :: proc(stream: ^BufferedOutputStream, size_p: glib.size) ---
-
-    @(link_name = "g_buffered_output_stream_get_auto_grow")
-    buffered_output_stream_get_auto_grow :: proc(stream: ^BufferedOutputStream) -> glib.boolean ---
-
-    @(link_name = "g_buffered_output_stream_set_auto_grow")
-    buffered_output_stream_set_auto_grow :: proc(stream: ^BufferedOutputStream, auto_grow: glib.boolean) ---
-
-    @(link_name = "g_bytes_icon_new")
-    bytes_icon_new :: proc(bytes: [^]glib.Bytes) -> ^Icon ---
-
-    @(link_name = "g_bytes_icon_get_bytes")
-    bytes_icon_get_bytes :: proc(icon: ^BytesIcon) -> ^glib.Bytes ---
-
-    @(link_name = "g_cancellable_new")
-    cancellable_new :: proc() -> ^Cancellable ---
-
-    @(link_name = "g_cancellable_is_cancelled")
-    cancellable_is_cancelled :: proc(cancellable: ^Cancellable) -> glib.boolean ---
-
-    @(link_name = "g_cancellable_set_error_if_cancelled")
-    cancellable_set_error_if_cancelled :: proc(cancellable: ^Cancellable, error: ^^glib.Error) -> glib.boolean ---
-
-    @(link_name = "g_cancellable_get_fd")
-    cancellable_get_fd :: proc(cancellable: ^Cancellable) -> i32 ---
-
-    @(link_name = "g_cancellable_make_pollfd")
-    cancellable_make_pollfd :: proc(cancellable: ^Cancellable, pollfd: ^glib.PollFD) -> glib.boolean ---
-
-    @(link_name = "g_cancellable_release_fd")
-    cancellable_release_fd :: proc(cancellable: ^Cancellable) ---
-
-    @(link_name = "g_cancellable_source_new")
-    cancellable_source_new :: proc(cancellable: ^Cancellable) -> ^glib.Source ---
-
-    @(link_name = "g_cancellable_get_current")
-    cancellable_get_current :: proc() -> ^Cancellable ---
-
-    @(link_name = "g_cancellable_push_current")
-    cancellable_push_current :: proc(cancellable: ^Cancellable) ---
-
-    @(link_name = "g_cancellable_pop_current")
-    cancellable_pop_current :: proc(cancellable: ^Cancellable) ---
-
-    @(link_name = "g_cancellable_reset")
-    cancellable_reset :: proc(cancellable: ^Cancellable) ---
-
-    @(link_name = "g_cancellable_connect")
-    cancellable_connect :: proc(cancellable: ^Cancellable, callback: gobj.Callback, data: glib.pointer, data_destroy_func: glib.DestroyNotify) -> glib.ulong ---
-
-    @(link_name = "g_cancellable_disconnect")
-    cancellable_disconnect :: proc(cancellable: ^Cancellable, handler_id: glib.ulong) ---
-
-    @(link_name = "g_cancellable_cancel")
-    cancellable_cancel :: proc(cancellable: ^Cancellable) ---
-
-    @(link_name = "g_converter_convert")
-    converter_convert :: proc(converter: ^Converter, inbuf: rawptr, inbuf_size: glib.size, outbuf: rawptr, outbuf_size: glib.size, flags: ConverterFlags, bytes_read: ^glib.size, bytes_written: ^glib.size, error: ^^glib.Error) -> ConverterResult ---
-
-    @(link_name = "g_converter_reset")
-    converter_reset :: proc(converter: ^Converter) ---
-
-    @(link_name = "g_converter_convert_bytes")
-    converter_convert_bytes :: proc(converter: ^Converter, bytes: [^]glib.Bytes, error: ^^glib.Error) -> ^glib.Bytes ---
-
-    @(link_name = "g_charset_converter_new")
-    charset_converter_new :: proc(to_charset: cstring, from_charset: cstring, error: ^^glib.Error) -> ^CharsetConverter ---
-
-    @(link_name = "g_charset_converter_set_use_fallback")
-    charset_converter_set_use_fallback :: proc(converter: ^CharsetConverter, use_fallback: glib.boolean) ---
-
-    @(link_name = "g_charset_converter_get_use_fallback")
-    charset_converter_get_use_fallback :: proc(converter: ^CharsetConverter) -> glib.boolean ---
-
-    @(link_name = "g_charset_converter_get_num_fallbacks")
-    charset_converter_get_num_fallbacks :: proc(converter: ^CharsetConverter) -> glib.uint_ ---
-
-    @(link_name = "g_content_type_equals")
-    content_type_equals :: proc(type1: cstring, type2: cstring) -> glib.boolean ---
-
-    @(link_name = "g_content_type_is_a")
-    content_type_is_a :: proc(type: cstring, supertype: cstring) -> glib.boolean ---
-
-    @(link_name = "g_content_type_is_mime_type")
-    content_type_is_mime_type :: proc(type: cstring, mime_type: cstring) -> glib.boolean ---
-
-    @(link_name = "g_content_type_is_unknown")
-    content_type_is_unknown :: proc(type: cstring) -> glib.boolean ---
-
-    @(link_name = "g_content_type_get_description")
-    content_type_get_description :: proc(type: cstring) -> cstring ---
-
-    @(link_name = "g_content_type_get_mime_type")
-    content_type_get_mime_type :: proc(type: cstring) -> cstring ---
-
-    @(link_name = "g_content_type_get_icon")
-    content_type_get_icon :: proc(type: cstring) -> ^Icon ---
-
-    @(link_name = "g_content_type_get_symbolic_icon")
-    content_type_get_symbolic_icon :: proc(type: cstring) -> ^Icon ---
-
-    @(link_name = "g_content_type_get_generic_icon_name")
-    content_type_get_generic_icon_name :: proc(type: cstring) -> cstring ---
-
-    @(link_name = "g_content_type_can_be_executable")
-    content_type_can_be_executable :: proc(type: cstring) -> glib.boolean ---
-
-    @(link_name = "g_content_type_from_mime_type")
-    content_type_from_mime_type :: proc(mime_type: cstring) -> cstring ---
-
-    @(link_name = "g_content_type_guess")
-    content_type_guess :: proc(filename: cstring, data: ^glib.uchar, data_size: glib.size, result_uncertain: ^glib.boolean) -> cstring ---
-
-    @(link_name = "g_content_type_guess_for_tree")
-    content_type_guess_for_tree :: proc(root: ^File) -> ^cstring ---
-
-    @(link_name = "g_content_types_get_registered")
-    content_types_get_registered :: proc() -> ^glib.List ---
-
-    @(link_name = "g_content_type_get_mime_dirs")
-    content_type_get_mime_dirs :: proc() -> ^cstring ---
-
-    @(link_name = "g_content_type_set_mime_dirs")
-    content_type_set_mime_dirs :: proc(dirs: [^]cstring) ---
-
-    @(link_name = "g_converter_input_stream_new")
-    converter_input_stream_new :: proc(base_stream: ^InputStream, converter: ^Converter) -> ^InputStream ---
-
-    @(link_name = "g_converter_input_stream_get_converter")
-    converter_input_stream_get_converter :: proc(converter_stream: ^ConverterInputStream) -> ^Converter ---
-
-    @(link_name = "g_converter_output_stream_new")
-    converter_output_stream_new :: proc(base_stream: ^OutputStream, converter: ^Converter) -> ^OutputStream ---
-
-    @(link_name = "g_converter_output_stream_get_converter")
-    converter_output_stream_get_converter :: proc(converter_stream: ^ConverterOutputStream) -> ^Converter ---
-
-    @(link_name = "g_credentials_new")
-    credentials_new :: proc() -> ^Credentials ---
-
-    @(link_name = "g_credentials_to_string")
-    credentials_to_string :: proc(credentials: [^]Credentials) -> cstring ---
-
-    @(link_name = "g_credentials_get_native")
-    credentials_get_native :: proc(credentials: [^]Credentials, native_type: CredentialsType) -> glib.pointer ---
-
-    @(link_name = "g_credentials_set_native")
-    credentials_set_native :: proc(credentials: [^]Credentials, native_type: CredentialsType, native: glib.pointer) ---
-
-    @(link_name = "g_credentials_is_same_user")
-    credentials_is_same_user :: proc(credentials: [^]Credentials, other_credentials: [^]Credentials, error: ^^glib.Error) -> glib.boolean ---
-
-    @(link_name = "g_datagram_based_receive_messages")
-    datagram_based_receive_messages :: proc(datagram_based: ^DatagramBased, messages: [^]InputMessage, num_messages: glib.uint_, flags: glib.int_, timeout: glib.int64, cancellable: ^Cancellable, error: ^^glib.Error) -> glib.int_ ---
-
-    @(link_name = "g_datagram_based_send_messages")
-    datagram_based_send_messages :: proc(datagram_based: ^DatagramBased, messages: [^]OutputMessage, num_messages: glib.uint_, flags: glib.int_, timeout: glib.int64, cancellable: ^Cancellable, error: ^^glib.Error) -> glib.int_ ---
-
-    @(link_name = "g_datagram_based_create_source")
-    datagram_based_create_source :: proc(datagram_based: ^DatagramBased, condition: glib.IOCondition, cancellable: ^Cancellable) -> ^glib.Source ---
-
-    @(link_name = "g_datagram_based_condition_check")
-    datagram_based_condition_check :: proc(datagram_based: ^DatagramBased, condition: glib.IOCondition) -> glib.IOCondition ---
-
-    @(link_name = "g_datagram_based_condition_wait")
-    datagram_based_condition_wait :: proc(datagram_based: ^DatagramBased, condition: glib.IOCondition, timeout: glib.int64, cancellable: ^Cancellable, error: ^^glib.Error) -> glib.boolean ---
-
-    @(link_name = "g_data_input_stream_new")
-    data_input_stream_new :: proc(base_stream: ^InputStream) -> ^DataInputStream ---
-    @(link_name = "g_data_input_stream_set_byte_order")
-    data_input_stream_set_byte_order :: proc(stream: ^DataInputStream, order: DataStreamByteOrder) ---
-
-    @(link_name = "g_data_input_stream_get_byte_order")
-    data_input_stream_get_byte_order :: proc(stream: ^DataInputStream) -> DataStreamByteOrder ---
-
-    @(link_name = "g_data_input_stream_set_newline_type")
-    data_input_stream_set_newline_type :: proc(stream: ^DataInputStream, type: DataStreamNewlineType) ---
-
-    @(link_name = "g_data_input_stream_get_newline_type")
-    data_input_stream_get_newline_type :: proc(stream: ^DataInputStream) -> DataStreamNewlineType ---
-
-    @(link_name = "g_data_input_stream_read_byte")
-    data_input_stream_read_byte :: proc(stream: ^DataInputStream, cancellable: ^Cancellable, error: ^^glib.Error) -> glib.uchar ---
-
-    @(link_name = "g_data_input_stream_read_int16")
-    data_input_stream_read_int16 :: proc(stream: ^DataInputStream, cancellable: ^Cancellable, error: ^^glib.Error) -> glib.int16 ---
-
-    @(link_name = "g_data_input_stream_read_uint16")
-    data_input_stream_read_uint16 :: proc(stream: ^DataInputStream, cancellable: ^Cancellable, error: ^^glib.Error) -> glib.uint16 ---
-
-    @(link_name = "g_data_input_stream_read_int32")
-    data_input_stream_read_int32 :: proc(stream: ^DataInputStream, cancellable: ^Cancellable, error: ^^glib.Error) -> glib.int32 ---
-
-    @(link_name = "g_data_input_stream_read_uint32")
-    data_input_stream_read_uint32 :: proc(stream: ^DataInputStream, cancellable: ^Cancellable, error: ^^glib.Error) -> glib.uint32 ---
-
-    @(link_name = "g_data_input_stream_read_int64")
-    data_input_stream_read_int64 :: proc(stream: ^DataInputStream, cancellable: ^Cancellable, error: ^^glib.Error) -> glib.int64 ---
-
-    @(link_name = "g_data_input_stream_read_uint64")
-    data_input_stream_read_uint64 :: proc(stream: ^DataInputStream, cancellable: ^Cancellable, error: ^^glib.Error) -> glib.uint64 ---
-
-    @(link_name = "g_data_input_stream_read_line")
-    data_input_stream_read_line :: proc(stream: ^DataInputStream, length: ^glib.size, cancellable: ^Cancellable, error: ^^glib.Error) -> cstring ---
-
-    @(link_name = "g_data_input_stream_read_line_utf8")
-    data_input_stream_read_line_utf8 :: proc(stream: ^DataInputStream, length: ^glib.size, cancellable: ^Cancellable, error: ^^glib.Error) -> cstring ---
-
-    @(link_name = "g_data_input_stream_read_line_async")
-    data_input_stream_read_line_async :: proc(stream: ^DataInputStream, io_priority: glib.int_, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer) ---
-
-    @(link_name = "g_data_input_stream_read_line_finish")
-    data_input_stream_read_line_finish :: proc(stream: ^DataInputStream, result: ^AsyncResult, length: ^glib.size, error: ^^glib.Error) -> cstring ---
-
-    @(link_name = "g_data_input_stream_read_line_finish_utf8")
-    data_input_stream_read_line_finish_utf8 :: proc(stream: ^DataInputStream, result: ^AsyncResult, length: ^glib.size, error: ^^glib.Error) -> cstring ---
-
-    @(link_name = "g_data_input_stream_read_until")
-    data_input_stream_read_until :: proc(stream: ^DataInputStream, stop_chars: [^]glib.char, length: ^glib.size, cancellable: ^Cancellable, error: ^^glib.Error) -> cstring ---
-
-    @(link_name = "g_data_input_stream_read_until_async")
-    data_input_stream_read_until_async :: proc(stream: ^DataInputStream, stop_chars: [^]glib.char, io_priority: glib.int_, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer) ---
-
-    @(link_name = "g_data_input_stream_read_until_finish")
-    data_input_stream_read_until_finish :: proc(stream: ^DataInputStream, result: ^AsyncResult, length: ^glib.size, error: ^^glib.Error) -> cstring ---
-
-    @(link_name = "g_data_input_stream_read_upto")
-    data_input_stream_read_upto :: proc(stream: ^DataInputStream, stop_chars: [^]glib.char, stop_chars_len: glib.ssize, length: ^glib.size, cancellable: ^Cancellable, error: ^^glib.Error) -> cstring ---
-
-    @(link_name = "g_data_input_stream_read_upto_async")
-    data_input_stream_read_upto_async :: proc(stream: ^DataInputStream, stop_chars: [^]glib.char, stop_chars_len: glib.ssize, io_priority: glib.int_, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer) ---
-
-    @(link_name = "g_data_input_stream_read_upto_finish")
-    data_input_stream_read_upto_finish :: proc(stream: ^DataInputStream, result: ^AsyncResult, length: ^glib.size, error: ^^glib.Error) -> cstring ---
-
-    @(link_name = "g_data_output_stream_new")
-    data_output_stream_new :: proc(base_stream: ^OutputStream) -> ^DataOutputStream ---
-
-    @(link_name = "g_data_output_stream_set_byte_order")
-    data_output_stream_set_byte_order :: proc(stream: ^DataOutputStream, order: DataStreamByteOrder) ---
-
-    @(link_name = "g_data_output_stream_get_byte_order")
-    data_output_stream_get_byte_order :: proc(stream: ^DataOutputStream) -> DataStreamByteOrder ---
-
-    @(link_name = "g_data_output_stream_put_byte")
-    data_output_stream_put_byte :: proc(stream: ^DataOutputStream, data: glib.uchar, cancellable: ^Cancellable, error: ^^glib.Error) -> glib.boolean ---
-
-    @(link_name = "g_data_output_stream_put_int16")
-    data_output_stream_put_int16 :: proc(stream: ^DataOutputStream, data: glib.int16, cancellable: ^Cancellable, error: ^^glib.Error) -> glib.boolean ---
-
-    @(link_name = "g_data_output_stream_put_uint16")
-    data_output_stream_put_uint16 :: proc(stream: ^DataOutputStream, data: glib.uint16, cancellable: ^Cancellable, error: ^^glib.Error) -> glib.boolean ---
-
-    @(link_name = "g_data_output_stream_put_int32")
-    data_output_stream_put_int32 :: proc(stream: ^DataOutputStream, data: glib.int32, cancellable: ^Cancellable, error: ^^glib.Error) -> glib.boolean ---
-
-    @(link_name = "g_data_output_stream_put_uint32")
-    data_output_stream_put_uint32 :: proc(stream: ^DataOutputStream, data: glib.uint32, cancellable: ^Cancellable, error: ^^glib.Error) -> glib.boolean ---
-
-    @(link_name = "g_data_output_stream_put_int64")
-    data_output_stream_put_int64 :: proc(stream: ^DataOutputStream, data: glib.int64, cancellable: ^Cancellable, error: ^^glib.Error) -> glib.boolean ---
-
-    @(link_name = "g_data_output_stream_put_uint64")
-    data_output_stream_put_uint64 :: proc(stream: ^DataOutputStream, data: glib.uint64, cancellable: ^Cancellable, error: ^^glib.Error) -> glib.boolean ---
-
-    @(link_name = "g_data_output_stream_put_string")
-    data_output_stream_put_string :: proc(stream: ^DataOutputStream, str: cstring, cancellable: ^Cancellable, error: ^^glib.Error) -> glib.boolean ---
-
-    @(link_name = "g_dbus_action_group_get")
-    dbus_action_group_get :: proc(connection: ^DBusConnection, bus_name: cstring, object_path: cstring) -> ^DBusActionGroup ---
-
-    @(link_name = "g_dbus_address_escape_value")
-    dbus_address_escape_value :: proc(string_p: cstring) -> cstring ---
-
-    @(link_name = "g_dbus_is_address")
-    dbus_is_address :: proc(string_p: cstring) -> glib.boolean ---
-
-    @(link_name = "g_dbus_is_supported_address")
-    dbus_is_supported_address :: proc(string_p: cstring, error: ^^glib.Error) -> glib.boolean ---
-
-    @(link_name = "g_dbus_address_get_stream")
-    dbus_address_get_stream :: proc(address: [^]glib.char, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer) ---
-
-    @(link_name = "g_dbus_address_get_stream_finish")
-    dbus_address_get_stream_finish :: proc(res: [^]AsyncResult, out_guid: ^cstring, error: ^^glib.Error) -> ^IOStream ---
-
-    @(link_name = "g_dbus_address_get_stream_sync")
-    dbus_address_get_stream_sync :: proc(address: [^]glib.char, out_guid: ^cstring, cancellable: ^Cancellable, error: ^^glib.Error) -> ^IOStream ---
-
-    @(link_name = "g_dbus_address_get_for_bus_sync")
-    dbus_address_get_for_bus_sync :: proc(bus_type: BusType, cancellable: ^Cancellable, error: ^^glib.Error) -> cstring ---
-
-    @(link_name = "g_dbus_auth_observer_new")
-    dbus_auth_observer_new :: proc() -> ^DBusAuthObserver ---
-
-    @(link_name = "g_dbus_auth_observer_authorize_authenticated_peer")
-    dbus_auth_observer_authorize_authenticated_peer :: proc(observer: ^DBusAuthObserver, stream: ^IOStream, credentials: [^]Credentials) -> glib.boolean ---
-
-    @(link_name = "g_dbus_auth_observer_allow_mechanism")
-    dbus_auth_observer_allow_mechanism :: proc(observer: ^DBusAuthObserver, mechanism: cstring) -> glib.boolean ---
-
-    @(link_name = "g_bus_get")
-    bus_get :: proc(bus_type: BusType, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer) ---
-
-    @(link_name = "g_bus_get_finish")
-    bus_get_finish :: proc(res: [^]AsyncResult, error: ^^glib.Error) -> ^DBusConnection ---
-
-    @(link_name = "g_bus_get_sync")
-    bus_get_sync :: proc(bus_type: BusType, cancellable: ^Cancellable, error: ^^glib.Error) -> ^DBusConnection ---
-
-    @(link_name = "g_dbus_connection_new")
-    dbus_connection_new :: proc(stream: ^IOStream, guid: cstring, flags: DBusConnectionFlags, observer: ^DBusAuthObserver, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer) ---
-
-    @(link_name = "g_dbus_connection_new_finish")
-    dbus_connection_new_finish :: proc(res: [^]AsyncResult, error: ^^glib.Error) -> ^DBusConnection ---
-
-    @(link_name = "g_dbus_connection_new_sync")
-    dbus_connection_new_sync :: proc(stream: ^IOStream, guid: cstring, flags: DBusConnectionFlags, observer: ^DBusAuthObserver, cancellable: ^Cancellable, error: ^^glib.Error) -> ^DBusConnection ---
-
-    @(link_name = "g_dbus_connection_new_for_address")
-    dbus_connection_new_for_address :: proc(address: [^]glib.char, flags: DBusConnectionFlags, observer: ^DBusAuthObserver, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer) ---
-
-    @(link_name = "g_dbus_connection_new_for_address_finish")
-    dbus_connection_new_for_address_finish :: proc(res: [^]AsyncResult, error: ^^glib.Error) -> ^DBusConnection ---
-
-    @(link_name = "g_dbus_connection_new_for_address_sync")
-    dbus_connection_new_for_address_sync :: proc(address: [^]glib.char, flags: DBusConnectionFlags, observer: ^DBusAuthObserver, cancellable: ^Cancellable, error: ^^glib.Error) -> ^DBusConnection ---
-
-    @(link_name = "g_dbus_connection_start_message_processing")
-    dbus_connection_start_message_processing :: proc(connection: ^DBusConnection) ---
-
-    @(link_name = "g_dbus_connection_is_closed")
-    dbus_connection_is_closed :: proc(connection: ^DBusConnection) -> glib.boolean ---
-
-    @(link_name = "g_dbus_connection_get_stream")
-    dbus_connection_get_stream :: proc(connection: ^DBusConnection) -> ^IOStream ---
-
-    @(link_name = "g_dbus_connection_get_guid")
-    dbus_connection_get_guid :: proc(connection: ^DBusConnection) -> cstring ---
-
-    @(link_name = "g_dbus_connection_get_unique_name")
-    dbus_connection_get_unique_name :: proc(connection: ^DBusConnection) -> cstring ---
-
-    @(link_name = "g_dbus_connection_get_peer_credentials")
-    dbus_connection_get_peer_credentials :: proc(connection: ^DBusConnection) -> ^Credentials ---
-
-    @(link_name = "g_dbus_connection_get_last_serial")
-    dbus_connection_get_last_serial :: proc(connection: ^DBusConnection) -> glib.uint32 ---
-
-    @(link_name = "g_dbus_connection_get_exit_on_close")
-    dbus_connection_get_exit_on_close :: proc(connection: ^DBusConnection) -> glib.boolean ---
-
-    @(link_name = "g_dbus_connection_set_exit_on_close")
-    dbus_connection_set_exit_on_close :: proc(connection: ^DBusConnection, exit_on_close: glib.boolean) ---
-
-    @(link_name = "g_dbus_connection_get_capabilities")
-    dbus_connection_get_capabilities :: proc(connection: ^DBusConnection) -> DBusCapabilityFlags ---
-
-    @(link_name = "g_dbus_connection_get_flags")
-    dbus_connection_get_flags :: proc(connection: ^DBusConnection) -> DBusConnectionFlags ---
-
-    @(link_name = "g_dbus_connection_close")
-    dbus_connection_close :: proc(connection: ^DBusConnection, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer) ---
-
-    @(link_name = "g_dbus_connection_close_finish")
-    dbus_connection_close_finish :: proc(connection: ^DBusConnection, res: [^]AsyncResult, error: ^^glib.Error) -> glib.boolean ---
-
-    @(link_name = "g_dbus_connection_close_sync")
-    dbus_connection_close_sync :: proc(connection: ^DBusConnection, cancellable: ^Cancellable, error: ^^glib.Error) -> glib.boolean ---
-
-    @(link_name = "g_dbus_connection_flush")
-    dbus_connection_flush :: proc(connection: ^DBusConnection, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer) ---
-
-    @(link_name = "g_dbus_connection_flush_finish")
-    dbus_connection_flush_finish :: proc(connection: ^DBusConnection, res: [^]AsyncResult, error: ^^glib.Error) -> glib.boolean ---
-
-    @(link_name = "g_dbus_connection_flush_sync")
-    dbus_connection_flush_sync :: proc(connection: ^DBusConnection, cancellable: ^Cancellable, error: ^^glib.Error) -> glib.boolean ---
-
-    @(link_name = "g_dbus_connection_send_message")
-    dbus_connection_send_message :: proc(connection: ^DBusConnection, message: ^DBusMessage, flags: DBusSendMessageFlags, out_serial: ^glib.uint32, error: ^^glib.Error) -> glib.boolean ---
-
-    @(link_name = "g_dbus_connection_send_message_with_reply")
-    dbus_connection_send_message_with_reply :: proc(connection: ^DBusConnection, message: ^DBusMessage, flags: DBusSendMessageFlags, timeout_msec: glib.int_, out_serial: ^glib.uint32, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer) ---
-
-    @(link_name = "g_dbus_connection_send_message_with_reply_finish")
-    dbus_connection_send_message_with_reply_finish :: proc(connection: ^DBusConnection, res: [^]AsyncResult, error: ^^glib.Error) -> ^DBusMessage ---
-
-    @(link_name = "g_dbus_connection_send_message_with_reply_sync")
-    dbus_connection_send_message_with_reply_sync :: proc(connection: ^DBusConnection, message: ^DBusMessage, flags: DBusSendMessageFlags, timeout_msec: glib.int_, out_serial: ^glib.uint32, cancellable: ^Cancellable, error: ^^glib.Error) -> ^DBusMessage ---
-
-    @(link_name = "g_dbus_connection_emit_signal")
-    dbus_connection_emit_signal :: proc(connection: ^DBusConnection, destination_bus_name: cstring, object_path: cstring, interface_name: cstring, signal_name: cstring, parameters: [^]glib.Variant, error: ^^glib.Error) -> glib.boolean ---
-
-    @(link_name = "g_dbus_connection_call")
-    dbus_connection_call :: proc(connection: ^DBusConnection, bus_name: cstring, object_path: cstring, interface_name: cstring, method_name: cstring, parameters: [^]glib.Variant, reply_type: ^glib.VariantType, flags: DBusCallFlags, timeout_msec: glib.int_, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer) ---
-
-    @(link_name = "g_dbus_connection_call_finish")
-    dbus_connection_call_finish :: proc(connection: ^DBusConnection, res: [^]AsyncResult, error: ^^glib.Error) -> ^glib.Variant ---
-
-    @(link_name = "g_dbus_connection_call_sync")
-    dbus_connection_call_sync :: proc(connection: ^DBusConnection, bus_name: cstring, object_path: cstring, interface_name: cstring, method_name: cstring, parameters: [^]glib.Variant, reply_type: ^glib.VariantType, flags: DBusCallFlags, timeout_msec: glib.int_, cancellable: ^Cancellable, error: ^^glib.Error) -> ^glib.Variant ---
-
-    @(link_name = "g_dbus_connection_register_object")
-    dbus_connection_register_object :: proc(connection: ^DBusConnection, object_path: cstring, interface_info: ^DBusInterfaceInfo, vtable: ^DBusInterfaceVTable, user_data: glib.pointer, user_data_free_func: glib.DestroyNotify, error: ^^glib.Error) -> glib.uint_ ---
-
-    @(link_name = "g_dbus_connection_register_object_with_closures")
-    dbus_connection_register_object_with_closures :: proc(connection: ^DBusConnection, object_path: cstring, interface_info: ^DBusInterfaceInfo, method_call_closure: ^gobj.Closure, get_property_closure: ^gobj.Closure, set_property_closure: ^gobj.Closure, error: ^^glib.Error) -> glib.uint_ ---
-
-    @(link_name = "g_dbus_connection_register_object_with_closures2")
-    dbus_connection_register_object_with_closures2 :: proc(connection: ^DBusConnection, object_path: cstring, interface_info: ^DBusInterfaceInfo, method_call_closure: ^gobj.Closure, get_property_closure: ^gobj.Closure, set_property_closure: ^gobj.Closure, error: ^^glib.Error) -> glib.uint_ ---
-
-    @(link_name = "g_dbus_connection_unregister_object")
-    dbus_connection_unregister_object :: proc(connection: ^DBusConnection, registration_id: glib.uint_) -> glib.boolean ---
-
-    @(link_name = "g_dbus_connection_register_subtree")
-    dbus_connection_register_subtree :: proc(connection: ^DBusConnection, object_path: cstring, vtable: ^DBusSubtreeVTable, flags: DBusSubtreeFlags, user_data: glib.pointer, user_data_free_func: glib.DestroyNotify, error: ^^glib.Error) -> glib.uint_ ---
-
-    @(link_name = "g_dbus_connection_unregister_subtree")
-    dbus_connection_unregister_subtree :: proc(connection: ^DBusConnection, registration_id: glib.uint_) -> glib.boolean ---
-
-    @(link_name = "g_dbus_connection_signal_subscribe")
-    dbus_connection_signal_subscribe :: proc(connection: ^DBusConnection, sender: cstring, interface_name: cstring, member: cstring, object_path: cstring, arg0: cstring, flags: DBusSignalFlags, callback: DBusSignalCallback, user_data: glib.pointer, user_data_free_func: glib.DestroyNotify) -> glib.uint_ ---
-
-    @(link_name = "g_dbus_connection_signal_unsubscribe")
-    dbus_connection_signal_unsubscribe :: proc(connection: ^DBusConnection, subscription_id: glib.uint_) ---
-
-    @(link_name = "g_dbus_connection_add_filter")
-    dbus_connection_add_filter :: proc(connection: ^DBusConnection, filter_function: DBusMessageFilterFunction, user_data: glib.pointer, user_data_free_func: glib.DestroyNotify) -> glib.uint_ ---
-
-    @(link_name = "g_dbus_connection_remove_filter")
-    dbus_connection_remove_filter :: proc(connection: ^DBusConnection, filter_id: glib.uint_) ---
-
-    @(link_name = "g_dbus_error_is_remote_error")
-    dbus_error_is_remote_error :: proc(error: ^glib.Error) -> glib.boolean ---
-
-    @(link_name = "g_dbus_error_get_remote_error")
-    dbus_error_get_remote_error :: proc(error: ^glib.Error) -> cstring ---
-
-    @(link_name = "g_dbus_error_strip_remote_error")
-    dbus_error_strip_remote_error :: proc(error: ^glib.Error) -> glib.boolean ---
-
-    @(link_name = "g_dbus_error_register_error")
-    dbus_error_register_error :: proc(error_domain: glib.Quark, error_code: glib.int_, dbus_error_name: cstring) -> glib.boolean ---
-
-    @(link_name = "g_dbus_error_unregister_error")
-    dbus_error_unregister_error :: proc(error_domain: glib.Quark, error_code: glib.int_, dbus_error_name: cstring) -> glib.boolean ---
-
-    @(link_name = "g_dbus_error_register_error_domain")
-    dbus_error_register_error_domain :: proc(error_domain_quark_name: cstring, quark_volatile: ^glib.size, entries: [^]DBusErrorEntry, num_entries: glib.uint_) ---
-
-    @(link_name = "g_dbus_error_new_for_dbus_error")
-    dbus_error_new_for_dbus_error :: proc(dbus_error_name: cstring, dbus_error_message: cstring) -> ^glib.Error ---
-
-    @(link_name = "g_dbus_error_set_dbus_error")
-    dbus_error_set_dbus_error :: proc(error: ^^glib.Error, dbus_error_name: cstring, dbus_error_message: cstring, format: cstring, #c_vararg var_args: ..any) ---
-
-    @(link_name = "g_dbus_error_set_dbus_error_valist")
-    dbus_error_set_dbus_error_valist :: proc(error: ^^glib.Error, dbus_error_name: cstring, dbus_error_message: cstring, format: cstring, #c_vararg var_args: ..any) ---
-
-    @(link_name = "g_dbus_error_encode_gerror")
-    dbus_error_encode_gerror :: proc(error: ^glib.Error) -> cstring ---
-
-dbus_interface_get_type    @(link_name = "g_dbus_interface_get_info")
-    dbus_interface_get_info :: proc(interface_: ^DBusInterface) -> ^DBusInterfaceInfo ---
-
-    @(link_name = "g_dbus_interface_get_object")
-    dbus_interface_get_object :: proc(interface_: ^DBusInterface) -> ^DBusObject ---
-
-    @(link_name = "g_dbus_interface_set_object")
-    dbus_interface_set_object :: proc(interface_: ^DBusInterface, object: ^DBusObject) ---
-
-    @(link_name = "g_dbus_interface_dup_object")
-    dbus_interface_dup_object :: proc(interface_: ^DBusInterface) -> ^DBusObject ---
-
-    @(link_name = "g_dbus_interface_skeleton_get_flags")
-    dbus_interface_skeleton_get_flags :: proc(interface_: ^DBusInterfaceSkeleton) -> DBusInterfaceSkeletonFlags ---
-
-    @(link_name = "g_dbus_interface_skeleton_set_flags")
-    dbus_interface_skeleton_set_flags :: proc(interface_: ^DBusInterfaceSkeleton, flags: DBusInterfaceSkeletonFlags) ---
-
-    @(link_name = "g_dbus_interface_skeleton_get_info")
-    dbus_interface_skeleton_get_info :: proc(interface_: ^DBusInterfaceSkeleton) -> ^DBusInterfaceInfo ---
-
-    @(link_name = "g_dbus_interface_skeleton_get_vtable")
-    dbus_interface_skeleton_get_vtable :: proc(interface_: ^DBusInterfaceSkeleton) -> ^DBusInterfaceVTable ---
-
-    @(link_name = "g_dbus_interface_skeleton_get_properties")
-    dbus_interface_skeleton_get_properties :: proc(interface_: ^DBusInterfaceSkeleton) -> ^glib.Variant ---
-
-    @(link_name = "g_dbus_interface_skeleton_flush")
-    dbus_interface_skeleton_flush :: proc(interface_: ^DBusInterfaceSkeleton) ---
-
-    @(link_name = "g_dbus_interface_skeleton_export")
-    dbus_interface_skeleton_export :: proc(interface_: ^DBusInterfaceSkeleton, connection: ^DBusConnection, object_path: cstring, error: ^^glib.Error) -> glib.boolean ---
-
-    @(link_name = "g_dbus_interface_skeleton_unexport")
-    dbus_interface_skeleton_unexport :: proc(interface_: ^DBusInterfaceSkeleton) ---
-
-    @(link_name = "g_dbus_interface_skeleton_unexport_from_connection")
-    dbus_interface_skeleton_unexport_from_connection :: proc(interface_: ^DBusInterfaceSkeleton, connection: ^DBusConnection) ---
-
-    @(link_name = "g_dbus_interface_skeleton_get_connection")
-    dbus_interface_skeleton_get_connection :: proc(interface_: ^DBusInterfaceSkeleton) -> ^DBusConnection ---
-
-    @(link_name = "g_dbus_interface_skeleton_get_connections")
-    dbus_interface_skeleton_get_connections :: proc(interface_: ^DBusInterfaceSkeleton) -> ^glib.List ---
-
-    @(link_name = "g_dbus_interface_skeleton_has_connection")
-    dbus_interface_skeleton_has_connection :: proc(interface_: ^DBusInterfaceSkeleton, connection: ^DBusConnection) -> glib.boolean ---
-
-    @(link_name = "g_dbus_interface_skeleton_get_object_path")
-    dbus_interface_skeleton_get_object_path :: proc(interface_: ^DBusInterfaceSkeleton) -> cstring ---
-
-    @(link_name = "g_dbus_annotation_info_lookup")
-    dbus_annotation_info_lookup :: proc(annotations: [^]^DBusAnnotationInfo, name: cstring) -> cstring ---
-
-    @(link_name = "g_dbus_interface_info_lookup_method")
-    dbus_interface_info_lookup_method :: proc(info: ^DBusInterfaceInfo, name: cstring) -> ^DBusMethodInfo ---
-
-    @(link_name = "g_dbus_interface_info_lookup_signal")
-    dbus_interface_info_lookup_signal :: proc(info: ^DBusInterfaceInfo, name: cstring) -> ^DBusSignalInfo ---
-
-    @(link_name = "g_dbus_interface_info_lookup_property")
-    dbus_interface_info_lookup_property :: proc(info: ^DBusInterfaceInfo, name: cstring) -> ^DBusPropertyInfo ---
-
-    @(link_name = "g_dbus_interface_info_cache_build")
-    dbus_interface_info_cache_build :: proc(info: ^DBusInterfaceInfo) ---
-
-    @(link_name = "g_dbus_interface_info_cache_release")
-    dbus_interface_info_cache_release :: proc(info: ^DBusInterfaceInfo) ---
-
-    @(link_name = "g_dbus_interface_info_generate_xml")
-    dbus_interface_info_generate_xml :: proc(info: ^DBusInterfaceInfo, indent: glib.uint_, string_builder: ^glib.String) ---
-
-    @(link_name = "g_dbus_node_info_new_for_xml")
-    dbus_node_info_new_for_xml :: proc(xml_data: cstring, error: ^^glib.Error) -> ^DBusNodeInfo ---
-
-    @(link_name = "g_dbus_node_info_lookup_interface")
-    dbus_node_info_lookup_interface :: proc(info: ^DBusNodeInfo, name: cstring) -> ^DBusInterfaceInfo ---
-
-    @(link_name = "g_dbus_node_info_generate_xml")
-    dbus_node_info_generate_xml :: proc(info: ^DBusNodeInfo, indent: glib.uint_, string_builder: ^glib.String) ---
-
-    @(link_name = "g_dbus_node_info_ref")
-    dbus_node_info_ref :: proc(info: ^DBusNodeInfo) -> ^DBusNodeInfo ---
-
-    @(link_name = "g_dbus_interface_info_ref")
-    dbus_interface_info_ref :: proc(info: ^DBusInterfaceInfo) -> ^DBusInterfaceInfo ---
-
-    @(link_name = "g_dbus_method_info_ref")
-    dbus_method_info_ref :: proc(info: ^DBusMethodInfo) -> ^DBusMethodInfo ---
-
-    @(link_name = "g_dbus_signal_info_ref")
-    dbus_signal_info_ref :: proc(info: ^DBusSignalInfo) -> ^DBusSignalInfo ---
-
-    @(link_name = "g_dbus_property_info_ref")
-    dbus_property_info_ref :: proc(info: ^DBusPropertyInfo) -> ^DBusPropertyInfo ---
-
-    @(link_name = "g_dbus_arg_info_ref")
-    dbus_arg_info_ref :: proc(info: ^DBusArgInfo) -> ^DBusArgInfo ---
-
-    @(link_name = "g_dbus_annotation_info_ref")
-    dbus_annotation_info_ref :: proc(info: ^DBusAnnotationInfo) -> ^DBusAnnotationInfo ---
-
-    @(link_name = "g_dbus_node_info_unref")
-    dbus_node_info_unref :: proc(info: ^DBusNodeInfo) ---
-
-    @(link_name = "g_dbus_interface_info_unref")
-    dbus_interface_info_unref :: proc(info: ^DBusInterfaceInfo) ---
-
-    @(link_name = "g_dbus_method_info_unref")
-    dbus_method_info_unref :: proc(info: ^DBusMethodInfo) ---
-
-    @(link_name = "g_dbus_signal_info_unref")
-    dbus_signal_info_unref :: proc(info: ^DBusSignalInfo) ---
-
-    @(link_name = "g_dbus_property_info_unref")
-    dbus_property_info_unref :: proc(info: ^DBusPropertyInfo) ---
-
-    @(link_name = "g_dbus_arg_info_unref")
-    dbus_arg_info_unref :: proc(info: ^DBusArgInfo) ---
-
-    @(link_name = "g_dbus_annotation_info_unref")
-    dbus_annotation_info_unref :: proc(info: ^DBusAnnotationInfo) ---
-
-    @(link_name = "g_dbus_menu_model_get")
-    dbus_menu_model_get :: proc(connection: ^DBusConnection, bus_name: cstring, object_path: cstring) -> ^DBusMenuModel ---
-
-    @(link_name = "g_dbus_message_new")
-    dbus_message_new :: proc() -> ^DBusMessage ---
-
-    @(link_name = "g_dbus_message_new_signal")
-    dbus_message_new_signal :: proc(path: cstring, interface_: cstring, signal: cstring) -> ^DBusMessage ---
-
-    @(link_name = "g_dbus_message_new_method_call")
-    dbus_message_new_method_call :: proc(name: cstring, path: cstring, interface_: cstring, method: cstring) -> ^DBusMessage ---
-
-    @(link_name = "g_dbus_message_new_method_reply")
-    dbus_message_new_method_reply :: proc(method_call_message: ^DBusMessage) -> ^DBusMessage ---
-
-    @(link_name = "g_dbus_message_new_method_error")
-    dbus_message_new_method_error :: proc(method_call_message: ^DBusMessage, error_name: cstring, error_message_format: cstring, #c_vararg var_args: ..any) -> ^DBusMessage ---
-
-    @(link_name = "g_dbus_message_new_method_error_valist")
-    dbus_message_new_method_error_valist :: proc(method_call_message: ^DBusMessage, error_name: cstring, error_message_format: cstring, #c_vararg var_args: ..any) -> ^DBusMessage ---
-
-    @(link_name = "g_dbus_message_new_method_error_literal")
-    dbus_message_new_method_error_literal :: proc(method_call_message: ^DBusMessage, error_name: cstring, error_message: cstring) -> ^DBusMessage ---
-
-    @(link_name = "g_dbus_message_print")
-    dbus_message_print :: proc(message: ^DBusMessage, indent: glib.uint_) -> cstring ---
-
-    @(link_name = "g_dbus_message_get_locked")
-    dbus_message_get_locked :: proc(message: ^DBusMessage) -> glib.boolean ---
-
-    @(link_name = "g_dbus_message_lock")
-    dbus_message_lock :: proc(message: ^DBusMessage) ---
-
-    @(link_name = "g_dbus_message_copy")
-    dbus_message_copy :: proc(message: ^DBusMessage, error: ^^glib.Error) -> ^DBusMessage ---
-
-    @(link_name = "g_dbus_message_get_byte_order")
-    dbus_message_get_byte_order :: proc(message: ^DBusMessage) -> DBusMessageByteOrder ---
-
-    @(link_name = "g_dbus_message_set_byte_order")
-    dbus_message_set_byte_order :: proc(message: ^DBusMessage, byte_order: DBusMessageByteOrder) ---
-
-    @(link_name = "g_dbus_message_get_message_type")
-    dbus_message_get_message_type :: proc(message: ^DBusMessage) -> DBusMessageType ---
-
-    @(link_name = "g_dbus_message_set_message_type")
-    dbus_message_set_message_type :: proc(message: ^DBusMessage, type: DBusMessageType) ---
-
-    @(link_name = "g_dbus_message_get_flags")
-    dbus_message_get_flags :: proc(message: ^DBusMessage) -> DBusMessageFlags ---
-
-    @(link_name = "g_dbus_message_set_flags")
-    dbus_message_set_flags :: proc(message: ^DBusMessage, flags: DBusMessageFlags) ---
-
-    @(link_name = "g_dbus_message_get_serial")
-    dbus_message_get_serial :: proc(message: ^DBusMessage) -> glib.uint32 ---
-
-    @(link_name = "g_dbus_message_set_serial")
-    dbus_message_set_serial :: proc(message: ^DBusMessage, serial: glib.uint32) ---
-
-    @(link_name = "g_dbus_message_get_header")
-    dbus_message_get_header :: proc(message: ^DBusMessage, header_field: DBusMessageHeaderField) -> ^glib.Variant ---
-
-    @(link_name = "g_dbus_message_set_header")
-    dbus_message_set_header :: proc(message: ^DBusMessage, header_field: DBusMessageHeaderField, value: ^glib.Variant) ---
-
-    @(link_name = "g_dbus_message_get_header_fields")
-    dbus_message_get_header_fields :: proc(message: ^DBusMessage) -> ^glib.uchar ---
-
-    @(link_name = "g_dbus_message_get_body")
-    dbus_message_get_body :: proc(message: ^DBusMessage) -> ^glib.Variant ---
-
-    @(link_name = "g_dbus_message_set_body")
-    dbus_message_set_body :: proc(message: ^DBusMessage, body: ^glib.Variant) ---
-
-    @(link_name = "g_dbus_message_get_reply_serial")
-    dbus_message_get_reply_serial :: proc(message: ^DBusMessage) -> glib.uint32 ---
-
-    @(link_name = "g_dbus_message_set_reply_serial")
-    dbus_message_set_reply_serial :: proc(message: ^DBusMessage, value: glib.uint32) ---
-
-    @(link_name = "g_dbus_message_get_interface")
-    dbus_message_get_interface :: proc(message: ^DBusMessage) -> cstring ---
-
-    @(link_name = "g_dbus_message_set_interface")
-    dbus_message_set_interface :: proc(message: ^DBusMessage, value: cstring) ---
-
-    @(link_name = "g_dbus_message_get_member")
-    dbus_message_get_member :: proc(message: ^DBusMessage) -> cstring ---
-
-    @(link_name = "g_dbus_message_set_member")
-    dbus_message_set_member :: proc(message: ^DBusMessage, value: cstring) ---
-
-    @(link_name = "g_dbus_message_get_path")
-    dbus_message_get_path :: proc(message: ^DBusMessage) -> cstring ---
-
-    @(link_name = "g_dbus_message_set_path")
-    dbus_message_set_path :: proc(message: ^DBusMessage, value: cstring) ---
-
-    @(link_name = "g_dbus_message_get_sender")
-    dbus_message_get_sender :: proc(message: ^DBusMessage) -> cstring ---
-
-    @(link_name = "g_dbus_message_set_sender")
-    dbus_message_set_sender :: proc(message: ^DBusMessage, value: cstring) ---
-
-    @(link_name = "g_dbus_message_get_destination")
-    dbus_message_get_destination :: proc(message: ^DBusMessage) -> cstring ---
-
-    @(link_name = "g_dbus_message_set_destination")
-    dbus_message_set_destination :: proc(message: ^DBusMessage, value: cstring) ---
-
-    @(link_name = "g_dbus_message_get_error_name")
-    dbus_message_get_error_name :: proc(message: ^DBusMessage) -> cstring ---
-
-    @(link_name = "g_dbus_message_set_error_name")
-    dbus_message_set_error_name :: proc(message: ^DBusMessage, value: cstring) ---
-
-    @(link_name = "g_dbus_message_get_signature")
-    dbus_message_get_signature :: proc(message: ^DBusMessage) -> cstring ---
-
-    @(link_name = "g_dbus_message_set_signature")
-    dbus_message_set_signature :: proc(message: ^DBusMessage, value: cstring) ---
-
-    @(link_name = "g_dbus_message_get_num_unix_fds")
-    dbus_message_get_num_unix_fds :: proc(message: ^DBusMessage) -> glib.uint32 ---
-
-    @(link_name = "g_dbus_message_set_num_unix_fds")
-    dbus_message_set_num_unix_fds :: proc(message: ^DBusMessage, value: glib.uint32) ---
-
-    @(link_name = "g_dbus_message_get_arg0")
-    dbus_message_get_arg0 :: proc(message: ^DBusMessage) -> cstring ---
-
-    @(link_name = "g_dbus_message_get_arg0_path")
-    dbus_message_get_arg0_path :: proc(message: ^DBusMessage) -> cstring ---
-
-    @(link_name = "g_dbus_message_new_from_blob")
-    dbus_message_new_from_blob :: proc(blob: ^glib.uchar, blob_len: glib.size, capabilities: DBusCapabilityFlags, error: ^^glib.Error) -> ^DBusMessage ---
-
-    @(link_name = "g_dbus_message_bytes_needed")
-    dbus_message_bytes_needed :: proc(blob: ^glib.uchar, blob_len: glib.size, error: ^^glib.Error) -> glib.ssize ---
-
-    @(link_name = "g_dbus_message_to_blob")
-    dbus_message_to_blob :: proc(message: ^DBusMessage, out_size: ^glib.size, capabilities: DBusCapabilityFlags, error: ^^glib.Error) -> ^glib.uchar ---
-
-    @(link_name = "g_dbus_message_to_gerror")
-    dbus_message_to_gerror :: proc(message: ^DBusMessage, error: ^^glib.Error) -> glib.boolean ---
-
-    @(link_name = "g_dbus_method_invocation_get_sender")
-    dbus_method_invocation_get_sender :: proc(invocation: ^DBusMethodInvocation) -> cstring ---
-
-    @(link_name = "g_dbus_method_invocation_get_object_path")
-    dbus_method_invocation_get_object_path :: proc(invocation: ^DBusMethodInvocation) -> cstring ---
-
-    @(link_name = "g_dbus_method_invocation_get_interface_name")
-    dbus_method_invocation_get_interface_name :: proc(invocation: ^DBusMethodInvocation) -> cstring ---
-
-    @(link_name = "g_dbus_method_invocation_get_method_name")
-    dbus_method_invocation_get_method_name :: proc(invocation: ^DBusMethodInvocation) -> cstring ---
-
-    @(link_name = "g_dbus_method_invocation_get_method_info")
-    dbus_method_invocation_get_method_info :: proc(invocation: ^DBusMethodInvocation) -> ^DBusMethodInfo ---
-
-    @(link_name = "g_dbus_method_invocation_get_property_info")
-    dbus_method_invocation_get_property_info :: proc(invocation: ^DBusMethodInvocation) -> ^DBusPropertyInfo ---
-
-    @(link_name = "g_dbus_method_invocation_get_connection")
-    dbus_method_invocation_get_connection :: proc(invocation: ^DBusMethodInvocation) -> ^DBusConnection ---
-
-    @(link_name = "g_dbus_method_invocation_get_message")
-    dbus_method_invocation_get_message :: proc(invocation: ^DBusMethodInvocation) -> ^DBusMessage ---
-
-    @(link_name = "g_dbus_method_invocation_get_parameters")
-    dbus_method_invocation_get_parameters :: proc(invocation: ^DBusMethodInvocation) -> ^glib.Variant ---
-
-    @(link_name = "g_dbus_method_invocation_get_user_data")
-    dbus_method_invocation_get_user_data :: proc(invocation: ^DBusMethodInvocation) -> glib.pointer ---
-
-    @(link_name = "g_dbus_method_invocation_return_value")
-    dbus_method_invocation_return_value :: proc(invocation: ^DBusMethodInvocation, parameters: [^]glib.Variant) ---
-
-    @(link_name = "g_dbus_method_invocation_return_error")
-    dbus_method_invocation_return_error :: proc(invocation: ^DBusMethodInvocation, domain: glib.Quark, code: glib.int_, format: cstring, #c_vararg var_args: ..any) ---
-
-    @(link_name = "g_dbus_method_invocation_return_error_valist")
-    dbus_method_invocation_return_error_valist :: proc(invocation: ^DBusMethodInvocation, domain: glib.Quark, code: glib.int_, format: cstring, #c_vararg var_args: ..any) ---
-
-    @(link_name = "g_dbus_method_invocation_return_error_literal")
-    dbus_method_invocation_return_error_literal :: proc(invocation: ^DBusMethodInvocation, domain: glib.Quark, code: glib.int_, message: cstring) ---
-
-    @(link_name = "g_dbus_method_invocation_return_gerror")
-    dbus_method_invocation_return_gerror :: proc(invocation: ^DBusMethodInvocation, error: ^glib.Error) ---
-
-    @(link_name = "g_dbus_method_invocation_take_error")
-    dbus_method_invocation_take_error :: proc(invocation: ^DBusMethodInvocation, error: ^glib.Error) ---
-
-    @(link_name = "g_dbus_method_invocation_return_dbus_error")
-    dbus_method_invocation_return_dbus_error :: proc(invocation: ^DBusMethodInvocation, error_name: cstring, error_message: cstring) ---
-
-    @(link_name = "g_bus_own_name")
-    bus_own_name :: proc(bus_type: BusType, name: cstring, flags: BusNameOwnerFlags, bus_acquired_handler: BusAcquiredCallback, name_acquired_handler: BusNameAcquiredCallback, name_lost_handler: BusNameLostCallback, user_data: glib.pointer, user_data_free_func: glib.DestroyNotify) -> glib.uint_ ---
-
-    @(link_name = "g_bus_own_name_on_connection")
-    bus_own_name_on_connection :: proc(connection: ^DBusConnection, name: cstring, flags: BusNameOwnerFlags, name_acquired_handler: BusNameAcquiredCallback, name_lost_handler: BusNameLostCallback, user_data: glib.pointer, user_data_free_func: glib.DestroyNotify) -> glib.uint_ ---
-
-    @(link_name = "g_bus_own_name_with_closures")
-    bus_own_name_with_closures :: proc(bus_type: BusType, name: cstring, flags: BusNameOwnerFlags, bus_acquired_closure: ^gobj.Closure, name_acquired_closure: ^gobj.Closure, name_lost_closure: ^gobj.Closure) -> glib.uint_ ---
-
-    @(link_name = "g_bus_own_name_on_connection_with_closures")
-    bus_own_name_on_connection_with_closures :: proc(connection: ^DBusConnection, name: cstring, flags: BusNameOwnerFlags, name_acquired_closure: ^gobj.Closure, name_lost_closure: ^gobj.Closure) -> glib.uint_ ---
-
-    @(link_name = "g_bus_unown_name")
-    bus_unown_name :: proc(owner_id: glib.uint_) ---
-
-    @(link_name = "g_bus_watch_name")
-    bus_watch_name :: proc(bus_type: BusType, name: cstring, flags: BusNameWatcherFlags, name_appeared_handler: BusNameAppearedCallback, name_vanished_handler: BusNameVanishedCallback, user_data: glib.pointer, user_data_free_func: glib.DestroyNotify) -> glib.uint_ ---
-
-    @(link_name = "g_bus_watch_name_on_connection")
-    bus_watch_name_on_connection :: proc(connection: ^DBusConnection, name: cstring, flags: BusNameWatcherFlags, name_appeared_handler: BusNameAppearedCallback, name_vanished_handler: BusNameVanishedCallback, user_data: glib.pointer, user_data_free_func: glib.DestroyNotify) -> glib.uint_ ---
-
-    @(link_name = "g_bus_watch_name_with_closures")
-    bus_watch_name_with_closures :: proc(bus_type: BusType, name: cstring, flags: BusNameWatcherFlags, name_appeared_closure: ^gobj.Closure, name_vanished_closure: ^gobj.Closure) -> glib.uint_ ---
-
-    @(link_name = "g_bus_watch_name_on_connection_with_closures")
-    bus_watch_name_on_connection_with_closures :: proc(connection: ^DBusConnection, name: cstring, flags: BusNameWatcherFlags, name_appeared_closure: ^gobj.Closure, name_vanished_closure: ^gobj.Closure) -> glib.uint_ ---
-
-    @(link_name = "g_bus_unwatch_name")
-    bus_unwatch_name :: proc(watcher_id: glib.uint_) ---
-
-    @(link_name = "g_dbus_object_get_object_path")
-    dbus_object_get_object_path :: proc(object: ^DBusObject) -> cstring ---
-
-    @(link_name = "g_dbus_object_get_interfaces")
-    dbus_object_get_interfaces :: proc(object: ^DBusObject) -> ^glib.List ---
-
-    @(link_name = "g_dbus_object_get_interface")
-    dbus_object_get_interface :: proc(object: ^DBusObject, interface_name: cstring) -> ^DBusInterface ---
-
-    @(link_name = "g_dbus_object_manager_get_object_path")
-    dbus_object_manager_get_object_path :: proc(manager: ^DBusObjectManager) -> cstring ---
-
-    @(link_name = "g_dbus_object_manager_get_objects")
-    dbus_object_manager_get_objects :: proc(manager: ^DBusObjectManager) -> ^glib.List ---
-
-    @(link_name = "g_dbus_object_manager_get_object")
-    dbus_object_manager_get_object :: proc(manager: ^DBusObjectManager, object_path: cstring) -> ^DBusObject ---
-
-    @(link_name = "g_dbus_object_manager_get_interface")
-    dbus_object_manager_get_interface :: proc(manager: ^DBusObjectManager, object_path: cstring, interface_name: cstring) -> ^DBusInterface ---
-
-    @(link_name = "g_dbus_object_manager_client_new")
-    dbus_object_manager_client_new :: proc(connection: ^DBusConnection, flags: DBusObjectManagerClientFlags, name: cstring, object_path: cstring, get_proxy_type_func: DBusProxyTypeFunc, get_proxy_type_user_data: glib.pointer, get_proxy_type_destroy_notify: glib.DestroyNotify, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer) ---
-
-    @(link_name = "g_dbus_object_manager_client_new_finish")
-    dbus_object_manager_client_new_finish :: proc(res: [^]AsyncResult, error: ^^glib.Error) -> ^DBusObjectManager ---
-
-    @(link_name = "g_dbus_object_manager_client_new_sync")
-    dbus_object_manager_client_new_sync :: proc(connection: ^DBusConnection, flags: DBusObjectManagerClientFlags, name: cstring, object_path: cstring, get_proxy_type_func: DBusProxyTypeFunc, get_proxy_type_user_data: glib.pointer, get_proxy_type_destroy_notify: glib.DestroyNotify, cancellable: ^Cancellable, error: ^^glib.Error) -> ^DBusObjectManager ---
-
-    @(link_name = "g_dbus_object_manager_client_new_for_bus")
-    dbus_object_manager_client_new_for_bus :: proc(bus_type: BusType, flags: DBusObjectManagerClientFlags, name: cstring, object_path: cstring, get_proxy_type_func: DBusProxyTypeFunc, get_proxy_type_user_data: glib.pointer, get_proxy_type_destroy_notify: glib.DestroyNotify, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer) ---
-
-    @(link_name = "g_dbus_object_manager_client_new_for_bus_finish")
-    dbus_object_manager_client_new_for_bus_finish :: proc(res: [^]AsyncResult, error: ^^glib.Error) -> ^DBusObjectManager ---
-
-    @(link_name = "g_dbus_object_manager_client_new_for_bus_sync")
-    dbus_object_manager_client_new_for_bus_sync :: proc(bus_type: BusType, flags: DBusObjectManagerClientFlags, name: cstring, object_path: cstring, get_proxy_type_func: DBusProxyTypeFunc, get_proxy_type_user_data: glib.pointer, get_proxy_type_destroy_notify: glib.DestroyNotify, cancellable: ^Cancellable, error: ^^glib.Error) -> ^DBusObjectManager ---
-
-    @(link_name = "g_dbus_object_manager_client_get_connection")
-    dbus_object_manager_client_get_connection :: proc(manager: ^DBusObjectManagerClient) -> ^DBusConnection ---
-
-    @(link_name = "g_dbus_object_manager_client_get_flags")
-    dbus_object_manager_client_get_flags :: proc(manager: ^DBusObjectManagerClient) -> DBusObjectManagerClientFlags ---
-
-    @(link_name = "g_dbus_object_manager_client_get_name")
-    dbus_object_manager_client_get_name :: proc(manager: ^DBusObjectManagerClient) -> cstring ---
-
-    @(link_name = "g_dbus_object_manager_client_get_name_owner")
-    dbus_object_manager_client_get_name_owner :: proc(manager: ^DBusObjectManagerClient) -> cstring ---
-
-    @(link_name = "g_dbus_object_manager_server_new")
-    dbus_object_manager_server_new :: proc(object_path: cstring) -> ^DBusObjectManagerServer ---
-
-    @(link_name = "g_dbus_object_manager_server_get_connection")
-    dbus_object_manager_server_get_connection :: proc(manager: ^DBusObjectManagerServer) -> ^DBusConnection ---
-
-    @(link_name = "g_dbus_object_manager_server_set_connection")
-    dbus_object_manager_server_set_connection :: proc(manager: ^DBusObjectManagerServer, connection: ^DBusConnection) ---
-
-    @(link_name = "g_dbus_object_manager_server_export")
-    dbus_object_manager_server_export :: proc(manager: ^DBusObjectManagerServer, object: ^DBusObjectSkeleton) ---
-
-    @(link_name = "g_dbus_object_manager_server_export_uniquely")
-    dbus_object_manager_server_export_uniquely :: proc(manager: ^DBusObjectManagerServer, object: ^DBusObjectSkeleton) ---
-
-    @(link_name = "g_dbus_object_manager_server_is_exported")
-    dbus_object_manager_server_is_exported :: proc(manager: ^DBusObjectManagerServer, object: ^DBusObjectSkeleton) -> glib.boolean ---
-
-    @(link_name = "g_dbus_object_manager_server_unexport")
-    dbus_object_manager_server_unexport :: proc(manager: ^DBusObjectManagerServer, object_path: cstring) -> glib.boolean ---
-
-    @(link_name = "g_dbus_object_proxy_new")
-    dbus_object_proxy_new :: proc(connection: ^DBusConnection, object_path: cstring) -> ^DBusObjectProxy ---
-
-    @(link_name = "g_dbus_object_proxy_get_connection")
-    dbus_object_proxy_get_connection :: proc(proxy: ^DBusObjectProxy) -> ^DBusConnection ---
-
-    @(link_name = "g_dbus_object_skeleton_new")
-    dbus_object_skeleton_new :: proc(object_path: cstring) -> ^DBusObjectSkeleton ---
-
-    @(link_name = "g_dbus_object_skeleton_flush")
-    dbus_object_skeleton_flush :: proc(object: ^DBusObjectSkeleton) ---
-
-    @(link_name = "g_dbus_object_skeleton_add_interface")
-    dbus_object_skeleton_add_interface :: proc(object: ^DBusObjectSkeleton, interface_: ^DBusInterfaceSkeleton) ---
-
-    @(link_name = "g_dbus_object_skeleton_remove_interface")
-    dbus_object_skeleton_remove_interface :: proc(object: ^DBusObjectSkeleton, interface_: ^DBusInterfaceSkeleton) ---
-
-    @(link_name = "g_dbus_object_skeleton_remove_interface_by_name")
-    dbus_object_skeleton_remove_interface_by_name :: proc(object: ^DBusObjectSkeleton, interface_name: cstring) ---
-
-    @(link_name = "g_dbus_object_skeleton_set_object_path")
-    dbus_object_skeleton_set_object_path :: proc(object: ^DBusObjectSkeleton, object_path: cstring) ---
-
-    @(link_name = "g_dbus_proxy_new")
-    dbus_proxy_new :: proc(connection: ^DBusConnection, flags: DBusProxyFlags, info: ^DBusInterfaceInfo, name: cstring, object_path: cstring, interface_name: cstring, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer) ---
-
-    @(link_name = "g_dbus_proxy_new_finish")
-    dbus_proxy_new_finish :: proc(res: [^]AsyncResult, error: ^^glib.Error) -> ^DBusProxy ---
-
-    @(link_name = "g_dbus_proxy_new_sync")
-    dbus_proxy_new_sync :: proc(connection: ^DBusConnection, flags: DBusProxyFlags, info: ^DBusInterfaceInfo, name: cstring, object_path: cstring, interface_name: cstring, cancellable: ^Cancellable, error: ^^glib.Error) -> ^DBusProxy ---
-
-    @(link_name = "g_dbus_proxy_new_for_bus")
-    dbus_proxy_new_for_bus :: proc(bus_type: BusType, flags: DBusProxyFlags, info: ^DBusInterfaceInfo, name: cstring, object_path: cstring, interface_name: cstring, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer) ---
-
-    @(link_name = "g_dbus_proxy_new_for_bus_finish")
-    dbus_proxy_new_for_bus_finish :: proc(res: [^]AsyncResult, error: ^^glib.Error) -> ^DBusProxy ---
-
-    @(link_name = "g_dbus_proxy_new_for_bus_sync")
-    dbus_proxy_new_for_bus_sync :: proc(bus_type: BusType, flags: DBusProxyFlags, info: ^DBusInterfaceInfo, name: cstring, object_path: cstring, interface_name: cstring, cancellable: ^Cancellable, error: ^^glib.Error) -> ^DBusProxy ---
-
-    @(link_name = "g_dbus_proxy_get_connection")
-    dbus_proxy_get_connection :: proc(proxy: ^DBusProxy) -> ^DBusConnection ---
-
-    @(link_name = "g_dbus_proxy_get_flags")
-    dbus_proxy_get_flags :: proc(proxy: ^DBusProxy) -> DBusProxyFlags ---
-
-    @(link_name = "g_dbus_proxy_get_name")
-    dbus_proxy_get_name :: proc(proxy: ^DBusProxy) -> cstring ---
-
-    @(link_name = "g_dbus_proxy_get_name_owner")
-    dbus_proxy_get_name_owner :: proc(proxy: ^DBusProxy) -> cstring ---
-
-    @(link_name = "g_dbus_proxy_get_object_path")
-    dbus_proxy_get_object_path :: proc(proxy: ^DBusProxy) -> cstring ---
-
-    @(link_name = "g_dbus_proxy_get_interface_name")
-    dbus_proxy_get_interface_name :: proc(proxy: ^DBusProxy) -> cstring ---
-
-    @(link_name = "g_dbus_proxy_get_default_timeout")
-    dbus_proxy_get_default_timeout :: proc(proxy: ^DBusProxy) -> glib.int_ ---
-
-    @(link_name = "g_dbus_proxy_set_default_timeout")
-    dbus_proxy_set_default_timeout :: proc(proxy: ^DBusProxy, timeout_msec: glib.int_) ---
-
-    @(link_name = "g_dbus_proxy_get_interface_info")
-    dbus_proxy_get_interface_info :: proc(proxy: ^DBusProxy) -> ^DBusInterfaceInfo ---
-
-    @(link_name = "g_dbus_proxy_set_interface_info")
-    dbus_proxy_set_interface_info :: proc(proxy: ^DBusProxy, info: ^DBusInterfaceInfo) ---
-
-    @(link_name = "g_dbus_proxy_get_cached_property")
-    dbus_proxy_get_cached_property :: proc(proxy: ^DBusProxy, property_name: cstring) -> ^glib.Variant ---
-
-    @(link_name = "g_dbus_proxy_set_cached_property")
-    dbus_proxy_set_cached_property :: proc(proxy: ^DBusProxy, property_name: cstring, value: ^glib.Variant) ---
-
-    @(link_name = "g_dbus_proxy_get_cached_property_names")
-    dbus_proxy_get_cached_property_names :: proc(proxy: ^DBusProxy) -> ^cstring ---
-
-    @(link_name = "g_dbus_proxy_call")
-    dbus_proxy_call :: proc(proxy: ^DBusProxy, method_name: cstring, parameters: [^]glib.Variant, flags: DBusCallFlags, timeout_msec: glib.int_, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer) ---
-
-    @(link_name = "g_dbus_proxy_call_finish")
-    dbus_proxy_call_finish :: proc(proxy: ^DBusProxy, res: [^]AsyncResult, error: ^^glib.Error) -> ^glib.Variant ---
-
-    @(link_name = "g_dbus_proxy_call_sync")
-    dbus_proxy_call_sync :: proc(proxy: ^DBusProxy, method_name: cstring, parameters: [^]glib.Variant, flags: DBusCallFlags, timeout_msec: glib.int_, cancellable: ^Cancellable, error: ^^glib.Error) -> ^glib.Variant ---
-
-    @(link_name = "g_dbus_server_new_sync")
-    dbus_server_new_sync :: proc(address: [^]glib.char, flags: DBusServerFlags, guid: cstring, observer: ^DBusAuthObserver, cancellable: ^Cancellable, error: ^^glib.Error) -> ^DBusServer ---
-
-    @(link_name = "g_dbus_server_get_client_address")
-    dbus_server_get_client_address :: proc(server: ^DBusServer) -> cstring ---
-
-    @(link_name = "g_dbus_server_get_guid")
-    dbus_server_get_guid :: proc(server: ^DBusServer) -> cstring ---
-
-    @(link_name = "g_dbus_server_get_flags")
-    dbus_server_get_flags :: proc(server: ^DBusServer) -> DBusServerFlags ---
-
-    @(link_name = "g_dbus_server_start")
-    dbus_server_start :: proc(server: ^DBusServer) ---
-
-    @(link_name = "g_dbus_server_stop")
-    dbus_server_stop :: proc(server: ^DBusServer) ---
-
-    @(link_name = "g_dbus_server_is_active")
-    dbus_server_is_active :: proc(server: ^DBusServer) -> glib.boolean ---
-
-    @(link_name = "g_dbus_is_guid")
-    dbus_is_guid :: proc(string_p: cstring) -> glib.boolean ---
-
-    @(link_name = "g_dbus_generate_guid")
-    dbus_generate_guid :: proc() -> cstring ---
-
-    @(link_name = "g_dbus_is_name")
-    dbus_is_name :: proc(string_p: cstring) -> glib.boolean ---
-
-    @(link_name = "g_dbus_is_unique_name")
-    dbus_is_unique_name :: proc(string_p: cstring) -> glib.boolean ---
-
-    @(link_name = "g_dbus_is_member_name")
-    dbus_is_member_name :: proc(string_p: cstring) -> glib.boolean ---
-
-    @(link_name = "g_dbus_is_interface_name")
-    dbus_is_interface_name :: proc(string_p: cstring) -> glib.boolean ---
-
-    @(link_name = "g_dbus_is_error_name")
-    dbus_is_error_name :: proc(string_p: cstring) -> glib.boolean ---
-
-    @(link_name = "g_dbus_gvariant_to_gvalue")
-    dbus_gvariant_to_gvalue :: proc(value: ^glib.Variant, out_gvalue: ^gobj.Value) ---
-
-    @(link_name = "g_dbus_gvalue_to_gvariant")
-    dbus_gvalue_to_gvariant :: proc(gvalue: ^gobj.Value, type: ^glib.VariantType) -> ^glib.Variant ---
-
-    @(link_name = "g_dbus_escape_object_path_bytestring")
-    dbus_escape_object_path_bytestring :: proc(bytes: [^]glib.uint8) -> cstring ---
-
-    @(link_name = "g_dbus_escape_object_path")
-    dbus_escape_object_path :: proc(s: cstring) -> cstring ---
-
-    @(link_name = "g_dbus_unescape_object_path")
-    dbus_unescape_object_path :: proc(s: cstring) -> ^glib.uint8 ---
-
-    @(link_name = "g_debug_controller_get_debug_enabled")
-    debug_controller_get_debug_enabled :: proc(self: ^DebugController) -> glib.boolean ---
-
-    @(link_name = "g_debug_controller_set_debug_enabled")
-    debug_controller_set_debug_enabled :: proc(self: ^DebugController, debug_enabled: glib.boolean) ---
-
-    @(link_name = "g_debug_controller_dbus_new")
-    debug_controller_dbus_new :: proc(connection: ^DBusConnection, cancellable: ^Cancellable, error: ^^glib.Error) -> ^DebugControllerDBus ---
-
-    @(link_name = "g_debug_controller_dbus_stop")
-    debug_controller_dbus_stop :: proc(self: ^DebugControllerDBus) ---
-
-    @(link_name = "g_drive_get_name")
-    drive_get_name :: proc(drive: ^Drive) -> cstring ---
-
-    @(link_name = "g_drive_get_icon")
-    drive_get_icon :: proc(drive: ^Drive) -> ^Icon ---
-
-    @(link_name = "g_drive_get_symbolic_icon")
-    drive_get_symbolic_icon :: proc(drive: ^Drive) -> ^Icon ---
-
-    @(link_name = "g_drive_has_volumes")
-    drive_has_volumes :: proc(drive: ^Drive) -> glib.boolean ---
-
-    @(link_name = "g_drive_get_volumes")
-    drive_get_volumes :: proc(drive: ^Drive) -> ^glib.List ---
-
-    @(link_name = "g_drive_is_removable")
-    drive_is_removable :: proc(drive: ^Drive) -> glib.boolean ---
-
-    @(link_name = "g_drive_is_media_removable")
-    drive_is_media_removable :: proc(drive: ^Drive) -> glib.boolean ---
-
-    @(link_name = "g_drive_has_media")
-    drive_has_media :: proc(drive: ^Drive) -> glib.boolean ---
-
-    @(link_name = "g_drive_is_media_check_automatic")
-    drive_is_media_check_automatic :: proc(drive: ^Drive) -> glib.boolean ---
-
-    @(link_name = "g_drive_can_poll_for_media")
-    drive_can_poll_for_media :: proc(drive: ^Drive) -> glib.boolean ---
-
-    @(link_name = "g_drive_can_eject")
-    drive_can_eject :: proc(drive: ^Drive) -> glib.boolean ---
-
-    @(link_name = "g_drive_eject")
-    drive_eject :: proc(drive: ^Drive, flags: MountUnmountFlags, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer) ---
-
-    @(link_name = "g_drive_eject_finish")
-    drive_eject_finish :: proc(drive: ^Drive, result: ^AsyncResult, error: ^^glib.Error) -> glib.boolean ---
-
-    @(link_name = "g_drive_poll_for_media")
-    drive_poll_for_media :: proc(drive: ^Drive, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer) ---
-
-    @(link_name = "g_drive_poll_for_media_finish")
-    drive_poll_for_media_finish :: proc(drive: ^Drive, result: ^AsyncResult, error: ^^glib.Error) -> glib.boolean ---
-
-    @(link_name = "g_drive_get_identifier")
-    drive_get_identifier :: proc(drive: ^Drive, kind: cstring) -> cstring ---
-
-    @(link_name = "g_drive_enumerate_identifiers")
-    drive_enumerate_identifiers :: proc(drive: ^Drive) -> ^cstring ---
-
-    @(link_name = "g_drive_get_start_stop_type")
-    drive_get_start_stop_type :: proc(drive: ^Drive) -> DriveStartStopType ---
-
-    @(link_name = "g_drive_can_start")
-    drive_can_start :: proc(drive: ^Drive) -> glib.boolean ---
-
-    @(link_name = "g_drive_can_start_degraded")
-    drive_can_start_degraded :: proc(drive: ^Drive) -> glib.boolean ---
-
-    @(link_name = "g_drive_start")
-    drive_start :: proc(drive: ^Drive, flags: DriveStartFlags, mount_operation: ^MountOperation, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer) ---
-
-    @(link_name = "g_drive_start_finish")
-    drive_start_finish :: proc(drive: ^Drive, result: ^AsyncResult, error: ^^glib.Error) -> glib.boolean ---
-
-    @(link_name = "g_drive_can_stop")
-    drive_can_stop :: proc(drive: ^Drive) -> glib.boolean ---
-
-    @(link_name = "g_drive_stop")
-    drive_stop :: proc(drive: ^Drive, flags: MountUnmountFlags, mount_operation: ^MountOperation, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer) ---
-
-    @(link_name = "g_drive_stop_finish")
-    drive_stop_finish :: proc(drive: ^Drive, result: ^AsyncResult, error: ^^glib.Error) -> glib.boolean ---
-
-    @(link_name = "g_drive_eject_with_operation")
-    drive_eject_with_operation :: proc(drive: ^Drive, flags: MountUnmountFlags, mount_operation: ^MountOperation, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer) ---
-
-    @(link_name = "g_drive_eject_with_operation_finish")
-    drive_eject_with_operation_finish :: proc(drive: ^Drive, result: ^AsyncResult, error: ^^glib.Error) -> glib.boolean ---
-
-    @(link_name = "g_drive_get_sort_key")
-    drive_get_sort_key :: proc(drive: ^Drive) -> cstring ---
-
-    @(link_name = "g_dtls_connection_set_database")
-    dtls_connection_set_database :: proc(conn: ^DtlsConnection, database: ^TlsDatabase) ---
-
-    @(link_name = "g_dtls_connection_get_database")
-    dtls_connection_get_database :: proc(conn: ^DtlsConnection) -> ^TlsDatabase ---
-
-    @(link_name = "g_dtls_connection_set_certificate")
-    dtls_connection_set_certificate :: proc(conn: ^DtlsConnection, certificate: ^TlsCertificate) ---
-
-    @(link_name = "g_dtls_connection_get_certificate")
-    dtls_connection_get_certificate :: proc(conn: ^DtlsConnection) -> ^TlsCertificate ---
-
-    @(link_name = "g_dtls_connection_set_interaction")
-    dtls_connection_set_interaction :: proc(conn: ^DtlsConnection, interaction: ^TlsInteraction) ---
-
-    @(link_name = "g_dtls_connection_get_interaction")
-    dtls_connection_get_interaction :: proc(conn: ^DtlsConnection) -> ^TlsInteraction ---
-
-    @(link_name = "g_dtls_connection_get_peer_certificate")
-    dtls_connection_get_peer_certificate :: proc(conn: ^DtlsConnection) -> ^TlsCertificate ---
-
-    @(link_name = "g_dtls_connection_get_peer_certificate_errors")
-    dtls_connection_get_peer_certificate_errors :: proc(conn: ^DtlsConnection) -> TlsCertificateFlags ---
-
-    @(link_name = "g_dtls_connection_set_require_close_notify")
-    dtls_connection_set_require_close_notify :: proc(conn: ^DtlsConnection, require_close_notify: glib.boolean) ---
-
-    @(link_name = "g_dtls_connection_get_require_close_notify")
-    dtls_connection_get_require_close_notify :: proc(conn: ^DtlsConnection) -> glib.boolean ---
-
-    @(link_name = "g_dtls_connection_set_rehandshake_mode")
-    dtls_connection_set_rehandshake_mode :: proc(conn: ^DtlsConnection, mode: TlsRehandshakeMode) ---
-
-    @(link_name = "g_dtls_connection_get_rehandshake_mode")
-    dtls_connection_get_rehandshake_mode :: proc(conn: ^DtlsConnection) -> TlsRehandshakeMode ---
-
-    @(link_name = "g_dtls_connection_handshake")
-    dtls_connection_handshake :: proc(conn: ^DtlsConnection, cancellable: ^Cancellable, error: ^^glib.Error) -> glib.boolean ---
-
-    @(link_name = "g_dtls_connection_handshake_async")
-    dtls_connection_handshake_async :: proc(conn: ^DtlsConnection, io_priority: i32, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer) ---
-
-    @(link_name = "g_dtls_connection_handshake_finish")
-    dtls_connection_handshake_finish :: proc(conn: ^DtlsConnection, result: ^AsyncResult, error: ^^glib.Error) -> glib.boolean ---
-
-    @(link_name = "g_dtls_connection_shutdown")
-    dtls_connection_shutdown :: proc(conn: ^DtlsConnection, shutdown_read: glib.boolean, shutdown_write: glib.boolean, cancellable: ^Cancellable, error: ^^glib.Error) -> glib.boolean ---
-
-    @(link_name = "g_dtls_connection_shutdown_async")
-    dtls_connection_shutdown_async :: proc(conn: ^DtlsConnection, shutdown_read: glib.boolean, shutdown_write: glib.boolean, io_priority: i32, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer) ---
-
-    @(link_name = "g_dtls_connection_shutdown_finish")
-    dtls_connection_shutdown_finish :: proc(conn: ^DtlsConnection, result: ^AsyncResult, error: ^^glib.Error) -> glib.boolean ---
-
-    @(link_name = "g_dtls_connection_close")
-    dtls_connection_close :: proc(conn: ^DtlsConnection, cancellable: ^Cancellable, error: ^^glib.Error) -> glib.boolean ---
-
-    @(link_name = "g_dtls_connection_close_async")
-    dtls_connection_close_async :: proc(conn: ^DtlsConnection, io_priority: i32, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer) ---
-
-    @(link_name = "g_dtls_connection_close_finish")
-    dtls_connection_close_finish :: proc(conn: ^DtlsConnection, result: ^AsyncResult, error: ^^glib.Error) -> glib.boolean ---
-
-    @(link_name = "g_dtls_connection_emit_accept_certificate")
-    dtls_connection_emit_accept_certificate :: proc(conn: ^DtlsConnection, peer_cert: ^TlsCertificate, errors: TlsCertificateFlags) -> glib.boolean ---
-
-    @(link_name = "g_dtls_connection_set_advertised_protocols")
-    dtls_connection_set_advertised_protocols :: proc(conn: ^DtlsConnection, protocols: [^]cstring) ---
-
-    @(link_name = "g_dtls_connection_get_negotiated_protocol")
-    dtls_connection_get_negotiated_protocol :: proc(conn: ^DtlsConnection) -> cstring ---
-
-    @(link_name = "g_dtls_connection_get_channel_binding_data")
-    dtls_connection_get_channel_binding_data :: proc(conn: ^DtlsConnection, type: TlsChannelBindingType, data: ^glib.ByteArray, error: ^^glib.Error) -> glib.boolean ---
-
-    @(link_name = "g_dtls_connection_get_protocol_version")
-    dtls_connection_get_protocol_version :: proc(conn: ^DtlsConnection) -> TlsProtocolVersion ---
-
-    @(link_name = "g_dtls_connection_get_ciphersuite_name")
-    dtls_connection_get_ciphersuite_name :: proc(conn: ^DtlsConnection) -> cstring ---
-
-    @(link_name = "g_dtls_client_connection_new")
-    dtls_client_connection_new :: proc(base_socket: ^DatagramBased, server_identity: ^SocketConnectable, error: ^^glib.Error) -> ^DatagramBased ---
-
-    @(link_name = "g_dtls_client_connection_get_validation_flags")
-    dtls_client_connection_get_validation_flags :: proc(conn: ^DtlsClientConnection) -> TlsCertificateFlags ---
-
-    @(link_name = "g_dtls_client_connection_set_validation_flags")
-    dtls_client_connection_set_validation_flags :: proc(conn: ^DtlsClientConnection, flags: TlsCertificateFlags) ---
-
-    @(link_name = "g_dtls_client_connection_get_server_identity")
-    dtls_client_connection_get_server_identity :: proc(conn: ^DtlsClientConnection) -> ^SocketConnectable ---
-
-    @(link_name = "g_dtls_client_connection_set_server_identity")
-    dtls_client_connection_set_server_identity :: proc(conn: ^DtlsClientConnection, identity: ^SocketConnectable) ---
-
-    @(link_name = "g_dtls_client_connection_get_accepted_cas")
-    dtls_client_connection_get_accepted_cas :: proc(conn: ^DtlsClientConnection) -> ^glib.List ---
-
-    @(link_name = "g_dtls_server_connection_new")
-    dtls_server_connection_new :: proc(base_socket: ^DatagramBased, certificate: ^TlsCertificate, error: ^^glib.Error) -> ^DatagramBased ---
-
-    @(link_name = "g_icon_hash")
-    icon_hash :: proc(icon: glib.constpointer) -> glib.uint_ ---
-
-    @(link_name = "g_icon_equal")
-    icon_equal :: proc(icon1: ^Icon, icon2: ^Icon) -> glib.boolean ---
-
-    @(link_name = "g_icon_to_string")
-    icon_to_string :: proc(icon: ^Icon) -> cstring ---
-
-    @(link_name = "g_icon_new_for_string")
-    icon_new_for_string :: proc(str: cstring, error: ^^glib.Error) -> ^Icon ---
-
-    @(link_name = "g_icon_serialize")
-    icon_serialize :: proc(icon: ^Icon) -> ^glib.Variant ---
-
-    @(link_name = "g_icon_deserialize")
-    icon_deserialize :: proc(value: ^glib.Variant) -> ^Icon ---
-
-    @(link_name = "g_emblem_new")
-    emblem_new :: proc(icon: ^Icon) -> ^Emblem ---
-
-    @(link_name = "g_emblem_new_with_origin")
-    emblem_new_with_origin :: proc(icon: ^Icon, origin: EmblemOrigin) -> ^Emblem ---
-
-    @(link_name = "g_emblem_get_icon")
-    emblem_get_icon :: proc(emblem: ^Emblem) -> ^Icon ---
-
-    @(link_name = "g_emblem_get_origin")
-    emblem_get_origin :: proc(emblem: ^Emblem) -> EmblemOrigin ---
-
-    @(link_name = "g_emblemed_icon_new")
-    emblemed_icon_new :: proc(icon: ^Icon, emblem: ^Emblem) -> ^Icon ---
-
-    @(link_name = "g_emblemed_icon_get_icon")
-    emblemed_icon_get_icon :: proc(emblemed: ^EmblemedIcon) -> ^Icon ---
-
-    @(link_name = "g_emblemed_icon_get_emblems")
-    emblemed_icon_get_emblems :: proc(emblemed: ^EmblemedIcon) -> ^glib.List ---
-
-    @(link_name = "g_emblemed_icon_add_emblem")
-    emblemed_icon_add_emblem :: proc(emblemed: ^EmblemedIcon, emblem: ^Emblem) ---
-
-    @(link_name = "g_emblemed_icon_clear_emblems")
-    emblemed_icon_clear_emblems :: proc(emblemed: ^EmblemedIcon) ---
-
-    @(link_name = "g_file_new_for_commandline_arg")
-    file_new_for_commandline_arg :: proc(arg: cstring) -> ^File ---
-
-    @(link_name = "g_file_new_for_commandline_arg_and_cwd")
-    file_new_for_commandline_arg_and_cwd :: proc(arg: cstring, cwd: cstring) -> ^File ---
-
-    @(link_name = "g_file_new_tmp")
-    file_new_tmp :: proc(tmpl: cstring, iostream: ^^FileIOStream, error: ^^glib.Error) -> ^File ---
-
-    @(link_name = "g_file_new_tmp_async")
-    file_new_tmp_async :: proc(tmpl: cstring, io_priority: i32, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer) ---
-
-    @(link_name = "g_file_new_tmp_finish")
-    file_new_tmp_finish :: proc(result: ^AsyncResult, iostream: ^^FileIOStream, error: ^^glib.Error) -> ^File ---
-
-    @(link_name = "g_file_new_tmp_dir_async")
-    file_new_tmp_dir_async :: proc(tmpl: cstring, io_priority: i32, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer) ---
-
-    @(link_name = "g_file_new_tmp_dir_finish")
-    file_new_tmp_dir_finish :: proc(result: ^AsyncResult, error: ^^glib.Error) -> ^File ---
-
-    @(link_name = "g_file_parse_name")
-    file_parse_name :: proc(parse_name: cstring) -> ^File ---
-
-    @(link_name = "g_file_new_build_filename")
-    file_new_build_filename :: proc(first_element: cstring, #c_vararg var_args: ..any) -> ^File ---
-
-    @(link_name = "g_file_new_build_filenamev")
-    file_new_build_filenamev :: proc(args: [^]cstring) -> ^File ---
-
-    @(link_name = "g_file_dup")
-    file_dup :: proc(file: ^File) -> ^File ---
-
-    @(link_name = "g_file_hash")
-    file_hash :: proc(file: glib.constpointer) -> glib.uint_ ---
-
-    @(link_name = "g_file_equal")
-    file_equal :: proc(file1: ^File, file2: ^File) -> glib.boolean ---
-
-    @(link_name = "g_file_get_basename")
-    file_get_basename :: proc(file: ^File) -> cstring ---
-
-    @(link_name = "g_file_get_path")
-    file_get_path :: proc(file: ^File) -> cstring ---
-
-    @(link_name = "g_file_peek_path")
-    file_peek_path :: proc(file: ^File) -> cstring ---
-
-    @(link_name = "g_file_get_uri")
-    file_get_uri :: proc(file: ^File) -> cstring ---
-
-    @(link_name = "g_file_get_parse_name")
-    file_get_parse_name :: proc(file: ^File) -> cstring ---
-
-    @(link_name = "g_file_get_parent")
-    file_get_parent :: proc(file: ^File) -> ^File ---
-
-    @(link_name = "g_file_has_parent")
-    file_has_parent :: proc(file: ^File, parent: ^File) -> glib.boolean ---
-
-    @(link_name = "g_file_get_child")
-    file_get_child :: proc(file: ^File, name: cstring) -> ^File ---
-
-    @(link_name = "g_file_get_child_for_display_name")
-    file_get_child_for_display_name :: proc(file: ^File, display_name: cstring, error: ^^glib.Error) -> ^File ---
-
-    @(link_name = "g_file_has_prefix")
-    file_has_prefix :: proc(file: ^File, prefix: ^File) -> glib.boolean ---
-
-    @(link_name = "g_file_get_relative_path")
-    file_get_relative_path :: proc(parent: ^File, descendant: ^File) -> cstring ---
-
-    @(link_name = "g_file_resolve_relative_path")
-    file_resolve_relative_path :: proc(file: ^File, relative_path: cstring) -> ^File ---
-
-    @(link_name = "g_file_is_native")
-    file_is_native :: proc(file: ^File) -> glib.boolean ---
-
-    @(link_name = "g_file_has_uri_scheme")
-    file_has_uri_scheme :: proc(file: ^File, uri_scheme: cstring) -> glib.boolean ---
-
-    @(link_name = "g_file_get_uri_scheme")
-    file_get_uri_scheme :: proc(file: ^File) -> cstring ---
-
-    @(link_name = "g_file_read")
-    file_read :: proc(file: ^File, cancellable: ^Cancellable, error: ^^glib.Error) -> ^FileInputStream ---
-
-    @(link_name = "g_file_read_async")
-    file_read_async :: proc(file: ^File, io_priority: i32, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer) ---
-
-    @(link_name = "g_file_read_finish")
-    file_read_finish :: proc(file: ^File, res: [^]AsyncResult, error: ^^glib.Error) -> ^FileInputStream ---
-
-    @(link_name = "g_file_append_to")
-    file_append_to :: proc(file: ^File, flags: FileCreateFlags, cancellable: ^Cancellable, error: ^^glib.Error) -> ^FileOutputStream ---
-
-    @(link_name = "g_file_create")
-    file_create :: proc(file: ^File, flags: FileCreateFlags, cancellable: ^Cancellable, error: ^^glib.Error) -> ^FileOutputStream ---
-
-    @(link_name = "g_file_replace")
-    file_replace :: proc(file: ^File, etag: cstring, make_backup: glib.boolean, flags: FileCreateFlags, cancellable: ^Cancellable, error: ^^glib.Error) -> ^FileOutputStream ---
-
-    @(link_name = "g_file_append_to_async")
-    file_append_to_async :: proc(file: ^File, flags: FileCreateFlags, io_priority: i32, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer) ---
-
-    @(link_name = "g_file_append_to_finish")
-    file_append_to_finish :: proc(file: ^File, res: [^]AsyncResult, error: ^^glib.Error) -> ^FileOutputStream ---
-
-    @(link_name = "g_file_create_async")
-    file_create_async :: proc(file: ^File, flags: FileCreateFlags, io_priority: i32, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer) ---
-
-    @(link_name = "g_file_create_finish")
-    file_create_finish :: proc(file: ^File, res: [^]AsyncResult, error: ^^glib.Error) -> ^FileOutputStream ---
-
-    @(link_name = "g_file_replace_async")
-    file_replace_async :: proc(file: ^File, etag: cstring, make_backup: glib.boolean, flags: FileCreateFlags, io_priority: i32, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer) ---
-
-    @(link_name = "g_file_replace_finish")
-    file_replace_finish :: proc(file: ^File, res: [^]AsyncResult, error: ^^glib.Error) -> ^FileOutputStream ---
-
-    @(link_name = "g_file_open_readwrite")
-    file_open_readwrite :: proc(file: ^File, cancellable: ^Cancellable, error: ^^glib.Error) -> ^FileIOStream ---
-
-    @(link_name = "g_file_open_readwrite_async")
-    file_open_readwrite_async :: proc(file: ^File, io_priority: i32, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer) ---
-
-    @(link_name = "g_file_open_readwrite_finish")
-    file_open_readwrite_finish :: proc(file: ^File, res: [^]AsyncResult, error: ^^glib.Error) -> ^FileIOStream ---
-
-    @(link_name = "g_file_create_readwrite")
-    file_create_readwrite :: proc(file: ^File, flags: FileCreateFlags, cancellable: ^Cancellable, error: ^^glib.Error) -> ^FileIOStream ---
-
-    @(link_name = "g_file_create_readwrite_async")
-    file_create_readwrite_async :: proc(file: ^File, flags: FileCreateFlags, io_priority: i32, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer) ---
-
-    @(link_name = "g_file_create_readwrite_finish")
-    file_create_readwrite_finish :: proc(file: ^File, res: [^]AsyncResult, error: ^^glib.Error) -> ^FileIOStream ---
-
-    @(link_name = "g_file_replace_readwrite")
-    file_replace_readwrite :: proc(file: ^File, etag: cstring, make_backup: glib.boolean, flags: FileCreateFlags, cancellable: ^Cancellable, error: ^^glib.Error) -> ^FileIOStream ---
-
-    @(link_name = "g_file_replace_readwrite_async")
-    file_replace_readwrite_async :: proc(file: ^File, etag: cstring, make_backup: glib.boolean, flags: FileCreateFlags, io_priority: i32, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer) ---
-
-    @(link_name = "g_file_replace_readwrite_finish")
-    file_replace_readwrite_finish :: proc(file: ^File, res: [^]AsyncResult, error: ^^glib.Error) -> ^FileIOStream ---
-
-    @(link_name = "g_file_query_file_type")
-    file_query_file_type :: proc(file: ^File, flags: FileQueryInfoFlags, cancellable: ^Cancellable) -> FileType ---
-
-    @(link_name = "g_file_query_info")
-    file_query_info :: proc(file: ^File, attributes: cstring, flags: FileQueryInfoFlags, cancellable: ^Cancellable, error: ^^glib.Error) -> ^FileInfo ---
-
-    @(link_name = "g_file_query_info_async")
-    file_query_info_async :: proc(file: ^File, attributes: cstring, flags: FileQueryInfoFlags, io_priority: i32, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer) ---
-
-    @(link_name = "g_file_query_info_finish")
-    file_query_info_finish :: proc(file: ^File, res: [^]AsyncResult, error: ^^glib.Error) -> ^FileInfo ---
-
-    @(link_name = "g_file_query_filesystem_info")
-    file_query_filesystem_info :: proc(file: ^File, attributes: cstring, cancellable: ^Cancellable, error: ^^glib.Error) -> ^FileInfo ---
-
-    @(link_name = "g_file_query_filesystem_info_async")
-    file_query_filesystem_info_async :: proc(file: ^File, attributes: cstring, io_priority: i32, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer) ---
-
-    @(link_name = "g_file_query_filesystem_info_finish")
-    file_query_filesystem_info_finish :: proc(file: ^File, res: [^]AsyncResult, error: ^^glib.Error) -> ^FileInfo ---
-
-    @(link_name = "g_file_find_enclosing_mount")
-    file_find_enclosing_mount :: proc(file: ^File, cancellable: ^Cancellable, error: ^^glib.Error) -> ^Mount ---
-
-    @(link_name = "g_file_find_enclosing_mount_async")
-    file_find_enclosing_mount_async :: proc(file: ^File, io_priority: i32, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer) ---
-
-    @(link_name = "g_file_find_enclosing_mount_finish")
-    file_find_enclosing_mount_finish :: proc(file: ^File, res: [^]AsyncResult, error: ^^glib.Error) -> ^Mount ---
-
-    @(link_name = "g_file_enumerate_children_async")
-    file_enumerate_children_async :: proc(file: ^File, attributes: cstring, flags: FileQueryInfoFlags, io_priority: i32, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer) ---
-
-    @(link_name = "g_file_enumerate_children_finish")
-    file_enumerate_children_finish :: proc(file: ^File, res: [^]AsyncResult, error: ^^glib.Error) -> ^FileEnumerator ---
-
-    @(link_name = "g_file_set_display_name")
-    file_set_display_name :: proc(file: ^File, display_name: cstring, cancellable: ^Cancellable, error: ^^glib.Error) -> ^File ---
-
-    @(link_name = "g_file_set_display_name_async")
-    file_set_display_name_async :: proc(file: ^File, display_name: cstring, io_priority: i32, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer) ---
-
-    @(link_name = "g_file_set_display_name_finish")
-    file_set_display_name_finish :: proc(file: ^File, res: [^]AsyncResult, error: ^^glib.Error) -> ^File ---
-
-    @(link_name = "g_file_delete")
-    file_delete :: proc(file: ^File, cancellable: ^Cancellable, error: ^^glib.Error) -> glib.boolean ---
-
-    @(link_name = "g_file_delete_async")
-    file_delete_async :: proc(file: ^File, io_priority: i32, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer) ---
-
-    @(link_name = "g_file_delete_finish")
-    file_delete_finish :: proc(file: ^File, result: ^AsyncResult, error: ^^glib.Error) -> glib.boolean ---
-
-    @(link_name = "g_file_trash")
-    file_trash :: proc(file: ^File, cancellable: ^Cancellable, error: ^^glib.Error) -> glib.boolean ---
-
-    @(link_name = "g_file_trash_async")
-    file_trash_async :: proc(file: ^File, io_priority: i32, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer) ---
-
-    @(link_name = "g_file_trash_finish")
-    file_trash_finish :: proc(file: ^File, result: ^AsyncResult, error: ^^glib.Error) -> glib.boolean ---
-
-    @(link_name = "g_file_copy")
-    file_copy :: proc(source: ^File, destination: ^File, flags: FileCopyFlags, cancellable: ^Cancellable, progress_callback: FileProgressCallback, progress_callback_data: glib.pointer, error: ^^glib.Error) -> glib.boolean ---
-
-    @(link_name = "g_file_copy_async")
-    file_copy_async :: proc(source: ^File, destination: ^File, flags: FileCopyFlags, io_priority: i32, cancellable: ^Cancellable, progress_callback: FileProgressCallback, progress_callback_data: glib.pointer, callback: AsyncReadyCallback, user_data: glib.pointer) ---
-
-    @(link_name = "g_file_copy_async_with_closures")
-    file_copy_async_with_closures :: proc(source: ^File, destination: ^File, flags: FileCopyFlags, io_priority: i32, cancellable: ^Cancellable, progress_callback_closure: ^gobj.Closure, ready_callback_closure: ^gobj.Closure) ---
-
-    @(link_name = "g_file_copy_finish")
-    file_copy_finish :: proc(file: ^File, res: [^]AsyncResult, error: ^^glib.Error) -> glib.boolean ---
-
-    @(link_name = "g_file_move")
-    file_move :: proc(source: ^File, destination: ^File, flags: FileCopyFlags, cancellable: ^Cancellable, progress_callback: FileProgressCallback, progress_callback_data: glib.pointer, error: ^^glib.Error) -> glib.boolean ---
-
-    @(link_name = "g_file_move_async")
-    file_move_async :: proc(source: ^File, destination: ^File, flags: FileCopyFlags, io_priority: i32, cancellable: ^Cancellable, progress_callback: FileProgressCallback, progress_callback_data: glib.pointer, callback: AsyncReadyCallback, user_data: glib.pointer) ---
-
-    @(link_name = "g_file_move_async_with_closures")
-    file_move_async_with_closures :: proc(source: ^File, destination: ^File, flags: FileCopyFlags, io_priority: i32, cancellable: ^Cancellable, progress_callback_closure: ^gobj.Closure, ready_callback_closure: ^gobj.Closure) ---
-
-    @(link_name = "g_file_move_finish")
-    file_move_finish :: proc(file: ^File, result: ^AsyncResult, error: ^^glib.Error) -> glib.boolean ---
-
-    @(link_name = "g_file_make_directory")
-    file_make_directory :: proc(file: ^File, cancellable: ^Cancellable, error: ^^glib.Error) -> glib.boolean ---
-
-    @(link_name = "g_file_make_directory_async")
-    file_make_directory_async :: proc(file: ^File, io_priority: i32, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer) ---
-
-    @(link_name = "g_file_make_directory_finish")
-    file_make_directory_finish :: proc(file: ^File, result: ^AsyncResult, error: ^^glib.Error) -> glib.boolean ---
-
-    @(link_name = "g_file_make_directory_with_parents")
-    file_make_directory_with_parents :: proc(file: ^File, cancellable: ^Cancellable, error: ^^glib.Error) -> glib.boolean ---
-
-    @(link_name = "g_file_make_symbolic_link")
-    file_make_symbolic_link :: proc(file: ^File, symlink_value: cstring, cancellable: ^Cancellable, error: ^^glib.Error) -> glib.boolean ---
-
-    @(link_name = "g_file_make_symbolic_link_async")
-    file_make_symbolic_link_async :: proc(file: ^File, symlink_value: cstring, io_priority: i32, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer) ---
-
-    @(link_name = "g_file_make_symbolic_link_finish")
-    file_make_symbolic_link_finish :: proc(file: ^File, result: ^AsyncResult, error: ^^glib.Error) -> glib.boolean ---
-
-    @(link_name = "g_file_query_settable_attributes")
-    file_query_settable_attributes :: proc(file: ^File, cancellable: ^Cancellable, error: ^^glib.Error) -> ^FileAttributeInfoList ---
-
-    @(link_name = "g_file_query_writable_namespaces")
-    file_query_writable_namespaces :: proc(file: ^File, cancellable: ^Cancellable, error: ^^glib.Error) -> ^FileAttributeInfoList ---
-
-    @(link_name = "g_file_set_attribute")
-    file_set_attribute :: proc(file: ^File, attribute: cstring, type: FileAttributeType, value_p: glib.pointer, flags: FileQueryInfoFlags, cancellable: ^Cancellable, error: ^^glib.Error) -> glib.boolean ---
-
-    @(link_name = "g_file_set_attributes_from_info")
-    file_set_attributes_from_info :: proc(file: ^File, info: ^FileInfo, flags: FileQueryInfoFlags, cancellable: ^Cancellable, error: ^^glib.Error) -> glib.boolean ---
-
-    @(link_name = "g_file_set_attributes_async")
-    file_set_attributes_async :: proc(file: ^File, info: ^FileInfo, flags: FileQueryInfoFlags, io_priority: i32, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer) ---
-
-    @(link_name = "g_file_set_attributes_finish")
-    file_set_attributes_finish :: proc(file: ^File, result: ^AsyncResult, info: ^^FileInfo, error: ^^glib.Error) -> glib.boolean ---
-
-    @(link_name = "g_file_set_attribute_string")
-    file_set_attribute_string :: proc(file: ^File, attribute: cstring, value: cstring, flags: FileQueryInfoFlags, cancellable: ^Cancellable, error: ^^glib.Error) -> glib.boolean ---
-
-    @(link_name = "g_file_set_attribute_byte_string")
-    file_set_attribute_byte_string :: proc(file: ^File, attribute: cstring, value: cstring, flags: FileQueryInfoFlags, cancellable: ^Cancellable, error: ^^glib.Error) -> glib.boolean ---
-
-    @(link_name = "g_file_set_attribute_uint32")
-    file_set_attribute_uint32 :: proc(file: ^File, attribute: cstring, value: glib.uint32, flags: FileQueryInfoFlags, cancellable: ^Cancellable, error: ^^glib.Error) -> glib.boolean ---
-
-    @(link_name = "g_file_set_attribute_int32")
-    file_set_attribute_int32 :: proc(file: ^File, attribute: cstring, value: glib.int32, flags: FileQueryInfoFlags, cancellable: ^Cancellable, error: ^^glib.Error) -> glib.boolean ---
-
-    @(link_name = "g_file_set_attribute_uint64")
-    file_set_attribute_uint64 :: proc(file: ^File, attribute: cstring, value: glib.uint64, flags: FileQueryInfoFlags, cancellable: ^Cancellable, error: ^^glib.Error) -> glib.boolean ---
-
-    @(link_name = "g_file_set_attribute_int64")
-    file_set_attribute_int64 :: proc(file: ^File, attribute: cstring, value: glib.int64, flags: FileQueryInfoFlags, cancellable: ^Cancellable, error: ^^glib.Error) -> glib.boolean ---
-
-    @(link_name = "g_file_mount_enclosing_volume")
-    file_mount_enclosing_volume :: proc(location: ^File, flags: MountMountFlags, mount_operation: ^MountOperation, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer) ---
-
-    @(link_name = "g_file_mount_enclosing_volume_finish")
-    file_mount_enclosing_volume_finish :: proc(location: ^File, result: ^AsyncResult, error: ^^glib.Error) -> glib.boolean ---
-
-    @(link_name = "g_file_mount_mountable")
-    file_mount_mountable :: proc(file: ^File, flags: MountMountFlags, mount_operation: ^MountOperation, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer) ---
-
-    @(link_name = "g_file_mount_mountable_finish")
-    file_mount_mountable_finish :: proc(file: ^File, result: ^AsyncResult, error: ^^glib.Error) -> ^File ---
-
-    @(link_name = "g_file_unmount_mountable")
-    file_unmount_mountable :: proc(file: ^File, flags: MountUnmountFlags, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer) ---
-
-    @(link_name = "g_file_unmount_mountable_finish")
-    file_unmount_mountable_finish :: proc(file: ^File, result: ^AsyncResult, error: ^^glib.Error) -> glib.boolean ---
-
-    @(link_name = "g_file_unmount_mountable_with_operation")
-    file_unmount_mountable_with_operation :: proc(file: ^File, flags: MountUnmountFlags, mount_operation: ^MountOperation, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer) ---
-
-    @(link_name = "g_file_unmount_mountable_with_operation_finish")
-    file_unmount_mountable_with_operation_finish :: proc(file: ^File, result: ^AsyncResult, error: ^^glib.Error) -> glib.boolean ---
-
-    @(link_name = "g_file_eject_mountable")
-    file_eject_mountable :: proc(file: ^File, flags: MountUnmountFlags, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer) ---
-
-    @(link_name = "g_file_eject_mountable_finish")
-    file_eject_mountable_finish :: proc(file: ^File, result: ^AsyncResult, error: ^^glib.Error) -> glib.boolean ---
-
-    @(link_name = "g_file_eject_mountable_with_operation")
-    file_eject_mountable_with_operation :: proc(file: ^File, flags: MountUnmountFlags, mount_operation: ^MountOperation, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer) ---
-
-    @(link_name = "g_file_eject_mountable_with_operation_finish")
-    file_eject_mountable_with_operation_finish :: proc(file: ^File, result: ^AsyncResult, error: ^^glib.Error) -> glib.boolean ---
-
-    @(link_name = "g_file_build_attribute_list_for_copy")
-    file_build_attribute_list_for_copy :: proc(file: ^File, flags: FileCopyFlags, cancellable: ^Cancellable, error: ^^glib.Error) -> cstring ---
-
-    @(link_name = "g_file_copy_attributes")
-    file_copy_attributes :: proc(source: ^File, destination: ^File, flags: FileCopyFlags, cancellable: ^Cancellable, error: ^^glib.Error) -> glib.boolean ---
-
-    @(link_name = "g_file_monitor_directory")
-    file_monitor_directory :: proc(file: ^File, flags: FileMonitorFlags, cancellable: ^Cancellable, error: ^^glib.Error) -> ^FileMonitor ---
-
-    @(link_name = "g_file_monitor_file")
-    file_monitor_file :: proc(file: ^File, flags: FileMonitorFlags, cancellable: ^Cancellable, error: ^^glib.Error) -> ^FileMonitor ---
-
-    @(link_name = "g_file_monitor")
-    file_monitor :: proc(file: ^File, flags: FileMonitorFlags, cancellable: ^Cancellable, error: ^^glib.Error) -> ^FileMonitor ---
-
-    @(link_name = "g_file_measure_disk_usage")
-    file_measure_disk_usage :: proc(file: ^File, flags: FileMeasureFlags, cancellable: ^Cancellable, progress_callback: FileMeasureProgressCallback, progress_data: glib.pointer, disk_usage: ^glib.uint64, num_dirs: [^]glib.uint64, num_files: [^]glib.uint64, error: ^^glib.Error) -> glib.boolean ---
-
-    @(link_name = "g_file_measure_disk_usage_async")
-    file_measure_disk_usage_async :: proc(file: ^File, flags: FileMeasureFlags, io_priority: glib.int_, cancellable: ^Cancellable, progress_callback: FileMeasureProgressCallback, progress_data: glib.pointer, callback: AsyncReadyCallback, user_data: glib.pointer) ---
-
-    @(link_name = "g_file_measure_disk_usage_finish")
-    file_measure_disk_usage_finish :: proc(file: ^File, result: ^AsyncResult, disk_usage: ^glib.uint64, num_dirs: [^]glib.uint64, num_files: [^]glib.uint64, error: ^^glib.Error) -> glib.boolean ---
-
-    @(link_name = "g_file_start_mountable")
-    file_start_mountable :: proc(file: ^File, flags: DriveStartFlags, start_operation: ^MountOperation, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer) ---
-
-    @(link_name = "g_file_start_mountable_finish")
-    file_start_mountable_finish :: proc(file: ^File, result: ^AsyncResult, error: ^^glib.Error) -> glib.boolean ---
-
-    @(link_name = "g_file_stop_mountable")
-    file_stop_mountable :: proc(file: ^File, flags: MountUnmountFlags, mount_operation: ^MountOperation, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer) ---
-
-    @(link_name = "g_file_stop_mountable_finish")
-    file_stop_mountable_finish :: proc(file: ^File, result: ^AsyncResult, error: ^^glib.Error) -> glib.boolean ---
-
-    @(link_name = "g_file_poll_mountable")
-    file_poll_mountable :: proc(file: ^File, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer) ---
-
-    @(link_name = "g_file_poll_mountable_finish")
-    file_poll_mountable_finish :: proc(file: ^File, result: ^AsyncResult, error: ^^glib.Error) -> glib.boolean ---
-
-    @(link_name = "g_file_query_default_handler")
-    file_query_default_handler :: proc(file: ^File, cancellable: ^Cancellable, error: ^^glib.Error) -> ^AppInfo ---
-
-    @(link_name = "g_file_query_default_handler_async")
-    file_query_default_handler_async :: proc(file: ^File, io_priority: i32, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer) ---
-
-    @(link_name = "g_file_query_default_handler_finish")
-    file_query_default_handler_finish :: proc(file: ^File, result: ^AsyncResult, error: ^^glib.Error) -> ^AppInfo ---
-
-    @(link_name = "g_file_load_contents")
-    file_load_contents :: proc(file: ^File, cancellable: ^Cancellable, contents: [^]cstring, length: ^glib.size, etag_out: ^cstring, error: ^^glib.Error) -> glib.boolean ---
-
-    @(link_name = "g_file_load_contents_async")
-    file_load_contents_async :: proc(file: ^File, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer) ---
-
-    @(link_name = "g_file_load_contents_finish")
-    file_load_contents_finish :: proc(file: ^File, res: [^]AsyncResult, contents: [^]cstring, length: ^glib.size, etag_out: ^cstring, error: ^^glib.Error) -> glib.boolean ---
-
-    @(link_name = "g_file_load_partial_contents_async")
-    file_load_partial_contents_async :: proc(file: ^File, cancellable: ^Cancellable, read_more_callback: FileReadMoreCallback, callback: AsyncReadyCallback, user_data: glib.pointer) ---
-
-    @(link_name = "g_file_load_partial_contents_finish")
-    file_load_partial_contents_finish :: proc(file: ^File, res: [^]AsyncResult, contents: [^]cstring, length: ^glib.size, etag_out: ^cstring, error: ^^glib.Error) -> glib.boolean ---
-
-    @(link_name = "g_file_replace_contents")
-    file_replace_contents :: proc(file: ^File, contents: cstring, length: glib.size, etag: cstring, make_backup: glib.boolean, flags: FileCreateFlags, new_etag: ^cstring, cancellable: ^Cancellable, error: ^^glib.Error) -> glib.boolean ---
-
-    @(link_name = "g_file_replace_contents_async")
-    file_replace_contents_async :: proc(file: ^File, contents: cstring, length: glib.size, etag: cstring, make_backup: glib.boolean, flags: FileCreateFlags, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer) ---
-
-    @(link_name = "g_file_replace_contents_bytes_async")
-    file_replace_contents_bytes_async :: proc(file: ^File, contents: [^]glib.Bytes, etag: cstring, make_backup: glib.boolean, flags: FileCreateFlags, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer) ---
-
-    @(link_name = "g_file_replace_contents_finish")
-    file_replace_contents_finish :: proc(file: ^File, res: [^]AsyncResult, new_etag: ^cstring, error: ^^glib.Error) -> glib.boolean ---
-
-    @(link_name = "g_file_supports_thread_contexts")
-    file_supports_thread_contexts :: proc(file: ^File) -> glib.boolean ---
-
-    @(link_name = "g_file_load_bytes_async")
-    file_load_bytes_async :: proc(file: ^File, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer) ---
-
-    @(link_name = "g_file_load_bytes_finish")
-    file_load_bytes_finish :: proc(file: ^File, result: ^AsyncResult, etag_out: ^cstring, error: ^^glib.Error) -> ^glib.Bytes ---
-
-    @(link_name = "g_file_attribute_info_list_new")
-    file_attribute_info_list_new :: proc() -> ^FileAttributeInfoList ---
-
-    @(link_name = "g_file_attribute_info_list_ref")
-    file_attribute_info_list_ref :: proc(list: ^FileAttributeInfoList) -> ^FileAttributeInfoList ---
-
-    @(link_name = "g_file_attribute_info_list_unref")
-    file_attribute_info_list_unref :: proc(list: ^FileAttributeInfoList) ---
-
-    @(link_name = "g_file_attribute_info_list_dup")
-    file_attribute_info_list_dup :: proc(list: ^FileAttributeInfoList) -> ^FileAttributeInfoList ---
-
-    @(link_name = "g_file_attribute_info_list_lookup")
-    file_attribute_info_list_lookup :: proc(list: ^FileAttributeInfoList, name: cstring) -> ^FileAttributeInfo ---
-
-    @(link_name = "g_file_attribute_info_list_add")
-    file_attribute_info_list_add :: proc(list: ^FileAttributeInfoList, name: cstring, type: FileAttributeType, flags: FileAttributeInfoFlags) ---
-
-    @(link_name = "g_file_enumerator_next_files_async")
-    file_enumerator_next_files_async :: proc(enumerator: ^FileEnumerator, num_files: i32, io_priority: i32, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer) ---
-
-    @(link_name = "g_file_enumerator_next_files_finish")
-    file_enumerator_next_files_finish :: proc(enumerator: ^FileEnumerator, result: ^AsyncResult, error: ^^glib.Error) -> ^glib.List ---
-
-    @(link_name = "g_file_enumerator_close_async")
-    file_enumerator_close_async :: proc(enumerator: ^FileEnumerator, io_priority: i32, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer) ---
-
-    @(link_name = "g_file_enumerator_close_finish")
-    file_enumerator_close_finish :: proc(enumerator: ^FileEnumerator, result: ^AsyncResult, error: ^^glib.Error) -> glib.boolean ---
-
-    @(link_name = "g_file_enumerator_is_closed")
-    file_enumerator_is_closed :: proc(enumerator: ^FileEnumerator) -> glib.boolean ---
-
-    @(link_name = "g_file_enumerator_has_pending")
-    file_enumerator_has_pending :: proc(enumerator: ^FileEnumerator) -> glib.boolean ---
-
-    @(link_name = "g_file_enumerator_set_pending")
-    file_enumerator_set_pending :: proc(enumerator: ^FileEnumerator, pending: glib.boolean) ---
-
-    @(link_name = "g_file_enumerator_get_container")
-    file_enumerator_get_container :: proc(enumerator: ^FileEnumerator) -> ^File ---
-
-    @(link_name = "g_file_enumerator_get_child")
-    file_enumerator_get_child :: proc(enumerator: ^FileEnumerator, info: ^FileInfo) -> ^File ---
-
-    @(link_name = "g_file_enumerator_iterate")
-    file_enumerator_iterate :: proc(direnum: ^FileEnumerator, out_info: ^^FileInfo, out_child: ^^File, cancellable: ^Cancellable, error: ^^glib.Error) -> glib.boolean ---
-
-    @(link_name = "g_file_icon_new")
-    file_icon_new :: proc(file: ^File) -> ^Icon ---
-
-    @(link_name = "g_file_icon_get_file")
-    file_icon_get_file :: proc(icon: ^FileIcon) -> ^File ---
-
-    @(link_name = "g_file_info_new")
-    file_info_new :: proc() -> ^FileInfo ---
-
-    @(link_name = "g_file_info_dup")
-    file_info_dup :: proc(other: ^FileInfo) -> ^FileInfo ---
-
-    @(link_name = "g_file_info_copy_into")
-    file_info_copy_into :: proc(src_info: ^FileInfo, dest_info: ^FileInfo) ---
-
-    @(link_name = "g_file_info_has_attribute")
-    file_info_has_attribute :: proc(info: ^FileInfo, attribute: cstring) -> glib.boolean ---
-
-    @(link_name = "g_file_info_has_namespace")
-    file_info_has_namespace :: proc(info: ^FileInfo, name_space: cstring) -> glib.boolean ---
-
-    @(link_name = "g_file_info_list_attributes")
-    file_info_list_attributes :: proc(info: ^FileInfo, name_space: cstring) -> ^cstring ---
-
-    @(link_name = "g_file_info_get_attribute_data")
-    file_info_get_attribute_data :: proc(info: ^FileInfo, attribute: cstring, type: ^FileAttributeType, value_pp: ^glib.pointer, status: [^]FileAttributeStatus) -> glib.boolean ---
-
-    @(link_name = "g_file_info_get_attribute_type")
-    file_info_get_attribute_type :: proc(info: ^FileInfo, attribute: cstring) -> FileAttributeType ---
-
-    @(link_name = "g_file_info_remove_attribute")
-    file_info_remove_attribute :: proc(info: ^FileInfo, attribute: cstring) ---
-
-    @(link_name = "g_file_info_get_attribute_status")
-    file_info_get_attribute_status :: proc(info: ^FileInfo, attribute: cstring) -> FileAttributeStatus ---
-
-    @(link_name = "g_file_info_set_attribute_status")
-    file_info_set_attribute_status :: proc(info: ^FileInfo, attribute: cstring, status: FileAttributeStatus) -> glib.boolean ---
-
-    @(link_name = "g_file_info_get_attribute_as_string")
-    file_info_get_attribute_as_string :: proc(info: ^FileInfo, attribute: cstring) -> cstring ---
-
-    @(link_name = "g_file_info_get_attribute_string")
-    file_info_get_attribute_string :: proc(info: ^FileInfo, attribute: cstring) -> cstring ---
-
-    @(link_name = "g_file_info_get_attribute_byte_string")
-    file_info_get_attribute_byte_string :: proc(info: ^FileInfo, attribute: cstring) -> cstring ---
-
-    @(link_name = "g_file_info_get_attribute_boolean")
-    file_info_get_attribute_boolean :: proc(info: ^FileInfo, attribute: cstring) -> glib.boolean ---
-
-    @(link_name = "g_file_info_get_attribute_uint32")
-    file_info_get_attribute_uint32 :: proc(info: ^FileInfo, attribute: cstring) -> glib.uint32 ---
-
-    @(link_name = "g_file_info_get_attribute_int32")
-    file_info_get_attribute_int32 :: proc(info: ^FileInfo, attribute: cstring) -> glib.int32 ---
-
-    @(link_name = "g_file_info_get_attribute_uint64")
-    file_info_get_attribute_uint64 :: proc(info: ^FileInfo, attribute: cstring) -> glib.uint64 ---
-
-    @(link_name = "g_file_info_get_attribute_int64")
-    file_info_get_attribute_int64 :: proc(info: ^FileInfo, attribute: cstring) -> glib.int64 ---
-
-    @(link_name = "g_file_info_get_attribute_object")
-    file_info_get_attribute_object :: proc(info: ^FileInfo, attribute: cstring) -> ^gobj.Object ---
-
-    @(link_name = "g_file_info_get_attribute_stringv")
-    file_info_get_attribute_stringv :: proc(info: ^FileInfo, attribute: cstring) -> ^cstring ---
-
-    @(link_name = "g_file_info_get_attribute_file_path")
-    file_info_get_attribute_file_path :: proc(info: ^FileInfo, attribute: cstring) -> cstring ---
-
-    @(link_name = "g_file_info_set_attribute")
-    file_info_set_attribute :: proc(info: ^FileInfo, attribute: cstring, type: FileAttributeType, value_p: glib.pointer) ---
-
-    @(link_name = "g_file_info_set_attribute_string")
-    file_info_set_attribute_string :: proc(info: ^FileInfo, attribute: cstring, attr_value: cstring) ---
-
-    @(link_name = "g_file_info_set_attribute_byte_string")
-    file_info_set_attribute_byte_string :: proc(info: ^FileInfo, attribute: cstring, attr_value: cstring) ---
-
-    @(link_name = "g_file_info_set_attribute_boolean")
-    file_info_set_attribute_boolean :: proc(info: ^FileInfo, attribute: cstring, attr_value: glib.boolean) ---
-
-    @(link_name = "g_file_info_set_attribute_uint32")
-    file_info_set_attribute_uint32 :: proc(info: ^FileInfo, attribute: cstring, attr_value: glib.uint32) ---
-
-    @(link_name = "g_file_info_set_attribute_int32")
-    file_info_set_attribute_int32 :: proc(info: ^FileInfo, attribute: cstring, attr_value: glib.int32) ---
-
-    @(link_name = "g_file_info_set_attribute_uint64")
-    file_info_set_attribute_uint64 :: proc(info: ^FileInfo, attribute: cstring, attr_value: glib.uint64) ---
-
-    @(link_name = "g_file_info_set_attribute_int64")
-    file_info_set_attribute_int64 :: proc(info: ^FileInfo, attribute: cstring, attr_value: glib.int64) ---
-
-    @(link_name = "g_file_info_set_attribute_object")
-    file_info_set_attribute_object :: proc(info: ^FileInfo, attribute: cstring, attr_value: ^gobj.Object) ---
-
-    @(link_name = "g_file_info_set_attribute_stringv")
-    file_info_set_attribute_stringv :: proc(info: ^FileInfo, attribute: cstring, attr_value: ^cstring) ---
-
-    @(link_name = "g_file_info_set_attribute_file_path")
-    file_info_set_attribute_file_path :: proc(info: ^FileInfo, attribute: cstring, attr_value: cstring) ---
-
-    @(link_name = "g_file_info_clear_status")
-    file_info_clear_status :: proc(info: ^FileInfo) ---
-
-    @(link_name = "g_file_info_get_deletion_date")
-    file_info_get_deletion_date :: proc(info: ^FileInfo) -> ^glib.DateTime ---
-
-    @(link_name = "g_file_info_get_file_type")
-    file_info_get_file_type :: proc(info: ^FileInfo) -> FileType ---
-
-    @(link_name = "g_file_info_get_is_hidden")
-    file_info_get_is_hidden :: proc(info: ^FileInfo) -> glib.boolean ---
-
-    @(link_name = "g_file_info_get_is_backup")
-    file_info_get_is_backup :: proc(info: ^FileInfo) -> glib.boolean ---
-
-    @(link_name = "g_file_info_get_is_symlink")
-    file_info_get_is_symlink :: proc(info: ^FileInfo) -> glib.boolean ---
-
-    @(link_name = "g_file_info_get_icon")
-    file_info_get_icon :: proc(info: ^FileInfo) -> ^Icon ---
-
-    @(link_name = "g_file_info_get_symbolic_icon")
-    file_info_get_symbolic_icon :: proc(info: ^FileInfo) -> ^Icon ---
-
-    @(link_name = "g_file_info_get_content_type")
-    file_info_get_content_type :: proc(info: ^FileInfo) -> cstring ---
-
-    @(link_name = "g_file_info_get_size")
-    file_info_get_size :: proc(info: ^FileInfo) -> glib.offset ---
-
-    @(link_name = "g_file_info_get_modification_time")
-    file_info_get_modification_time :: proc(info: ^FileInfo, result: ^glib.TimeVal) ---
-
-    @(link_name = "g_file_info_get_modification_date_time")
-    file_info_get_modification_date_time :: proc(info: ^FileInfo) -> ^glib.DateTime ---
-
-    @(link_name = "g_file_info_get_access_date_time")
-    file_info_get_access_date_time :: proc(info: ^FileInfo) -> ^glib.DateTime ---
-
-    @(link_name = "g_file_info_get_creation_date_time")
-    file_info_get_creation_date_time :: proc(info: ^FileInfo) -> ^glib.DateTime ---
-
-    @(link_name = "g_file_info_get_symlink_target")
-    file_info_get_symlink_target :: proc(info: ^FileInfo) -> cstring ---
-
-    @(link_name = "g_file_info_get_etag")
-    file_info_get_etag :: proc(info: ^FileInfo) -> cstring ---
-
-    @(link_name = "g_file_info_get_sort_order")
-    file_info_get_sort_order :: proc(info: ^FileInfo) -> glib.int32 ---
-
-    @(link_name = "g_file_info_set_attribute_mask")
-    file_info_set_attribute_mask :: proc(info: ^FileInfo, mask: ^FileAttributeMatcher) ---
-
-    @(link_name = "g_file_info_unset_attribute_mask")
-    file_info_unset_attribute_mask :: proc(info: ^FileInfo) ---
-
-    @(link_name = "g_file_info_set_file_type")
-    file_info_set_file_type :: proc(info: ^FileInfo, type: FileType) ---
-
-    @(link_name = "g_file_info_set_is_hidden")
-    file_info_set_is_hidden :: proc(info: ^FileInfo, is_hidden: glib.boolean) ---
-
-    @(link_name = "g_file_info_set_is_symlink")
-    file_info_set_is_symlink :: proc(info: ^FileInfo, is_symlink: glib.boolean) ---
-
-    @(link_name = "g_file_info_set_name")
-    file_info_set_name :: proc(info: ^FileInfo, name: cstring) ---
-
-    @(link_name = "g_file_info_set_display_name")
-    file_info_set_display_name :: proc(info: ^FileInfo, display_name: cstring) ---
-
-    @(link_name = "g_file_info_set_edit_name")
-    file_info_set_edit_name :: proc(info: ^FileInfo, edit_name: cstring) ---
-
-    @(link_name = "g_file_info_set_icon")
-    file_info_set_icon :: proc(info: ^FileInfo, icon: ^Icon) ---
-
-    @(link_name = "g_file_info_set_symbolic_icon")
-    file_info_set_symbolic_icon :: proc(info: ^FileInfo, icon: ^Icon) ---
-
-    @(link_name = "g_file_info_set_content_type")
-    file_info_set_content_type :: proc(info: ^FileInfo, content_type: cstring) ---
-
-    @(link_name = "g_file_info_set_size")
-    file_info_set_size :: proc(info: ^FileInfo, size_p: glib.offset) ---
-
-    @(link_name = "g_file_info_set_modification_time")
-    file_info_set_modification_time :: proc(info: ^FileInfo, mtime: ^glib.TimeVal) ---
-
-    @(link_name = "g_file_info_set_modification_date_time")
-    file_info_set_modification_date_time :: proc(info: ^FileInfo, mtime: ^glib.DateTime) ---
-
-    @(link_name = "g_file_info_set_access_date_time")
-    file_info_set_access_date_time :: proc(info: ^FileInfo, atime: ^glib.DateTime) ---
-
-    @(link_name = "g_file_info_set_creation_date_time")
-    file_info_set_creation_date_time :: proc(info: ^FileInfo, creation_time: ^glib.DateTime) ---
-
-    @(link_name = "g_file_info_set_symlink_target")
-    file_info_set_symlink_target :: proc(info: ^FileInfo, symlink_target: cstring) ---
-
-    @(link_name = "g_file_info_set_sort_order")
-    file_info_set_sort_order :: proc(info: ^FileInfo, sort_order: glib.int32) ---
-
-    @(link_name = "g_file_attribute_matcher_new")
-    file_attribute_matcher_new :: proc(attributes: cstring) -> ^FileAttributeMatcher ---
-
-    @(link_name = "g_file_attribute_matcher_ref")
-    file_attribute_matcher_ref :: proc(matcher: ^FileAttributeMatcher) -> ^FileAttributeMatcher ---
-
-    @(link_name = "g_file_attribute_matcher_unref")
-    file_attribute_matcher_unref :: proc(matcher: ^FileAttributeMatcher) ---
-
-    @(link_name = "g_file_attribute_matcher_subtract")
-    file_attribute_matcher_subtract :: proc(matcher: ^FileAttributeMatcher, subtract: ^FileAttributeMatcher) -> ^FileAttributeMatcher ---
-
-    @(link_name = "g_file_attribute_matcher_matches")
-    file_attribute_matcher_matches :: proc(matcher: ^FileAttributeMatcher, attribute: cstring) -> glib.boolean ---
-
-    @(link_name = "g_file_attribute_matcher_matches_only")
-    file_attribute_matcher_matches_only :: proc(matcher: ^FileAttributeMatcher, attribute: cstring) -> glib.boolean ---
-
-    @(link_name = "g_file_attribute_matcher_enumerate_namespace")
-    file_attribute_matcher_enumerate_namespace :: proc(matcher: ^FileAttributeMatcher, ns: cstring) -> glib.boolean ---
-
-    @(link_name = "g_file_attribute_matcher_enumerate_next")
-    file_attribute_matcher_enumerate_next :: proc(matcher: ^FileAttributeMatcher) -> cstring ---
-
-    @(link_name = "g_file_attribute_matcher_to_string")
-    file_attribute_matcher_to_string :: proc(matcher: ^FileAttributeMatcher) -> cstring ---
-
-    @(link_name = "g_file_input_stream_query_info")
-    file_input_stream_query_info :: proc(stream: ^FileInputStream, attributes: cstring, cancellable: ^Cancellable, error: ^^glib.Error) -> ^FileInfo ---
-
-    @(link_name = "g_file_input_stream_query_info_async")
-    file_input_stream_query_info_async :: proc(stream: ^FileInputStream, attributes: cstring, io_priority: i32, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer) ---
-
-    @(link_name = "g_file_input_stream_query_info_finish")
-    file_input_stream_query_info_finish :: proc(stream: ^FileInputStream, result: ^AsyncResult, error: ^^glib.Error) -> ^FileInfo ---
-
-    @(link_name = "g_io_error_from_errno")
-    io_error_from_errno :: proc(err_no: glib.int_) -> IOErrorEnum ---
-
-    @(link_name = "g_io_error_from_file_error")
-    io_error_from_file_error :: proc(file_error: glib.FileError) -> IOErrorEnum ---
-
-    @(link_name = "g_io_stream_get_input_stream")
-    io_stream_get_input_stream :: proc(stream: ^IOStream) -> ^InputStream ---
-
-    @(link_name = "g_io_stream_get_output_stream")
-    io_stream_get_output_stream :: proc(stream: ^IOStream) -> ^OutputStream ---
-
-    @(link_name = "g_io_stream_splice_async")
-    io_stream_splice_async :: proc(stream1: ^IOStream, stream2: ^IOStream, flags: IOStreamSpliceFlags, io_priority: i32, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer) ---
-
-    @(link_name = "g_io_stream_splice_finish")
-    io_stream_splice_finish :: proc(result: ^AsyncResult, error: ^^glib.Error) -> glib.boolean ---
-
-    @(link_name = "g_io_stream_close")
-    io_stream_close :: proc(stream: ^IOStream, cancellable: ^Cancellable, error: ^^glib.Error) -> glib.boolean ---
-
-    @(link_name = "g_io_stream_close_async")
-    io_stream_close_async :: proc(stream: ^IOStream, io_priority: i32, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer) ---
-
-    @(link_name = "g_io_stream_close_finish")
-    io_stream_close_finish :: proc(stream: ^IOStream, result: ^AsyncResult, error: ^^glib.Error) -> glib.boolean ---
-
-    @(link_name = "g_io_stream_is_closed")
-    io_stream_is_closed :: proc(stream: ^IOStream) -> glib.boolean ---
-
-    @(link_name = "g_io_stream_has_pending")
-    io_stream_has_pending :: proc(stream: ^IOStream) -> glib.boolean ---
-
-    @(link_name = "g_io_stream_set_pending")
-    io_stream_set_pending :: proc(stream: ^IOStream, error: ^^glib.Error) -> glib.boolean ---
-
-    @(link_name = "g_io_stream_clear_pending")
-    io_stream_clear_pending :: proc(stream: ^IOStream) ---
-
-    @(link_name = "g_file_io_stream_query_info")
-    file_io_stream_query_info :: proc(stream: ^FileIOStream, attributes: cstring, cancellable: ^Cancellable, error: ^^glib.Error) -> ^FileInfo ---
-
-    @(link_name = "g_file_io_stream_query_info_async")
-    file_io_stream_query_info_async :: proc(stream: ^FileIOStream, attributes: cstring, io_priority: i32, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer) ---
-
-    @(link_name = "g_file_io_stream_query_info_finish")
-    file_io_stream_query_info_finish :: proc(stream: ^FileIOStream, result: ^AsyncResult, error: ^^glib.Error) -> ^FileInfo ---
-
-    @(link_name = "g_file_io_stream_get_etag")
-    file_io_stream_get_etag :: proc(stream: ^FileIOStream) -> cstring ---
-
-    @(link_name = "g_file_monitor_cancel")
-    file_monitor_cancel :: proc(monitor: ^FileMonitor) -> glib.boolean ---
-
-    @(link_name = "g_file_monitor_is_cancelled")
-    file_monitor_is_cancelled :: proc(monitor: ^FileMonitor) -> glib.boolean ---
-
-    @(link_name = "g_file_monitor_set_rate_limit")
-    file_monitor_set_rate_limit :: proc(monitor: ^FileMonitor, limit_msecs: glib.int_) ---
-
-    @(link_name = "g_file_monitor_emit_event")
-    file_monitor_emit_event :: proc(monitor: ^FileMonitor, child: ^File, other_file: ^File, event_type: FileMonitorEvent) ---
-
-    @(link_name = "g_filename_completer_new")
-    filename_completer_new :: proc() -> ^FilenameCompleter ---
-
-    @(link_name = "g_filename_completer_get_completion_suffix")
-    filename_completer_get_completion_suffix :: proc(completer: ^FilenameCompleter, initial_text: cstring) -> cstring ---
-
-    @(link_name = "g_filename_completer_get_completions")
-    filename_completer_get_completions :: proc(completer: ^FilenameCompleter, initial_text: cstring) -> ^cstring ---
-
-    @(link_name = "g_filename_completer_set_dirs_only")
-    filename_completer_set_dirs_only :: proc(completer: ^FilenameCompleter, dirs_only: glib.boolean) ---
-
-    @(link_name = "g_file_output_stream_query_info")
-    file_output_stream_query_info :: proc(stream: ^FileOutputStream, attributes: cstring, cancellable: ^Cancellable, error: ^^glib.Error) -> ^FileInfo ---
-
-    @(link_name = "g_file_output_stream_query_info_async")
-    file_output_stream_query_info_async :: proc(stream: ^FileOutputStream, attributes: cstring, io_priority: i32, cancellable: ^Cancellable, callback: AsyncReadyCallback, user_data: glib.pointer) ---
-
-    @(link_name = "g_file_output_stream_query_info_finish")
-    file_output_stream_query_info_finish :: proc(stream: ^FileOutputStream, result: ^AsyncResult, error: ^^glib.Error) -> ^FileInfo ---
-
-    @(link_name = "g_file_output_stream_get_etag")
-    file_output_stream_get_etag :: proc(stream: ^FileOutputStream) -> cstring ---
-
-    @(link_name = "g_inet_address_new_from_string")
-    inet_address_new_from_string :: proc(string_p: cstring) -> ^InetAddress ---
-
-    @(link_name = "g_inet_address_new_from_bytes")
-    inet_address_new_from_bytes :: proc(bytes: [^]glib.uint8, family: SocketFamily) -> ^InetAddress ---
-
-    @(link_name = "g_inet_address_new_loopback")
-    inet_address_new_loopback :: proc(family: SocketFamily) -> ^InetAddress ---
-
-    @(link_name = "g_inet_address_new_any")
-    inet_address_new_any :: proc(family: SocketFamily) -> ^InetAddress ---
-
-    @(link_name = "g_inet_address_equal")
-    inet_address_equal :: proc(address: [^]InetAddress, other_address: [^]InetAddress) -> glib.boolean ---
-
-    @(link_name = "g_inet_address_to_string")
-    inet_address_to_string :: proc(address: [^]InetAddress) -> cstring ---
-
-    @(link_name = "g_inet_address_to_bytes")
-    inet_address_to_bytes :: proc(address: [^]InetAddress) -> ^glib.uint8 ---
-
-    @(link_name = "g_inet_address_get_native_size")
-    inet_address_get_native_size :: proc(address: [^]InetAddress) -> glib.size ---
-
-    @(link_name = "g_inet_address_get_family")
-    inet_address_get_family :: proc(address: [^]InetAddress) -> SocketFamily ---
-
-    @(link_name = "g_inet_address_get_is_any")
-    inet_address_get_is_any :: proc(address: [^]InetAddress) -> glib.boolean ---
-
-    @(link_name = "g_inet_address_get_is_loopback")
-    inet_address_get_is_loopback :: proc(address: [^]InetAddress) -> glib.boolean ---
-
-    @(link_name = "g_inet_address_get_is_link_local")
-    inet_address_get_is_link_local :: proc(address: [^]InetAddress) -> glib.boolean ---
-
-    @(link_name = "g_inet_address_get_is_site_local")
-    inet_address_get_is_site_local :: proc(address: [^]InetAddress) -> glib.boolean ---
-
-    @(link_name = "g_inet_address_get_is_multicast")
-    inet_address_get_is_multicast :: proc(address: [^]InetAddress) -> glib.boolean ---
-
-    @(link_name = "g_inet_address_get_is_mc_global")
-    inet_address_get_is_mc_global :: proc(address: [^]InetAddress) -> glib.boolean ---
-
-    @(link_name = "g_inet_address_get_is_mc_link_local")
-    inet_address_get_is_mc_link_local :: proc(address: [^]InetAddress) -> glib.boolean ---
-
-    @(link_name = "g_inet_address_get_is_mc_node_local")
-    inet_address_get_is_mc_node_local :: proc(address: [^]InetAddress) -> glib.boolean ---
-
-    @(link_name = "g_inet_address_get_is_mc_org_local")
-    inet_address_get_is_mc_org_local :: proc(address: [^]InetAddress) -> glib.boolean ---
-
-    @(link_name = "g_inet_address_get_is_mc_site_local")
-    inet_address_get_is_mc_site_local :: proc(address: [^]InetAddress) -> glib.boolean ---
-
-    @(link_name = "g_inet_address_mask_new")
-    inet_address_mask_new :: proc(addr: ^InetAddress, length: glib.uint_, error: ^^glib.Error) -> ^InetAddressMask ---
-
-    @(link_name = "g_inet_address_mask_new_from_string")
-    inet_address_mask_new_from_string :: proc(mask_string: cstring, error: ^^glib.Error) -> ^InetAddressMask ---
-
-    @(link_name = "g_inet_address_mask_to_string")
-    inet_address_mask_to_string :: proc(mask: ^InetAddressMask) -> cstring ---
-
-    @(link_name = "g_inet_address_mask_get_family")
-    inet_address_mask_get_family :: proc(mask: ^InetAddressMask) -> SocketFamily ---
-
-    @(link_name = "g_inet_address_mask_get_address")
-    inet_address_mask_get_address :: proc(mask: ^InetAddressMask) -> ^InetAddress ---
-
-    @(link_name = "g_inet_address_mask_get_length")
-    inet_address_mask_get_length :: proc(mask: ^InetAddressMask) -> glib.uint_ ---
-
-    @(link_name = "g_inet_address_mask_matches")
-    inet_address_mask_matches :: proc(mask: ^InetAddressMask, address: [^]InetAddress) -> glib.boolean ---
-
-    @(link_name = "g_inet_address_mask_equal")
-    inet_address_mask_equal :: proc(mask: ^InetAddressMask, mask2: ^InetAddressMask) -> glib.boolean ---
-
-    @(link_name = "g_socket_address_get_family")
-    socket_address_get_family :: proc(address: [^]SocketAddress) -> SocketFamily ---
-
-    @(link_name = "g_socket_address_new_from_native")
-    socket_address_new_from_native :: proc(native: glib.pointer, len: glib.size) -> ^SocketAddress ---
-
-    @(link_name = "g_socket_address_to_native")
-    socket_address_to_native :: proc(address: [^]SocketAddress, dest: glib.pointer, destlen: glib.size, error: ^^glib.Error) -> glib.boolean ---
-
-    @(link_name = "g_socket_address_get_native_size")
-    socket_address_get_native_size :: proc(address: [^]SocketAddress) -> glib.ssize ---
-
-    @(link_name = "g_inet_socket_address_new")
-    inet_socket_address_new :: proc(address: [^]InetAddress, port: glib.uint16) -> ^SocketAddress ---
-
-    @(link_name = "g_inet_socket_address_new_from_string")
-    inet_socket_address_new_from_string :: proc(address: cstring, port: glib.uint_) -> ^SocketAddress ---
-
-    @(link_name = "g_inet_socket_address_get_address")
-    inet_socket_address_get_address :: proc(address: [^]InetSocketAddress) -> ^InetAddress ---
-
-    @(link_name = "g_inet_socket_address_get_port")
-    inet_socket_address_get_port :: proc(address: [^]InetSocketAddress) -> glib.uint16 ---
-
-    @(link_name = "g_inet_socket_address_get_flowinfo")
-    inet_socket_address_get_flowinfo :: proc(address: [^]InetSocketAddress) -> glib.uint32 ---
-
-    @(link_name = "g_inet_socket_address_get_scope_id")
-    inet_socket_address_get_scope_id :: proc(address: [^]InetSocketAddress) -> glib.uint32 ---
-
     @(link_name = "g_io_module_scope_new")
     io_module_scope_new :: proc(flags: IOModuleScopeFlags) -> ^IOModuleScope ---
 
@@ -7295,6 +7043,9 @@ dbus_interface_get_type    @(link_name = "g_dbus_interface_get_info")
 
     @(link_name = "g_io_module_scope_block")
     io_module_scope_block :: proc(scope: ^IOModuleScope, basename: cstring) ---
+
+    @(link_name = "g_io_module_get_type")
+    io_module_get_type :: proc() -> gobj.Type ---
 
     @(link_name = "g_io_module_new")
     io_module_new :: proc(filename: cstring) -> ^IOModule ---
@@ -7365,6 +7116,9 @@ dbus_interface_get_type    @(link_name = "g_dbus_interface_get_info")
     @(link_name = "g_io_scheduler_job_send_to_mainloop_async")
     io_scheduler_job_send_to_mainloop_async :: proc(job: ^IOSchedulerJob, func: glib.SourceFunc, user_data: glib.pointer, notify: glib.DestroyNotify) ---
 
+    @(link_name = "g_list_model_get_type")
+    list_model_get_type :: proc() -> gobj.Type ---
+
     @(link_name = "g_list_model_get_item_type")
     list_model_get_item_type :: proc(list: ^ListModel) -> gobj.Type ---
 
@@ -7379,6 +7133,9 @@ dbus_interface_get_type    @(link_name = "g_dbus_interface_get_info")
 
     @(link_name = "g_list_model_items_changed")
     list_model_items_changed :: proc(list: ^ListModel, position: glib.uint_, removed: glib.uint_, added: glib.uint_) ---
+
+    @(link_name = "g_list_store_get_type")
+    list_store_get_type :: proc() -> gobj.Type ---
 
     @(link_name = "g_list_store_new")
     list_store_new :: proc(item_type: gobj.Type) -> ^ListStore ---
@@ -7413,6 +7170,9 @@ dbus_interface_get_type    @(link_name = "g_dbus_interface_get_info")
     @(link_name = "g_list_store_find_with_equal_func_full")
     list_store_find_with_equal_func_full :: proc(store: ^ListStore, item: glib.pointer, equal_func: glib.EqualFuncFull, user_data: glib.pointer, position: ^glib.uint_) -> glib.boolean ---
 
+    @(link_name = "g_loadable_icon_get_type")
+    loadable_icon_get_type :: proc() -> gobj.Type ---
+
     @(link_name = "g_loadable_icon_load")
     loadable_icon_load :: proc(icon: ^LoadableIcon, size_p: i32, type: ^cstring, cancellable: ^Cancellable, error: ^^glib.Error) -> ^InputStream ---
 
@@ -7421,6 +7181,9 @@ dbus_interface_get_type    @(link_name = "g_dbus_interface_get_info")
 
     @(link_name = "g_loadable_icon_load_finish")
     loadable_icon_load_finish :: proc(icon: ^LoadableIcon, res: [^]AsyncResult, type: ^cstring, error: ^^glib.Error) -> ^InputStream ---
+
+    @(link_name = "g_memory_input_stream_get_type")
+    memory_input_stream_get_type :: proc() -> gobj.Type ---
 
     @(link_name = "g_memory_input_stream_new")
     memory_input_stream_new :: proc() -> ^InputStream ---
@@ -7437,8 +7200,14 @@ dbus_interface_get_type    @(link_name = "g_dbus_interface_get_info")
     @(link_name = "g_memory_input_stream_add_bytes")
     memory_input_stream_add_bytes :: proc(stream: ^MemoryInputStream, bytes: [^]glib.Bytes) ---
 
+    @(link_name = "g_memory_monitor_get_type")
+    memory_monitor_get_type :: proc() -> gobj.Type ---
+
     @(link_name = "g_memory_monitor_dup_default")
     memory_monitor_dup_default :: proc() -> ^MemoryMonitor ---
+
+    @(link_name = "g_memory_output_stream_get_type")
+    memory_output_stream_get_type :: proc() -> gobj.Type ---
 
     @(link_name = "g_memory_output_stream_new")
     memory_output_stream_new :: proc(data: glib.pointer, size_p: glib.size, realloc_function: ReallocFunc, destroy_function: glib.DestroyNotify) -> ^OutputStream ---
@@ -7460,6 +7229,9 @@ dbus_interface_get_type    @(link_name = "g_dbus_interface_get_info")
 
     @(link_name = "g_memory_output_stream_steal_as_bytes")
     memory_output_stream_steal_as_bytes :: proc(ostream: ^MemoryOutputStream) -> ^glib.Bytes ---
+
+    @(link_name = "g_menu_model_get_type")
+    menu_model_get_type :: proc() -> gobj.Type ---
 
     @(link_name = "g_menu_model_is_mutable")
     menu_model_is_mutable :: proc(model: ^MenuModel) -> glib.boolean ---
@@ -7485,6 +7257,9 @@ dbus_interface_get_type    @(link_name = "g_dbus_interface_get_info")
     @(link_name = "g_menu_model_items_changed")
     menu_model_items_changed :: proc(model: ^MenuModel, position: glib.int_, removed: glib.int_, added: glib.int_) ---
 
+    @(link_name = "g_menu_attribute_iter_get_type")
+    menu_attribute_iter_get_type :: proc() -> gobj.Type ---
+
     @(link_name = "g_menu_attribute_iter_get_next")
     menu_attribute_iter_get_next :: proc(iter: ^MenuAttributeIter, out_name: ^cstring, value: ^^glib.Variant) -> glib.boolean ---
 
@@ -7497,6 +7272,9 @@ dbus_interface_get_type    @(link_name = "g_dbus_interface_get_info")
     @(link_name = "g_menu_attribute_iter_get_value")
     menu_attribute_iter_get_value :: proc(iter: ^MenuAttributeIter) -> ^glib.Variant ---
 
+    @(link_name = "g_menu_link_iter_get_type")
+    menu_link_iter_get_type :: proc() -> gobj.Type ---
+
     @(link_name = "g_menu_link_iter_get_next")
     menu_link_iter_get_next :: proc(iter: ^MenuLinkIter, out_link: ^cstring, value: ^^MenuModel) -> glib.boolean ---
 
@@ -7508,6 +7286,9 @@ dbus_interface_get_type    @(link_name = "g_dbus_interface_get_info")
 
     @(link_name = "g_menu_link_iter_get_value")
     menu_link_iter_get_value :: proc(iter: ^MenuLinkIter) -> ^MenuModel ---
+
+    @(link_name = "g_menu_get_type")
+    menu_get_type :: proc() -> gobj.Type ---
 
     @(link_name = "g_menu_new")
     menu_new :: proc() -> ^Menu ---
@@ -7556,6 +7337,9 @@ dbus_interface_get_type    @(link_name = "g_dbus_interface_get_info")
 
     @(link_name = "g_menu_append_submenu")
     menu_append_submenu :: proc(menu: ^Menu, label: cstring, submenu: ^MenuModel) ---
+
+    @(link_name = "g_menu_item_get_type")
+    menu_item_get_type :: proc() -> gobj.Type ---
 
     @(link_name = "g_menu_item_new")
     menu_item_new :: proc(label: cstring, detailed_action: cstring) -> ^MenuItem ---
@@ -7613,6 +7397,9 @@ dbus_interface_get_type    @(link_name = "g_dbus_interface_get_info")
 
     @(link_name = "g_dbus_connection_unexport_menu_model")
     dbus_connection_unexport_menu_model :: proc(connection: ^DBusConnection, export_id: glib.uint_) ---
+
+    @(link_name = "g_mount_get_type")
+    mount_get_type :: proc() -> gobj.Type ---
 
     @(link_name = "g_mount_get_root")
     mount_get_root :: proc(mount: ^Mount) -> ^File ---
@@ -7695,6 +7482,9 @@ dbus_interface_get_type    @(link_name = "g_dbus_interface_get_info")
     @(link_name = "g_mount_get_sort_key")
     mount_get_sort_key :: proc(mount: ^Mount) -> cstring ---
 
+    @(link_name = "g_mount_operation_get_type")
+    mount_operation_get_type :: proc() -> gobj.Type ---
+
     @(link_name = "g_mount_operation_new")
     mount_operation_new :: proc() -> ^MountOperation ---
 
@@ -7755,8 +7545,14 @@ dbus_interface_get_type    @(link_name = "g_dbus_interface_get_info")
     @(link_name = "g_mount_operation_set_pim")
     mount_operation_set_pim :: proc(op: ^MountOperation, pim: glib.uint_) ---
 
+    @(link_name = "g_native_socket_address_get_type")
+    native_socket_address_get_type :: proc() -> gobj.Type ---
+
     @(link_name = "g_native_socket_address_new")
     native_socket_address_new :: proc(native: glib.pointer, len: glib.size) -> ^SocketAddress ---
+
+    @(link_name = "g_volume_monitor_get_type")
+    volume_monitor_get_type :: proc() -> gobj.Type ---
 
     @(link_name = "g_volume_monitor_get")
     volume_monitor_get :: proc() -> ^VolumeMonitor ---
@@ -7779,6 +7575,12 @@ dbus_interface_get_type    @(link_name = "g_dbus_interface_get_info")
     @(link_name = "g_volume_monitor_adopt_orphan_mount")
     volume_monitor_adopt_orphan_mount :: proc(mount: ^Mount) -> ^Volume ---
 
+    @(link_name = "g_native_volume_monitor_get_type")
+    native_volume_monitor_get_type :: proc() -> gobj.Type ---
+
+    @(link_name = "g_network_address_get_type")
+    network_address_get_type :: proc() -> gobj.Type ---
+
     @(link_name = "g_network_address_new")
     network_address_new :: proc(hostname: cstring, port: glib.uint16) -> ^SocketConnectable ---
 
@@ -7799,6 +7601,9 @@ dbus_interface_get_type    @(link_name = "g_dbus_interface_get_info")
 
     @(link_name = "g_network_address_get_scheme")
     network_address_get_scheme :: proc(addr: ^NetworkAddress) -> cstring ---
+
+    @(link_name = "g_network_monitor_get_type")
+    network_monitor_get_type :: proc() -> gobj.Type ---
 
     @(link_name = "g_network_monitor_get_default")
     network_monitor_get_default :: proc() -> ^NetworkMonitor ---
@@ -7821,6 +7626,9 @@ dbus_interface_get_type    @(link_name = "g_dbus_interface_get_info")
     @(link_name = "g_network_monitor_can_reach_finish")
     network_monitor_can_reach_finish :: proc(monitor: ^NetworkMonitor, result: ^AsyncResult, error: ^^glib.Error) -> glib.boolean ---
 
+    @(link_name = "g_network_service_get_type")
+    network_service_get_type :: proc() -> gobj.Type ---
+
     @(link_name = "g_network_service_new")
     network_service_new :: proc(service: cstring, protocol: cstring, domain: cstring) -> ^SocketConnectable ---
 
@@ -7838,6 +7646,9 @@ dbus_interface_get_type    @(link_name = "g_dbus_interface_get_info")
 
     @(link_name = "g_network_service_set_scheme")
     network_service_set_scheme :: proc(srv: ^NetworkService, scheme: cstring) ---
+
+    @(link_name = "g_notification_get_type")
+    notification_get_type :: proc() -> gobj.Type ---
 
     @(link_name = "g_notification_new")
     notification_new :: proc(title: cstring) -> ^Notification ---
@@ -7878,6 +7689,9 @@ dbus_interface_get_type    @(link_name = "g_dbus_interface_get_info")
     @(link_name = "g_notification_set_default_action_and_target_value")
     notification_set_default_action_and_target_value :: proc(notification: ^Notification, action: cstring, target: ^glib.Variant) ---
 
+    @(link_name = "g_permission_get_type")
+    permission_get_type :: proc() -> gobj.Type ---
+
     @(link_name = "g_permission_acquire")
     permission_acquire :: proc(permission: ^Permission, cancellable: ^Cancellable, error: ^^glib.Error) -> glib.boolean ---
 
@@ -7908,6 +7722,9 @@ dbus_interface_get_type    @(link_name = "g_dbus_interface_get_info")
     @(link_name = "g_permission_impl_update")
     permission_impl_update :: proc(permission: ^Permission, allowed: glib.boolean, can_acquire: glib.boolean, can_release: glib.boolean) ---
 
+    @(link_name = "g_pollable_input_stream_get_type")
+    pollable_input_stream_get_type :: proc() -> gobj.Type ---
+
     @(link_name = "g_pollable_input_stream_can_poll")
     pollable_input_stream_can_poll :: proc(stream: ^PollableInputStream) -> glib.boolean ---
 
@@ -7919,6 +7736,9 @@ dbus_interface_get_type    @(link_name = "g_dbus_interface_get_info")
 
     @(link_name = "g_pollable_input_stream_read_nonblocking")
     pollable_input_stream_read_nonblocking :: proc(stream: ^PollableInputStream, buffer: rawptr, count: glib.size, cancellable: ^Cancellable, error: ^^glib.Error) -> glib.ssize ---
+
+    @(link_name = "g_pollable_output_stream_get_type")
+    pollable_output_stream_get_type :: proc() -> gobj.Type ---
 
     @(link_name = "g_pollable_output_stream_can_poll")
     pollable_output_stream_can_poll :: proc(stream: ^PollableOutputStream) -> glib.boolean ---
@@ -7950,14 +7770,23 @@ dbus_interface_get_type    @(link_name = "g_dbus_interface_get_info")
     @(link_name = "g_pollable_stream_write_all")
     pollable_stream_write_all :: proc(stream: ^OutputStream, buffer: rawptr, count: glib.size, blocking: glib.boolean, bytes_written: ^glib.size, cancellable: ^Cancellable, error: ^^glib.Error) -> glib.boolean ---
 
+    @(link_name = "g_power_profile_monitor_get_type")
+    power_profile_monitor_get_type :: proc() -> gobj.Type ---
+
     @(link_name = "g_power_profile_monitor_dup_default")
     power_profile_monitor_dup_default :: proc() -> ^PowerProfileMonitor ---
 
     @(link_name = "g_power_profile_monitor_get_power_saver_enabled")
     power_profile_monitor_get_power_saver_enabled :: proc(monitor: ^PowerProfileMonitor) -> glib.boolean ---
 
+    @(link_name = "g_property_action_get_type")
+    property_action_get_type :: proc() -> gobj.Type ---
+
     @(link_name = "g_property_action_new")
     property_action_new :: proc(name: cstring, object: glib.pointer, property_name: cstring) -> ^PropertyAction ---
+
+    @(link_name = "g_proxy_get_type")
+    proxy_get_type :: proc() -> gobj.Type ---
 
     @(link_name = "g_proxy_get_default_for_protocol")
     proxy_get_default_for_protocol :: proc(protocol: cstring) -> ^Proxy ---
@@ -7973,6 +7802,9 @@ dbus_interface_get_type    @(link_name = "g_dbus_interface_get_info")
 
     @(link_name = "g_proxy_supports_hostname")
     proxy_supports_hostname :: proc(proxy: ^Proxy) -> glib.boolean ---
+
+    @(link_name = "g_proxy_address_get_type")
+    proxy_address_get_type :: proc() -> gobj.Type ---
 
     @(link_name = "g_proxy_address_new")
     proxy_address_new :: proc(inetaddr: ^InetAddress, port: glib.uint16, protocol: cstring, dest_hostname: cstring, dest_port: glib.uint16, username: cstring, password: cstring) -> ^SocketAddress ---
@@ -7998,6 +7830,9 @@ dbus_interface_get_type    @(link_name = "g_dbus_interface_get_info")
     @(link_name = "g_proxy_address_get_uri")
     proxy_address_get_uri :: proc(proxy: ^ProxyAddress) -> cstring ---
 
+    @(link_name = "g_socket_address_enumerator_get_type")
+    socket_address_enumerator_get_type :: proc() -> gobj.Type ---
+
     @(link_name = "g_socket_address_enumerator_next")
     socket_address_enumerator_next :: proc(enumerator: ^SocketAddressEnumerator, cancellable: ^Cancellable, error: ^^glib.Error) -> ^SocketAddress ---
 
@@ -8006,6 +7841,12 @@ dbus_interface_get_type    @(link_name = "g_dbus_interface_get_info")
 
     @(link_name = "g_socket_address_enumerator_next_finish")
     socket_address_enumerator_next_finish :: proc(enumerator: ^SocketAddressEnumerator, result: ^AsyncResult, error: ^^glib.Error) -> ^SocketAddress ---
+
+    @(link_name = "g_proxy_address_enumerator_get_type")
+    proxy_address_enumerator_get_type :: proc() -> gobj.Type ---
+
+    @(link_name = "g_proxy_resolver_get_type")
+    proxy_resolver_get_type :: proc() -> gobj.Type ---
 
     @(link_name = "g_proxy_resolver_get_default")
     proxy_resolver_get_default :: proc() -> ^ProxyResolver ---
@@ -8022,11 +7863,17 @@ dbus_interface_get_type    @(link_name = "g_dbus_interface_get_info")
     @(link_name = "g_proxy_resolver_lookup_finish")
     proxy_resolver_lookup_finish :: proc(resolver: ^ProxyResolver, result: ^AsyncResult, error: ^^glib.Error) -> ^cstring ---
 
+    @(link_name = "g_remote_action_group_get_type")
+    remote_action_group_get_type :: proc() -> gobj.Type ---
+
     @(link_name = "g_remote_action_group_activate_action_full")
     remote_action_group_activate_action_full :: proc(remote: ^RemoteActionGroup, action_name: cstring, parameter: ^glib.Variant, platform_data: ^glib.Variant) ---
 
     @(link_name = "g_remote_action_group_change_action_state_full")
     remote_action_group_change_action_state_full :: proc(remote: ^RemoteActionGroup, action_name: cstring, value: ^glib.Variant, platform_data: ^glib.Variant) ---
+
+    @(link_name = "g_resolver_get_type")
+    resolver_get_type :: proc() -> gobj.Type ---
 
     @(link_name = "g_resolver_get_default")
     resolver_get_default :: proc() -> ^Resolver ---
@@ -8091,6 +7938,15 @@ dbus_interface_get_type    @(link_name = "g_dbus_interface_get_info")
     @(link_name = "g_resolver_set_timeout")
     resolver_set_timeout :: proc(resolver: ^Resolver, timeout_ms: u32) ---
 
+    @(link_name = "g_resolver_error_quark")
+    resolver_error_quark :: proc() -> glib.Quark ---
+
+    @(link_name = "g_resource_error_quark")
+    resource_error_quark :: proc() -> glib.Quark ---
+
+    @(link_name = "g_resource_get_type")
+    resource_get_type :: proc() -> gobj.Type ---
+
     @(link_name = "g_resource_new_from_data")
     resource_new_from_data :: proc(data: ^glib.Bytes, error: ^^glib.Error) -> ^Resource ---
 
@@ -8148,6 +8004,9 @@ dbus_interface_get_type    @(link_name = "g_dbus_interface_get_info")
     @(link_name = "g_static_resource_get_resource")
     static_resource_get_resource :: proc(static_resource: ^StaticResource) -> ^Resource ---
 
+    @(link_name = "g_seekable_get_type")
+    seekable_get_type :: proc() -> gobj.Type ---
+
     @(link_name = "g_seekable_tell")
     seekable_tell :: proc(seekable: ^Seekable) -> glib.offset ---
 
@@ -8162,6 +8021,9 @@ dbus_interface_get_type    @(link_name = "g_dbus_interface_get_info")
 
     @(link_name = "g_seekable_truncate")
     seekable_truncate :: proc(seekable: ^Seekable, offset_p: glib.offset, cancellable: ^Cancellable, error: ^^glib.Error) -> glib.boolean ---
+
+    @(link_name = "g_settings_schema_source_get_type")
+    settings_schema_source_get_type :: proc() -> gobj.Type ---
 
     @(link_name = "g_settings_schema_source_get_default")
     settings_schema_source_get_default :: proc() -> ^SettingsSchemaSource ---
@@ -8180,6 +8042,9 @@ dbus_interface_get_type    @(link_name = "g_dbus_interface_get_info")
 
     @(link_name = "g_settings_schema_source_list_schemas")
     settings_schema_source_list_schemas :: proc(source: ^SettingsSchemaSource, recursive: glib.boolean, non_relocatable: ^^cstring, relocatable: ^^cstring) ---
+
+    @(link_name = "g_settings_schema_get_type")
+    settings_schema_get_type :: proc() -> gobj.Type ---
 
     @(link_name = "g_settings_schema_ref")
     settings_schema_ref :: proc(schema: ^SettingsSchema) -> ^SettingsSchema ---
@@ -8204,6 +8069,9 @@ dbus_interface_get_type    @(link_name = "g_dbus_interface_get_info")
 
     @(link_name = "g_settings_schema_list_children")
     settings_schema_list_children :: proc(schema: ^SettingsSchema) -> ^cstring ---
+
+    @(link_name = "g_settings_schema_key_get_type")
+    settings_schema_key_get_type :: proc() -> gobj.Type ---
 
     @(link_name = "g_settings_schema_key_ref")
     settings_schema_key_ref :: proc(key: ^SettingsSchemaKey) -> ^SettingsSchemaKey ---
@@ -8231,6 +8099,9 @@ dbus_interface_get_type    @(link_name = "g_dbus_interface_get_info")
 
     @(link_name = "g_settings_schema_key_get_description")
     settings_schema_key_get_description :: proc(key: ^SettingsSchemaKey) -> cstring ---
+
+    @(link_name = "g_settings_get_type")
+    settings_get_type :: proc() -> gobj.Type ---
 
     @(link_name = "g_settings_list_schemas")
     settings_list_schemas :: proc() -> ^cstring ---
@@ -8388,6 +8259,9 @@ dbus_interface_get_type    @(link_name = "g_dbus_interface_get_info")
     @(link_name = "g_settings_get_mapped")
     settings_get_mapped :: proc(settings: [^]Settings, key: cstring, mapping: SettingsGetMapping, user_data: glib.pointer) -> glib.pointer ---
 
+    @(link_name = "g_simple_action_get_type")
+    simple_action_get_type :: proc() -> gobj.Type ---
+
     @(link_name = "g_simple_action_new")
     simple_action_new :: proc(name: cstring, parameter_type: ^glib.VariantType) -> ^SimpleAction ---
 
@@ -8403,6 +8277,9 @@ dbus_interface_get_type    @(link_name = "g_dbus_interface_get_info")
     @(link_name = "g_simple_action_set_state_hint")
     simple_action_set_state_hint :: proc(simple: ^SimpleAction, state_hint: ^glib.Variant) ---
 
+    @(link_name = "g_simple_action_group_get_type")
+    simple_action_group_get_type :: proc() -> gobj.Type ---
+
     @(link_name = "g_simple_action_group_new")
     simple_action_group_new :: proc() -> ^SimpleActionGroup ---
 
@@ -8417,6 +8294,9 @@ dbus_interface_get_type    @(link_name = "g_dbus_interface_get_info")
 
     @(link_name = "g_simple_action_group_add_entries")
     simple_action_group_add_entries :: proc(simple: ^SimpleActionGroup, entries: [^]ActionEntry, n_entries: glib.int_, user_data: glib.pointer) ---
+
+    @(link_name = "g_simple_async_result_get_type")
+    simple_async_result_get_type :: proc() -> gobj.Type ---
 
     @(link_name = "g_simple_async_result_new")
     simple_async_result_new :: proc(source_object: ^gobj.Object, callback: AsyncReadyCallback, user_data: glib.pointer, source_tag: glib.pointer) -> ^SimpleAsyncResult ---
@@ -8493,11 +8373,20 @@ dbus_interface_get_type    @(link_name = "g_dbus_interface_get_info")
     @(link_name = "g_simple_async_report_take_gerror_in_idle")
     simple_async_report_take_gerror_in_idle :: proc(object: ^gobj.Object, callback: AsyncReadyCallback, user_data: glib.pointer, error: ^glib.Error) ---
 
+    @(link_name = "g_simple_io_stream_get_type")
+    simple_io_stream_get_type :: proc() -> gobj.Type ---
+
     @(link_name = "g_simple_io_stream_new")
     simple_io_stream_new :: proc(input_stream: ^InputStream, output_stream: ^OutputStream) -> ^IOStream ---
 
+    @(link_name = "g_simple_permission_get_type")
+    simple_permission_get_type :: proc() -> gobj.Type ---
+
     @(link_name = "g_simple_permission_new")
     simple_permission_new :: proc(allowed: glib.boolean) -> ^Permission ---
+
+    @(link_name = "g_simple_proxy_resolver_get_type")
+    simple_proxy_resolver_get_type :: proc() -> gobj.Type ---
 
     @(link_name = "g_simple_proxy_resolver_new")
     simple_proxy_resolver_new :: proc(default_proxy: cstring, ignore_hosts: [^]cstring) -> ^ProxyResolver ---
@@ -8510,6 +8399,9 @@ dbus_interface_get_type    @(link_name = "g_dbus_interface_get_info")
 
     @(link_name = "g_simple_proxy_resolver_set_uri_proxy")
     simple_proxy_resolver_set_uri_proxy :: proc(resolver: ^SimpleProxyResolver, uri_scheme: cstring, proxy: cstring) ---
+
+    @(link_name = "g_socket_get_type")
+    socket_get_type :: proc() -> gobj.Type ---
 
     @(link_name = "g_socket_new")
     socket_new :: proc(family: SocketFamily, type: SocketType, protocol: SocketProtocol, error: ^^glib.Error) -> ^Socket ---
@@ -8688,6 +8580,9 @@ dbus_interface_get_type    @(link_name = "g_dbus_interface_get_info")
     @(link_name = "g_socket_set_option")
     socket_set_option :: proc(socket: ^Socket, level: glib.int_, optname: glib.int_, value: glib.int_, error: ^^glib.Error) -> glib.boolean ---
 
+    @(link_name = "g_socket_client_get_type")
+    socket_client_get_type :: proc() -> gobj.Type ---
+
     @(link_name = "g_socket_client_new")
     socket_client_new :: proc() -> ^SocketClient ---
 
@@ -8784,6 +8679,9 @@ dbus_interface_get_type    @(link_name = "g_dbus_interface_get_info")
     @(link_name = "g_socket_client_add_application_proxy")
     socket_client_add_application_proxy :: proc(client: ^SocketClient, protocol: cstring) ---
 
+    @(link_name = "g_socket_connectable_get_type")
+    socket_connectable_get_type :: proc() -> gobj.Type ---
+
     @(link_name = "g_socket_connectable_enumerate")
     socket_connectable_enumerate :: proc(connectable: ^SocketConnectable) -> ^SocketAddressEnumerator ---
 
@@ -8792,6 +8690,9 @@ dbus_interface_get_type    @(link_name = "g_dbus_interface_get_info")
 
     @(link_name = "g_socket_connectable_to_string")
     socket_connectable_to_string :: proc(connectable: ^SocketConnectable) -> cstring ---
+
+    @(link_name = "g_socket_connection_get_type")
+    socket_connection_get_type :: proc() -> gobj.Type ---
 
     @(link_name = "g_socket_connection_is_connected")
     socket_connection_is_connected :: proc(connection: ^SocketConnection) -> glib.boolean ---
@@ -8823,6 +8724,9 @@ dbus_interface_get_type    @(link_name = "g_dbus_interface_get_info")
     @(link_name = "g_socket_connection_factory_create_connection")
     socket_connection_factory_create_connection :: proc(socket: ^Socket) -> ^SocketConnection ---
 
+    @(link_name = "g_socket_control_message_get_type")
+    socket_control_message_get_type :: proc() -> gobj.Type ---
+
     @(link_name = "g_socket_control_message_get_size")
     socket_control_message_get_size :: proc(message: ^SocketControlMessage) -> glib.size ---
 
@@ -8837,6 +8741,9 @@ dbus_interface_get_type    @(link_name = "g_dbus_interface_get_info")
 
     @(link_name = "g_socket_control_message_deserialize")
     socket_control_message_deserialize :: proc(level: i32, type: i32, size_p: glib.size, data: glib.pointer) -> ^SocketControlMessage ---
+
+    @(link_name = "g_socket_listener_get_type")
+    socket_listener_get_type :: proc() -> gobj.Type ---
 
     @(link_name = "g_socket_listener_new")
     socket_listener_new :: proc() -> ^SocketListener ---
@@ -8877,6 +8784,9 @@ dbus_interface_get_type    @(link_name = "g_dbus_interface_get_info")
     @(link_name = "g_socket_listener_close")
     socket_listener_close :: proc(listener: ^SocketListener) ---
 
+    @(link_name = "g_socket_service_get_type")
+    socket_service_get_type :: proc() -> gobj.Type ---
+
     @(link_name = "g_socket_service_new")
     socket_service_new :: proc() -> ^SocketService ---
 
@@ -8888,6 +8798,9 @@ dbus_interface_get_type    @(link_name = "g_dbus_interface_get_info")
 
     @(link_name = "g_socket_service_is_active")
     socket_service_is_active :: proc(service: ^SocketService) -> glib.boolean ---
+
+    @(link_name = "g_srv_target_get_type")
+    srv_target_get_type :: proc() -> gobj.Type ---
 
     @(link_name = "g_srv_target_new")
     srv_target_new :: proc(hostname: cstring, port: glib.uint16, priority: glib.uint16, weight: glib.uint16) -> ^SrvTarget ---
@@ -8912,6 +8825,9 @@ dbus_interface_get_type    @(link_name = "g_dbus_interface_get_info")
 
     @(link_name = "g_srv_target_list_sort")
     srv_target_list_sort :: proc(targets: [^]glib.List) -> ^glib.List ---
+
+    @(link_name = "g_subprocess_get_type")
+    subprocess_get_type :: proc() -> gobj.Type ---
 
     @(link_name = "g_subprocess_new")
     subprocess_new :: proc(flags: SubprocessFlags, error: ^^glib.Error, argv0: cstring, #c_vararg var_args: ..any) -> ^Subprocess ---
@@ -8988,6 +8904,9 @@ dbus_interface_get_type    @(link_name = "g_dbus_interface_get_info")
     @(link_name = "g_subprocess_communicate_utf8_finish")
     subprocess_communicate_utf8_finish :: proc(subprocess: [^]Subprocess, result: ^AsyncResult, stdout_buf: ^cstring, stderr_buf: ^cstring, error: ^^glib.Error) -> glib.boolean ---
 
+    @(link_name = "g_subprocess_launcher_get_type")
+    subprocess_launcher_get_type :: proc() -> gobj.Type ---
+
     @(link_name = "g_subprocess_launcher_new")
     subprocess_launcher_new :: proc(flags: SubprocessFlags) -> ^SubprocessLauncher ---
 
@@ -9014,6 +8933,9 @@ dbus_interface_get_type    @(link_name = "g_dbus_interface_get_info")
 
     @(link_name = "g_subprocess_launcher_set_flags")
     subprocess_launcher_set_flags :: proc(self: ^SubprocessLauncher, flags: SubprocessFlags) ---
+
+    @(link_name = "g_task_get_type")
+    task_get_type :: proc() -> gobj.Type ---
 
     @(link_name = "g_task_new")
     task_new :: proc(source_object: glib.pointer, cancellable: ^Cancellable, callback: AsyncReadyCallback, callback_data: glib.pointer) -> ^Task ---
@@ -9132,17 +9054,26 @@ dbus_interface_get_type    @(link_name = "g_dbus_interface_get_info")
     @(link_name = "g_task_print_alive_tasks")
     task_print_alive_tasks :: proc() ---
 
+    @(link_name = "g_tcp_connection_get_type")
+    tcp_connection_get_type :: proc() -> gobj.Type ---
+
     @(link_name = "g_tcp_connection_set_graceful_disconnect")
     tcp_connection_set_graceful_disconnect :: proc(connection: ^TcpConnection, graceful_disconnect: glib.boolean) ---
 
     @(link_name = "g_tcp_connection_get_graceful_disconnect")
     tcp_connection_get_graceful_disconnect :: proc(connection: ^TcpConnection) -> glib.boolean ---
 
+    @(link_name = "g_tcp_wrapper_connection_get_type")
+    tcp_wrapper_connection_get_type :: proc() -> gobj.Type ---
+
     @(link_name = "g_tcp_wrapper_connection_new")
     tcp_wrapper_connection_new :: proc(base_io_stream: ^IOStream, socket: ^Socket) -> ^SocketConnection ---
 
     @(link_name = "g_tcp_wrapper_connection_get_base_io_stream")
     tcp_wrapper_connection_get_base_io_stream :: proc(conn: ^TcpWrapperConnection) -> ^IOStream ---
+
+    @(link_name = "g_test_dbus_get_type")
+    test_dbus_get_type :: proc() -> gobj.Type ---
 
     @(link_name = "g_test_dbus_new")
     test_dbus_new :: proc(flags: TestDBusFlags) -> ^TestDBus ---
@@ -9168,6 +9099,9 @@ dbus_interface_get_type    @(link_name = "g_dbus_interface_get_info")
     @(link_name = "g_test_dbus_unset")
     test_dbus_unset :: proc() ---
 
+    @(link_name = "g_themed_icon_get_type")
+    themed_icon_get_type :: proc() -> gobj.Type ---
+
     @(link_name = "g_themed_icon_new")
     themed_icon_new :: proc(iconname: cstring) -> ^Icon ---
 
@@ -9186,8 +9120,14 @@ dbus_interface_get_type    @(link_name = "g_dbus_interface_get_info")
     @(link_name = "g_themed_icon_get_names")
     themed_icon_get_names :: proc(icon: ^ThemedIcon) -> ^cstring ---
 
+    @(link_name = "g_threaded_socket_service_get_type")
+    threaded_socket_service_get_type :: proc() -> gobj.Type ---
+
     @(link_name = "g_threaded_socket_service_new")
     threaded_socket_service_new :: proc(max_threads: i32) -> ^SocketService ---
+
+    @(link_name = "g_tls_backend_get_type")
+    tls_backend_get_type :: proc() -> gobj.Type ---
 
     @(link_name = "g_tls_backend_get_default")
     tls_backend_get_default :: proc() -> ^TlsBackend ---
@@ -9221,6 +9161,9 @@ dbus_interface_get_type    @(link_name = "g_dbus_interface_get_info")
 
     @(link_name = "g_tls_backend_get_dtls_server_connection_type")
     tls_backend_get_dtls_server_connection_type :: proc(backend: ^TlsBackend) -> gobj.Type ---
+
+    @(link_name = "g_tls_certificate_get_type")
+    tls_certificate_get_type :: proc() -> gobj.Type ---
 
     @(link_name = "g_tls_certificate_new_from_pem")
     tls_certificate_new_from_pem :: proc(data: cstring, length: glib.ssize, error: ^^glib.Error) -> ^TlsCertificate ---
@@ -9269,6 +9212,9 @@ dbus_interface_get_type    @(link_name = "g_dbus_interface_get_info")
 
     @(link_name = "g_tls_certificate_get_ip_addresses")
     tls_certificate_get_ip_addresses :: proc(cert: ^TlsCertificate) -> ^glib.PtrArray ---
+
+    @(link_name = "g_tls_connection_get_type")
+    tls_connection_get_type :: proc() -> gobj.Type ---
 
     @(link_name = "g_tls_connection_set_use_system_certdb")
     tls_connection_set_use_system_certdb :: proc(conn: ^TlsConnection, use_system_certdb: glib.boolean) ---
@@ -9336,8 +9282,17 @@ dbus_interface_get_type    @(link_name = "g_dbus_interface_get_info")
     @(link_name = "g_tls_connection_get_ciphersuite_name")
     tls_connection_get_ciphersuite_name :: proc(conn: ^TlsConnection) -> cstring ---
 
+    @(link_name = "g_tls_error_quark")
+    tls_error_quark :: proc() -> glib.Quark ---
+
+    @(link_name = "g_tls_channel_binding_error_quark")
+    tls_channel_binding_error_quark :: proc() -> glib.Quark ---
+
     @(link_name = "g_tls_connection_emit_accept_certificate")
     tls_connection_emit_accept_certificate :: proc(conn: ^TlsConnection, peer_cert: ^TlsCertificate, errors: TlsCertificateFlags) -> glib.boolean ---
+
+    @(link_name = "g_tls_client_connection_get_type")
+    tls_client_connection_get_type :: proc() -> gobj.Type ---
 
     @(link_name = "g_tls_client_connection_new")
     tls_client_connection_new :: proc(base_io_stream: ^IOStream, server_identity: ^SocketConnectable, error: ^^glib.Error) -> ^IOStream ---
@@ -9365,6 +9320,9 @@ dbus_interface_get_type    @(link_name = "g_dbus_interface_get_info")
 
     @(link_name = "g_tls_client_connection_copy_session_state")
     tls_client_connection_copy_session_state :: proc(conn: ^TlsClientConnection, source: ^TlsClientConnection) ---
+
+    @(link_name = "g_tls_database_get_type")
+    tls_database_get_type :: proc() -> gobj.Type ---
 
     @(link_name = "g_tls_database_verify_chain")
     tls_database_verify_chain :: proc(self: ^TlsDatabase, chain: ^TlsCertificate, purpose: cstring, identity: ^SocketConnectable, interaction: ^TlsInteraction, flags: TlsDatabaseVerifyFlags, cancellable: ^Cancellable, error: ^^glib.Error) -> TlsCertificateFlags ---
@@ -9405,8 +9363,14 @@ dbus_interface_get_type    @(link_name = "g_dbus_interface_get_info")
     @(link_name = "g_tls_database_lookup_certificates_issued_by_finish")
     tls_database_lookup_certificates_issued_by_finish :: proc(self: ^TlsDatabase, result: ^AsyncResult, error: ^^glib.Error) -> ^glib.List ---
 
+    @(link_name = "g_tls_file_database_get_type")
+    tls_file_database_get_type :: proc() -> gobj.Type ---
+
     @(link_name = "g_tls_file_database_new")
     tls_file_database_new :: proc(anchors: [^]glib.char, error: ^^glib.Error) -> ^TlsDatabase ---
+
+    @(link_name = "g_tls_interaction_get_type")
+    tls_interaction_get_type :: proc() -> gobj.Type ---
 
     @(link_name = "g_tls_interaction_invoke_ask_password")
     tls_interaction_invoke_ask_password :: proc(interaction: ^TlsInteraction, password: ^TlsPassword, cancellable: ^Cancellable, error: ^^glib.Error) -> TlsInteractionResult ---
@@ -9431,6 +9395,9 @@ dbus_interface_get_type    @(link_name = "g_dbus_interface_get_info")
 
     @(link_name = "g_tls_interaction_request_certificate_finish")
     tls_interaction_request_certificate_finish :: proc(interaction: ^TlsInteraction, result: ^AsyncResult, error: ^^glib.Error) -> TlsInteractionResult ---
+
+    @(link_name = "g_tls_password_get_type")
+    tls_password_get_type :: proc() -> gobj.Type ---
 
     @(link_name = "g_tls_password_new")
     tls_password_new :: proc(flags: TlsPasswordFlags, description: cstring) -> ^TlsPassword ---
@@ -9462,8 +9429,14 @@ dbus_interface_get_type    @(link_name = "g_dbus_interface_get_info")
     @(link_name = "g_tls_password_set_warning")
     tls_password_set_warning :: proc(password: ^TlsPassword, warning: cstring) ---
 
+    @(link_name = "g_tls_server_connection_get_type")
+    tls_server_connection_get_type :: proc() -> gobj.Type ---
+
     @(link_name = "g_tls_server_connection_new")
     tls_server_connection_new :: proc(base_io_stream: ^IOStream, certificate: ^TlsCertificate, error: ^^glib.Error) -> ^IOStream ---
+
+    @(link_name = "g_unix_connection_get_type")
+    unix_connection_get_type :: proc() -> gobj.Type ---
 
     @(link_name = "g_unix_connection_send_fd")
     unix_connection_send_fd :: proc(connection: ^UnixConnection, fd: glib.int_, cancellable: ^Cancellable, error: ^^glib.Error) -> glib.boolean ---
@@ -9489,6 +9462,9 @@ dbus_interface_get_type    @(link_name = "g_dbus_interface_get_info")
     @(link_name = "g_unix_connection_receive_credentials_finish")
     unix_connection_receive_credentials_finish :: proc(connection: ^UnixConnection, result: ^AsyncResult, error: ^^glib.Error) -> ^Credentials ---
 
+    @(link_name = "g_unix_credentials_message_get_type")
+    unix_credentials_message_get_type :: proc() -> gobj.Type ---
+
     @(link_name = "g_unix_credentials_message_new")
     unix_credentials_message_new :: proc() -> ^SocketControlMessage ---
 
@@ -9500,6 +9476,9 @@ dbus_interface_get_type    @(link_name = "g_dbus_interface_get_info")
 
     @(link_name = "g_unix_credentials_message_is_supported")
     unix_credentials_message_is_supported :: proc() -> glib.boolean ---
+
+    @(link_name = "g_unix_fd_list_get_type")
+    unix_fd_list_get_type :: proc() -> gobj.Type ---
 
     @(link_name = "g_unix_fd_list_new")
     unix_fd_list_new :: proc() -> ^UnixFDList ---
@@ -9521,6 +9500,9 @@ dbus_interface_get_type    @(link_name = "g_dbus_interface_get_info")
 
     @(link_name = "g_unix_fd_list_steal_fds")
     unix_fd_list_steal_fds :: proc(list: ^UnixFDList, length: ^glib.int_) -> ^glib.int_ ---
+
+    @(link_name = "g_unix_socket_address_get_type")
+    unix_socket_address_get_type :: proc() -> gobj.Type ---
 
     @(link_name = "g_unix_socket_address_new")
     unix_socket_address_new :: proc(path: cstring) -> ^SocketAddress ---
@@ -9545,6 +9527,9 @@ dbus_interface_get_type    @(link_name = "g_dbus_interface_get_info")
 
     @(link_name = "g_unix_socket_address_abstract_names_supported")
     unix_socket_address_abstract_names_supported :: proc() -> glib.boolean ---
+
+    @(link_name = "g_vfs_get_type")
+    vfs_get_type :: proc() -> gobj.Type ---
 
     @(link_name = "g_vfs_is_active")
     vfs_is_active :: proc(vfs: [^]Vfs) -> glib.boolean ---
@@ -9572,6 +9557,9 @@ dbus_interface_get_type    @(link_name = "g_dbus_interface_get_info")
 
     @(link_name = "g_vfs_unregister_uri_scheme")
     vfs_unregister_uri_scheme :: proc(vfs: [^]Vfs, scheme: cstring) -> glib.boolean ---
+
+    @(link_name = "g_volume_get_type")
+    volume_get_type :: proc() -> gobj.Type ---
 
     @(link_name = "g_volume_get_name")
     volume_get_name :: proc(volume: ^Volume) -> cstring ---
@@ -9630,6 +9618,9 @@ dbus_interface_get_type    @(link_name = "g_dbus_interface_get_info")
     @(link_name = "g_volume_get_sort_key")
     volume_get_sort_key :: proc(volume: ^Volume) -> cstring ---
 
+    @(link_name = "g_zlib_compressor_get_type")
+    zlib_compressor_get_type :: proc() -> gobj.Type ---
+
     @(link_name = "g_zlib_compressor_new")
     zlib_compressor_new :: proc(format: ZlibCompressorFormat, level: i32) -> ^ZlibCompressor ---
 
@@ -9639,6 +9630,9 @@ dbus_interface_get_type    @(link_name = "g_dbus_interface_get_info")
     @(link_name = "g_zlib_compressor_set_file_info")
     zlib_compressor_set_file_info :: proc(compressor: ^ZlibCompressor, file_info: ^FileInfo) ---
 
+    @(link_name = "g_zlib_decompressor_get_type")
+    zlib_decompressor_get_type :: proc() -> gobj.Type ---
+
     @(link_name = "g_zlib_decompressor_new")
     zlib_decompressor_new :: proc(format: ZlibCompressorFormat) -> ^ZlibDecompressor ---
 
@@ -9646,7 +9640,6 @@ dbus_interface_get_type    @(link_name = "g_dbus_interface_get_info")
     zlib_decompressor_get_file_info :: proc(decompressor: ^ZlibDecompressor) -> ^FileInfo ---
 
 }
-*/
 
 when (ODIN_OS == .Windows) && (ODIN_ARCH == .amd64) {
 
@@ -9739,7 +9732,7 @@ foreign gio_runic {
 
 }
 
-when (ODIN_OS == .Linux) && (ODIN_ARCH == .amd64) {
+when (ODIN_OS == .Linux || ODIN_OS == .Darwin) && (ODIN_ARCH == .amd64) {
 
 when #config(GLIB_STATIC, false) {
     when (ODIN_OS == .Linux) && (ODIN_ARCH == .amd64) {
@@ -9753,15 +9746,15 @@ when #config(GLIB_STATIC, false) {
 
 }
 
-when (ODIN_OS == .Linux) && (ODIN_ARCH == .arm64) {
+when (ODIN_OS == .Linux || ODIN_OS == .Darwin) && (ODIN_ARCH == .arm64) {
 
 when #config(GLIB_STATIC, false) {
     when (ODIN_OS == .Linux) && (ODIN_ARCH == .arm64) {
-    foreign import gio_runic { "../../lib/linux/aarch64/libgio-2.0.a", "../../lib/linux/aarch64/libgio-wrapper.a", "system:ffi", "system:pcre2-8", "system:mount", "system:z" }
+//    foreign import gio_runic { "../../lib/linux/aarch64/libgio-2.0.a", "../../lib/linux/aarch64/libgio-wrapper.a", "system:ffi", "system:pcre2-8", "system:mount", "system:z" }
 } 
 } else {
     when (ODIN_OS == .Linux) && (ODIN_ARCH == .arm64) {
-    foreign import gio_runic { "system:gio-2.0", "../../lib/linux/aarch64/libgio-wrapper.a" }
+//    foreign import gio_runic { "system:gio-2.0", "../../lib/linux/aarch64/libgio-wrapper.a" }
 } 
 }
 
