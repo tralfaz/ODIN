@@ -22,17 +22,14 @@ StringSelectedCB :: proc "c" (dropdown :^gtk.DropDown,
     text := gtk.string_object_get_string(cast(^gtk.StringObject)selitm)
     fmt.printf("Selection Changed! Index: %d, Value: '%s'\n", selidx, text)
     }
+  fmt.printf("pspec: %v [%T]\n", pspec, pspec)
+  fmt.printf("cbArg: '%s'\n",cstring(cbarg))
 
-  // Retrieve the underlying string model
   /*GListModel* */model := gtk.drop_down_get_model(dropdown)
   fmt.printf("model: %v [%T] len=%d\n", model, model)
   mdltyp := gio.list_model_get_item_type(model)
   fmt.printf("mdltyp: %v [%T]\n", mdltyp, mdltyp)
       fmt.printf("TYPE_LIST_MODEL: %v\n", gio.TYPE_LIST_MODEL())
-  // Extract the text content of the selected item
-// seltxt = gtk_string_list_get_string (GTK_STRING_LIST (model), selected_index);
-//  gtk.string_list_get_string(self: ^StringList, position: glib.uint_) -> cstring ---
-
 }
 
 AppActivateCB :: proc "c" (app :^gtk.Application, user_data :glib.pointer) {
@@ -43,9 +40,6 @@ AppActivateCB :: proc "c" (app :^gtk.Application, user_data :glib.pointer) {
   gtk.window_set_title(appwin, "DropDown Menu Demo")
 //  gtk.window_set_default_size(appwin, 500, 150)
 
-//  hbox := gtk.box_new(gtk.Orientation.HORIZONTAL, spacing=6)
-
-  items := [?]cstring{"This", "is", "a", "long", "list", "of"} // words to populate the dropdown".split()
   text := "This is a long list of words to populate the dropdown"
   words := strings.split(text, " ")
   menuItems := make([^]cstring, len(words)+1)
@@ -53,13 +47,8 @@ AppActivateCB :: proc "c" (app :^gtk.Application, user_data :glib.pointer) {
     menuItems[idx] = strings.clone_to_cstring(word)
   }
   menuItems[len(words)] = nil
-//  defer delete(menuItems)
-//  defer for item in menuItems do delete(item)
-//for str in strings.split_iterator(&text, " ") {
-//		fmt.println(str)
-//  }
-//for &arg, idx in argv {
-//  }
+  //defer delete(menuItems)
+  defer for itmidx in 0 ..< len(words) do delete(menuItems[itmidx])
 
   dropdown := gtk.drop_down_new_from_strings(menuItems)
   @static cbArg :cstring = "DropDown-1"
