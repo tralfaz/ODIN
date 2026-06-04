@@ -16,10 +16,23 @@ StringSelectedCB :: proc "c" (dropdown :^gtk.DropDown,
                               cbarg :glib.pointer) {
   context = runtime.default_context()
 
-  // Selected Gtk.StringObject
-  selected := gtk.drop_down_get_selected_item(dropdown)
-//    if selected := dropdown.get_selected_item():
-  fmt.printf("Selected: %v [%T]\n", selected, selected)//selected.get_string())
+  selidx := gtk.drop_down_get_selected(dropdown)
+  selitm := gtk.drop_down_get_selected_item(dropdown);
+  if selitm != nil {
+    text := gtk.string_object_get_string(cast(^gtk.StringObject)selitm)
+    fmt.printf("Selection Changed! Index: %d, Value: '%s'\n", selidx, text)
+    }
+
+  // Retrieve the underlying string model
+  /*GListModel* */model := gtk.drop_down_get_model(dropdown)
+  fmt.printf("model: %v [%T] len=%d\n", model, model)
+  mdltyp := gio.list_model_get_item_type(model)
+  fmt.printf("mdltyp: %v [%T]\n", mdltyp, mdltyp)
+      fmt.printf("TYPE_LIST_MODEL: %v\n", gio.TYPE_LIST_MODEL())
+  // Extract the text content of the selected item
+// seltxt = gtk_string_list_get_string (GTK_STRING_LIST (model), selected_index);
+//  gtk.string_list_get_string(self: ^StringList, position: glib.uint_) -> cstring ---
+
 }
 
 AppActivateCB :: proc "c" (app :^gtk.Application, user_data :glib.pointer) {
