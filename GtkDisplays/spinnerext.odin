@@ -4,6 +4,7 @@ import "base:runtime"
 import "core:fmt"
 import "core:os"
 import "core:strings"
+import "core:strconv"
 
 import gio  "../gtk4m/gio"
 import glib "../gtk4m/glib"
@@ -50,6 +51,7 @@ StopButtonClickedCB :: proc "c" (button :^gtk.Button, cbData :glib.pointer) {
 //
 TimeoutCB :: proc "c" (cbArg :glib.pointer) -> glib.boolean {
   context = runtime.default_context()
+  fmt.printf("TimeoutCB: counter=%d\n", V_counter)
   V_counter -= 1
   if V_counter <= 0 {
     StopTimer("Reached time out")
@@ -70,7 +72,12 @@ StartTimer :: proc () {
   // time out will check every 250 milliseconds (1/4 of a second)
   entbuf := gtk.entry_get_buffer(cast(^gtk.Entry)V_entry)
   enttxt := gtk.entry_buffer_get_text(entbuf)
-//  V_counter = 4 * int(self.entry.props.text)
+    ival, ok := strconv.parse_int(string(enttxt))
+  if ok {
+    V_counter = i32(4 * ival)
+  } else {
+    return
+  }
   fmt.printf("StartTimer: %v [%T]\n", enttxt, enttxt)
   lblstr := fmt.aprintf("Remaining: %d",  V_counter / 4)
   lbltxt := strings.clone_to_cstring(lblstr)
@@ -78,6 +85,7 @@ StartTimer :: proc () {
   gtk.label_set_text(cast(^gtk.Label)V_label, lbltxt)
   gtk.spinner_start(cast(^gtk.Spinner)V_spinner)
   V_timeout_id = glib.timeout_add(250, TimeoutCB, nil)
+  fmt.printf("StartTimer: enttxt='%s'\n", enttxt)  
 }
 
 // Stop the timer.
@@ -119,7 +127,7 @@ AppActivateCB :: proc "c" (app :^gtk.Application, user_data :glib.pointer) {
 
   entbuf := gtk.entry_buffer_new("", 0)
   gtk.entry_buffer_set_text(entbuf, "10", 2)
-  V_entry := gtk.entry_new_with_buffer(entbuf)
+  V_entry = gtk.entry_new_with_buffer(entbuf)
   gtk.box_append(cast(^gtk.Box)vbox, V_entry)
 
   V_start_btn = gtk.button_new_with_label("Start timer")
