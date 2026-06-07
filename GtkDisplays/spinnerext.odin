@@ -27,14 +27,14 @@ Button2ClickedCB :: proc "c" (button :^gtk.Button, cbData :glib.pointer) {
 StartButtonClickedCB :: proc "c" (button :^gtk.Button, cbData :glib.pointer) {
   context = runtime.default_context()
   StartTimer()
-  fmt.printf("StartButtonClickedCB:\n")
+//  fmt.printf("StartButtonClickedCB:\n")
 }
 
 // Handles 'clicked' event of button_stop."""
 StopButtonClickedCB :: proc "c" (button :^gtk.Button, cbData :glib.pointer) {
   context = runtime.default_context()
   StopTimer("Stopped from button")
-  fmt.printf("StopButtonClickedCB:\n")
+//  fmt.printf("StopButtonClickedCB:\n")
 }
 
 //    def on_window_destroy(self, _widget):
@@ -51,7 +51,7 @@ StopButtonClickedCB :: proc "c" (button :^gtk.Button, cbData :glib.pointer) {
 //
 TimeoutCB :: proc "c" (cbArg :glib.pointer) -> glib.boolean {
   context = runtime.default_context()
-  fmt.printf("TimeoutCB: counter=%d\n", V_counter)
+//  fmt.printf("TimeoutCB: counter=%d\n", V_counter)
   V_counter -= 1
   if V_counter <= 0 {
     StopTimer("Reached time out")
@@ -78,14 +78,14 @@ StartTimer :: proc () {
   } else {
     return
   }
-  fmt.printf("StartTimer: %v [%T]\n", enttxt, enttxt)
+//  fmt.printf("StartTimer: %v [%T]\n", enttxt, enttxt)
   lblstr := fmt.aprintf("Remaining: %d",  V_counter / 4)
   lbltxt := strings.clone_to_cstring(lblstr)
   defer delete(lbltxt)
   gtk.label_set_text(cast(^gtk.Label)V_label, lbltxt)
   gtk.spinner_start(cast(^gtk.Spinner)V_spinner)
   V_timeout_id = glib.timeout_add(250, TimeoutCB, nil)
-  fmt.printf("StartTimer: enttxt='%s'\n", enttxt)  
+//  fmt.printf("StartTimer: enttxt='%s'\n", enttxt)  
 }
 
 // Stop the timer.
