@@ -9732,7 +9732,7 @@ foreign gio_runic {
 
 }
 
-when (ODIN_OS == .Linux || ODIN_OS == .Darwin) && (ODIN_ARCH == .amd64) {
+when (ODIN_OS == .Linux) && (ODIN_ARCH == .amd64) {
 
 when #config(GLIB_STATIC, false) {
     when (ODIN_OS == .Linux) && (ODIN_ARCH == .amd64) {
@@ -9750,11 +9750,11 @@ when (ODIN_OS == .Linux || ODIN_OS == .Darwin) && (ODIN_ARCH == .arm64) {
 
 when #config(GLIB_STATIC, false) {
     when (ODIN_OS == .Linux) && (ODIN_ARCH == .arm64) {
-//    foreign import gio_runic { "../../lib/linux/aarch64/libgio-2.0.a", "../../lib/linux/aarch64/libgio-wrapper.a", "system:ffi", "system:pcre2-8", "system:mount", "system:z" }
+    foreign import gio_runic { "../../lib/linux/aarch64/libgio-2.0.a", "../../lib/linux/aarch64/libgio-wrapper.a", "system:ffi", "system:pcre2-8", "system:mount", "system:z" }
 } 
 } else {
     when (ODIN_OS == .Linux) && (ODIN_ARCH == .arm64) {
-//    foreign import gio_runic { "system:gio-2.0", "../../lib/linux/aarch64/libgio-wrapper.a" }
+    foreign import gio_runic { "system:gio-2.0", "../../lib/linux/aarch64/libgio-wrapper.a" }
 } 
 }
 
