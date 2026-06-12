@@ -30,3 +30,10 @@ set_boolean_property :: proc(obj :^Object, name :cstring, value :b32) {
   boolPropVal.data[1].v_pointer = nil
   object_set_property(obj, name, &boolPropVal)
 }
+
+set_int_property :: proc(obj :^Object, name :cstring, value :i32) {
+  intPropVal := Value{g_type=TYPE_INT}
+  intPropVal.data[0].v_int = value
+  intPropVal.data[1].v_pointer = nil
+  object_set_property(obj, name, &intPropVal)
+}
