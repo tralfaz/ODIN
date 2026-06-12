@@ -22,7 +22,86 @@ Button2ClickedCB :: proc "c" (button :^gtk.Button, cbData :glib.pointer) {
   hbox := cast(^gtk.Box)cbData
   fmt.printf("Button2ClickedCB: hbox %p [%T]\n", hbox, hbox)
 }
+WrapToggledCB :: proc "c" (button :^gtk.Button, cbData :glib.pointer) {
+  context = runtime.default_context()
+  wmptr := cast(^gtk.WrapMode)cbData
+  mode := wmptr^
+  gobj.set_int_property(cast(^gobj.Object)V_textview, "wrap_mode", i32(mode))
+}
 
+ButtonClickedCB :: proc "c" (button :^gtk.Widget, cbData :glib.pointer) {
+  tag := cast(gtk.TextTag)cbData
+  bounds = V_textbuffer.get_selection_bounds()
+  if len(bounds) != 0 {
+    start, end = bounds
+    self.textbuffer.apply_tag(tag, start, end)
+  }
+}
+
+ClearClickedCB :: proc "c" (sender :^gtk.Widget, cbData :glib.pointer) {
+  start := gtk.TextIter{}
+  end   := gtk.TextIter{}
+  gtk.text_buffer_get_start_iter(V_textbuffer, &start)
+  gtk.text_buffer_get_start_iter(V_textbuffer, &end)
+  gtk.text_buffer_remove_all_tags(V_textbuffer, &start, &end)
+}
+
+JustifyToggledCB :: proc "c" (sender :^gtk.Widget, cbData :glib.pointer) {
+  justptr := cast(^gtk.Justifiation)cbData
+  justification := justptr^
+  V_textview.props.justification = justification
+}
+
+FindClicked :: proc "c" (sender :^gtk.Widget, cbData :glib.pointer) {
+  cursor_mark = self.textbuffer.get_insert()
+  start = self.textbuffer.get_iter_at_mark(cursor_mark)
+  if start.get_offset() == self.textbuffer.get_char_count() {
+    start = self.textbuffer.get_start_iter()
+    }
+
+  SearchAndMark(self.search_dialog.entry.get_text(), start)
+}
+
+SearchAndMark :: proc(text, start) {
+  end = V_textbuffer.get_end_iter()
+  match = start.forward_search(text, 0, end)
+
+  if match != nil {
+    match_start, match_end = match
+    V_textbuffer.apply_tag(self.tag_found, match_start, match_end)
+    SearchAndMark(text, match_end)
+  }
+}
+
+SearchClickedCB :: proc "c" (sender :^gtk.Widget, cbData :glib.pointer) {
+  if V_search_dialog == nil {
+    parent := cast(^gtk.Widget)cbData
+    V_search_dialog := gtk.window_new()
+    gtk.window_set_title(V_search_dialog, "Search")
+    gtk.window_set_modal(V_search_dialog, true)
+    gtk.window_set_transient_for(V_search_dialog, parent)
+
+    box = gtk.box_new(gtk.Orientation.VERTICAL, spacing=12)
+    gtk.window_set_child(V_search_dialog, box)
+
+    label := gtk.label_new("Insert text you want to search for:")
+    gtk.box_append(box, label)
+
+    V_entry = gtk.entry_new()
+    gtk.box_append(box, V_entry)
+
+    button := gtk.button_new_with_label("Find")
+    gtk.box_append(box, button)
+
+//    V_search_dialog.button.connect("clicked", self.on_find_clicked)
+  }
+  gtl.window_present(V_search_dialog)
+}
+
+
+
+V_textview      :^gtk.TextView = nil
+V_textbuffer    :^gtk.Textbuffer = nil
 V_tag_bold      :^gtk.TextTag = nil
 V_tag_italic    :^gtk.TextTag = nil
 V_tag_underline :^gtk.TextTag = nil
@@ -46,7 +125,6 @@ or "underline" to modify the text accordingly.`)
                    "weight", pango.Weight.BOLD)
   V_tag_italic = gtk.text_buffer_create_tag(V_textbuffer, "italic",
                    "style", pango.Style.ITALIC)
- text_buffer_create_tag :: proc(buffer: ^TextBuffer, tag_name: cstring, first_property_name: cstring, #c_vararg var_args: ..any) -> ^TextTag
   V_tag_underline = gtk.text_buffer_create_tag(V_textbuffer, "underline",
                         "underline", pango.Underline.SINGLE)
   V_tag_found = gtk.text_buffer_create_tag(V_textbuffer, "found",
@@ -63,17 +141,17 @@ CreateToolBar :: proc(app :^gtk.Application, vbox :^gtk.Box) { // , self):
 
   button_bold := gtk.button_new_from_icon_name("format-text-bold-symbolic")
   gobj.signal_connect(button_bold, "clicked",
-                      cast(gobj.Callback)Button1ClickedCB, V_tag_bold)
+                      cast(gobj.Callback)ButtonClickedCB, V_tag_bold)
   gtk.box_append(toolbar, button_bold)
 
   button_italic := gtk.button_new_from_icon_name("format-text-italic-symbolic")
   gobj.signal_connect(button_italic, "clicked",
-                      cast(gobj.Callback)Button1ClickedCB, V_tag_italic)
+                      cast(gobj.Callback)ButtonClickedCB, V_tag_italic)
   gtk.box_append(toolbar, button_italic)
 
   button_underline := gtk.button_new_from_icon_name("format-text-underline-symbolic")
   gobj.signal_connect(button_underline, "clicked",
-                      cast(gobj.Callback)Button1ClickedCB, V_tag_underline)
+                      cast(gobj.Callback)ButtonClickedCB, V_tag_underline)
   gtk.box_append(toolbar, button_underline)
 
   gtk.box_append(toolbar, gtk.separator_new(gtk.Orientation.VERTICAL))
@@ -94,6 +172,7 @@ CreateToolBar :: proc(app :^gtk.Application, vbox :^gtk.Box) { // , self):
   gtk.box_append(toolbar, justifyfill)
 
 
+  @static justLeft := gtk.Justification.LEFT
   gobj.signal_connect(justifyleft, "toggled",
                       cast(gobj.Callback)JustifyToggledCB, gtk.Justification.LEFT)
   gobj.signal_connect(justifycenter, "toggled",
@@ -113,7 +192,8 @@ CreateToolBar :: proc(app :^gtk.Application, vbox :^gtk.Box) { // , self):
   gtk.box_append(toolbar, gtk.separator_new())
 
   button_search := gtk.button_new_from_icon_name("system-search-symbolic")
-        button_search.connect("clicked", self.on_search_clicked)
+  gobj.signal_connect(button_search, "clicked",
+                      cast(gobj.Callback)SearchClickedCB, nil)
   gtk.box_append(toolbar, button_search)
 }
 
@@ -122,33 +202,42 @@ CreateButtons :: proc(app :^gtk.Application, vbox :^gtk.Box) {
   grid := gtk.grid_new()
   gtk.box_append(vbox, grid)
 
-        check_editable = Gtk.CheckButton(label="Editable", active=True)
-        check_editable.bind_property("active", self.textview, "editable", 0)
-        grid.attach(check_editable, 0, 0, 1, 1)
+  check_editable := gtk.check_button_new_with_label("Editable")
+  gtk.check_button_set_active(cast(^gtk.CheckButton)check_editable, true)
+//check_editable.bind_property("active", self.textview, "editable", 0)
+  gobj.object_bind_property(check_editable, "active", V_textview, "editable", 0)
+  gtk.grid_attach(grid, check_editable, 0, 0, 1, 1)
 
-        check_cursor = Gtk.CheckButton(label="Cursor Visible", active=True)
-        check_cursor.bind_property("active", self.textview, "cursor_visible", 0)
-        grid.attach_next_to(check_cursor, check_editable, Gtk.PositionType.RIGHT, 1, 1)
+  check_cursor := gtk.check_button_new_with_label("Cursor Visible")
+  gtk.check_button_set_active(cast(^gtk.CheckButton)check_cursor, true)
+//  check_cursor.bind_property("active", self.textview, "cursor_visible", 0)
+  gobj.object_bind_property(check_cursor, "active", V_textview, "cursor_visible", 0) 
+  gtk.grid_attach_next_to(grid, check_cursor, check_editable,
+      gtk.PositionType.RIGHT, 1, 1)
 
-        radio_wrapnone = Gtk.CheckButton(label="No Wrapping", active=True)
-        grid.attach(radio_wrapnone, 0, 1, 1, 1)
+  radio_wrapnone := gtk.check_button_new_with_label("No Wrapping")
+  gtk.check_button_set_active(cast(^gtk.CheckButton)radio_wrapnone, true)
+  gtk.grid_attach(grid, radio_wrapnone, 0, 1, 1, 1)
 
-        radio_wrapchar = Gtk.CheckButton(
-            label="Character Wrapping", group=radio_wrapnone
-        )
-        grid.attach_next_to(
-            radio_wrapchar, radio_wrapnone, Gtk.PositionType.RIGHT, 1, 1
-        )
+  radio_wrapchar := gtk.check_button_new_with_label("Character Wrapping")
+  gtk.check_button_set_group(cast(^gtk.CheckButton)radio_wrapchar,
+                              group=cast(^gtk.CheckButton)radio_wrapnone)
+  gtk.grid_attach_next_to(grid, radio_wrapchar, radio_wrapnone,
+      gtk.PositionType.RIGHT, 1, 1)
 
-        radio_wrapword = Gtk.CheckButton(label="Word Wrapping", group=radio_wrapnone)
-        grid.attach_next_to(
-            radio_wrapword, radio_wrapchar, Gtk.PositionType.RIGHT, 1, 1
-        )
+  radio_wrapword := gtk.check_button_new_with_label("Word Wrapping")
+  gtk.check_button_set_group(cast(^gtk.CheckButton)radio_wrapword,
+                              group=cast(^gtk.CheckButton)radio_wrapnone)
+  gtk.grid_attach_next_to(grid, radio_wrapword, radio_wrapchar,
+      gtk.PositionType.RIGHT, 1, 1)
 
-        radio_wrapnone.connect("toggled", self.on_wrap_toggled, Gtk.WrapMode.NONE)
-        radio_wrapchar.connect("toggled", self.on_wrap_toggled, Gtk.WrapMode.CHAR)
-        radio_wrapword.connect("toggled", self.on_wrap_toggled, Gtk.WrapMode.WORD)
-        }
+  gobj.signal_connect(radio_wrapnone, "toggled",
+                     cast(gobj.Callback)WrapToggledCB, Gtk.WrapMode.NONE)
+  gobj.signal_connect(radio_wrapchar, "toggled",
+                     cast(gobj.Callback)WrapToggledCB, Gtk.WrapMode.CHAR)
+  gobj.signal_connect(radio_wrapword, "toggled",
+                     cast(gobj.Callback)WrapToggledCB, Gtk.WrapMode.WORD)
+}
 
 
 AppActivateCB :: proc "c" (app :^gtk.Application, user_data :glib.pointer) {
@@ -160,10 +249,6 @@ AppActivateCB :: proc "c" (app :^gtk.Application, user_data :glib.pointer) {
   gtk.window_set_default_size(appwin, 500, 400)
 
   vbox := gtk.box_new(gtk.Orientation.VERTICAL, spacing=6)
-  //gtk.box_set_spacing(cast(^gtk.Box)hbox, 6)
-  //box_set_homogeneous :: proc(box: ^Box, homogeneous: glib.boolean)
-  //gtk.box_set_baseline_position(box: ^Box, position: BaselinePosition)
-  //gtk.box_set_baseline_child(box: ^Box, child: i32)
   gtk.window_set_child(appwin, vbox)
 
   button1 := gtk.button_new_with_label("Hello")
@@ -174,7 +259,7 @@ AppActivateCB :: proc "c" (app :^gtk.Application, user_data :glib.pointer) {
 
   CreateTextView(app, vbox)
   CreateToolBar(app, vbox)
-  self.create_buttons()
+  CreateButtons(app, vbox)
 
   gtk.window_present(appwin)
 }
@@ -209,72 +294,3 @@ main :: proc() {
     os.exit(int(sts))
   }
 }      
-
-class SearchDialog(Gtk.Window):
-    def __init__(self, parent):
-        super().__init__(title="Search", modal=True, transient_for=parent)
-
-        box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=12)
-        self.set_child(box)
-
-        label = Gtk.Label(label="Insert text you want to search for:")
-        box.append(label)
-
-        self.entry = Gtk.Entry()
-        box.append(self.entry)
-
-        self.button = Gtk.Button(label="Find")
-        box.append(self.button)
-
-
-class TextViewWindow(Gtk.ApplicationWindow):
-
-    def on_button_clicked(self, _widget, tag):
-        bounds = self.textbuffer.get_selection_bounds()
-        if len(bounds) != 0:
-            start, end = bounds
-            self.textbuffer.apply_tag(tag, start, end)
-
-    def on_clear_clicked(self, _widget):
-        start = self.textbuffer.get_start_iter()
-        end = self.textbuffer.get_end_iter()
-        self.textbuffer.remove_all_tags(start, end)
-
-    def on_wrap_toggled(self, _widget, mode):
-        self.textview.props.wrap_mode = mode
-
-    def on_justify_toggled(self, _widget, justification):
-        self.textview.props.justification = justification
-
-    def on_search_clicked(self, _widget):
-        self.search_dialog = SearchDialog(self)
-        self.search_dialog.button.connect("clicked", self.on_find_clicked)
-        self.search_dialog.present()
-
-    def on_find_clicked(self, _button):
-        cursor_mark = self.textbuffer.get_insert()
-        start = self.textbuffer.get_iter_at_mark(cursor_mark)
-        if start.get_offset() == self.textbuffer.get_char_count():
-            start = self.textbuffer.get_start_iter()
-
-        self.search_and_mark(self.search_dialog.entry.get_text(), start)
-
-    def search_and_mark(self, text, start):
-        end = self.textbuffer.get_end_iter()
-        match = start.forward_search(text, 0, end)
-
-        if match is not None:
-            match_start, match_end = match
-            self.textbuffer.apply_tag(self.tag_found, match_start, match_end)
-            self.search_and_mark(text, match_end)
-
-
-def on_activate(app):
-    win = TextViewWindow(application=app)
-    win.present()
-
-
-app = Gtk.Application(application_id="com.example.App")
-app.connect("activate", on_activate)
-
-app.run(None)
