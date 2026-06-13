@@ -11,58 +11,59 @@ import gobj "../gtk4m/gobject"
 import gtk  "../gtk4m/gtk"
 
 
-Button1ClickedCB :: proc "c" (button :^gtk.Button, cbData :glib.pointer) {
-  context = runtime.default_context()
-  appwin := cast(^gtk.Window)cbData
-  fmt.printf("Button1ClickedCB: appwin %p [%T]\n", appwin, appwin)
-}
-
-Button2ClickedCB :: proc "c" (button :^gtk.Button, cbData :glib.pointer) {
-  context = runtime.default_context()
-  hbox := cast(^gtk.Box)cbData
-  fmt.printf("Button2ClickedCB: hbox %p [%T]\n", hbox, hbox)
-}
 WrapToggledCB :: proc "c" (button :^gtk.Button, cbData :glib.pointer) {
   context = runtime.default_context()
+  uiData := uintptr(cbData)
   wmptr := cast(^gtk.WrapMode)cbData
   mode := wmptr^
   gobj.set_int_property(cast(^gobj.Object)V_textview, "wrap_mode", i32(mode))
 }
 
 ButtonClickedCB :: proc "c" (button :^gtk.Widget, cbData :glib.pointer) {
-  tag := cast(gtk.TextTag)cbData
-  bounds = V_textbuffer.get_selection_bounds()
-  if len(bounds) != 0 {
-    start, end = bounds
-    self.textbuffer.apply_tag(tag, start, end)
+  tag := cast(^gtk.TextTag)cbData
+  start := gtk.TextIter{}
+  end   := gtk.TextIter{}
+  bounds := gtk.text_buffer_get_selection_bounds(V_textbuffer, &start, &end)
+
+  if bounds {
+    gtk.text_buffer_apply_tag(V_textbuffer, tag, &start, &end)
   }
 }
 
 ClearClickedCB :: proc "c" (sender :^gtk.Widget, cbData :glib.pointer) {
   start := gtk.TextIter{}
-  end   := gtk.TextIter{}
   gtk.text_buffer_get_start_iter(V_textbuffer, &start)
-  gtk.text_buffer_get_start_iter(V_textbuffer, &end)
+  end   := gtk.TextIter{}
+  gtk.text_buffer_get_end_iter(V_textbuffer, &end)
   gtk.text_buffer_remove_all_tags(V_textbuffer, &start, &end)
 }
 
 JustifyToggledCB :: proc "c" (sender :^gtk.Widget, cbData :glib.pointer) {
-  justptr := cast(^gtk.Justifiation)cbData
-  justification := justptr^
-  V_textview.props.justification = justification
+  context = runtime.default_context()
+  cbuint := uintptr(cbData)
+//  justification := gtk.Justification(i32(cbuint))
+  justification := i32(cbuint)
+  gobj.set_int_property(cast(^gobj.Object)V_textview,
+                        "justification", justification)
 }
 
 FindClicked :: proc "c" (sender :^gtk.Widget, cbData :glib.pointer) {
-  cursor_mark = self.textbuffer.get_insert()
-  start = self.textbuffer.get_iter_at_mark(cursor_mark)
-  if start.get_offset() == self.textbuffer.get_char_count() {
-    start = self.textbuffer.get_start_iter()
-    }
+  context = runtime.default_context()
+  cursor_mark := gtk.text_buffer_get_insert(V_textbuffer)
+//text_buffer_get_insert(buffer: ^TextBuffer) -> ^TextMark ---
+  start := gtk.TextIter{}
+  gtk.text_buffer_get_iter_at_mark(V_textbuffer, &start, cursor_mark)
+  if gtk.text_iter_get_offset(&start) ==
+     gtk.text_buffer_get_char_count(V_textbuffer) {
+    gtk.text_buffer_get_start_iter(V_textbuffer, &start)
+  }
 
-  SearchAndMark(self.search_dialog.entry.get_text(), start)
+//  entbuf := cast(^gtk.TextBuffer)gtk.entry_get_buffer(V_searchEntry)
+  enttxt := gtk.editable_get_text(cast(^gtk.Editable)V_searchEntry)
+  SearchAndMark(enttxt, &start)
 }
 
-SearchAndMark :: proc(text, start) {
+SearchAndMark :: proc(text :cstring, start: ^gtk.TextIter) {
   end = V_textbuffer.get_end_iter()
   match = start.forward_search(text, 0, end)
 
@@ -87,7 +88,7 @@ SearchClickedCB :: proc "c" (sender :^gtk.Widget, cbData :glib.pointer) {
     label := gtk.label_new("Insert text you want to search for:")
     gtk.box_append(box, label)
 
-    V_entry = gtk.entry_new()
+    V_searchEntry = gtk.entry_new()
     gtk.box_append(box, V_entry)
 
     button := gtk.button_new_with_label("Find")
@@ -101,11 +102,12 @@ SearchClickedCB :: proc "c" (sender :^gtk.Widget, cbData :glib.pointer) {
 
 
 V_textview      :^gtk.TextView = nil
-V_textbuffer    :^gtk.Textbuffer = nil
+V_textbuffer    :^gtk.TextBuffer = nil
 V_tag_bold      :^gtk.TextTag = nil
 V_tag_italic    :^gtk.TextTag = nil
 V_tag_underline :^gtk.TextTag = nil
 V_tag_found     :^gtk.TextTag = nil
+V_searchEntry   :^gtk.Widget  = nil
 
 CreateTextView :: proc(app :^gtk.Application, vbox :^gtk.Box) {
   scrolledwindow = gtk.scrolled_window_new()
@@ -141,17 +143,17 @@ CreateToolBar :: proc(app :^gtk.Application, vbox :^gtk.Box) { // , self):
 
   button_bold := gtk.button_new_from_icon_name("format-text-bold-symbolic")
   gobj.signal_connect(button_bold, "clicked",
-                      cast(gobj.Callback)ButtonClickedCB, V_tag_bold)
+                      cast(gobj.Callback)ButtonClickedCB, &V_tag_bold)
   gtk.box_append(toolbar, button_bold)
 
   button_italic := gtk.button_new_from_icon_name("format-text-italic-symbolic")
   gobj.signal_connect(button_italic, "clicked",
-                      cast(gobj.Callback)ButtonClickedCB, V_tag_italic)
+                      cast(gobj.Callback)ButtonClickedCB, &V_tag_italic)
   gtk.box_append(toolbar, button_italic)
 
   button_underline := gtk.button_new_from_icon_name("format-text-underline-symbolic")
   gobj.signal_connect(button_underline, "clicked",
-                      cast(gobj.Callback)ButtonClickedCB, V_tag_underline)
+                      cast(gobj.Callback)ButtonClickedCB, &V_tag_underline)
   gtk.box_append(toolbar, button_underline)
 
   gtk.box_append(toolbar, gtk.separator_new(gtk.Orientation.VERTICAL))
@@ -186,7 +188,8 @@ CreateToolBar :: proc(app :^gtk.Application, vbox :^gtk.Box) { // , self):
   gtk.box_append(toolbar, gtk.separator_new())
 
   button_clear := gtk.button_new_from_icon_name("edit-clear-symbolic")
-        button_clear.connect("clicked", self.on_clear_clicked)
+  gobj.signal_connect(button_clear, "clicked",
+                      cast(gobj.Callback)ClearClickedCB, nil)
   gtk.box_append(toolbar, button_clear)
 
   gtk.box_append(toolbar, gtk.separator_new())
