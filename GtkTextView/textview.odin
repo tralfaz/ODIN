@@ -64,39 +64,41 @@ FindClicked :: proc "c" (sender :^gtk.Widget, cbData :glib.pointer) {
 }
 
 SearchAndMark :: proc(text :cstring, start: ^gtk.TextIter) {
-  end = V_textbuffer.get_end_iter()
-  match = start.forward_search(text, 0, end)
+  end   := gtk.TextIter{}
+  gtk.text_buffer_get_end_iter(V_textbuffer, &end)
+  miter := gtk.TextIter{}
+  flags :gtk.TextSearchFlags = gtk.TextSearchFlags(0)
+  match := gtk.text_iter_forward_search(&miter, text, flags, start, &end, &end)
 
-  if match != nil {
-    match_start, match_end = match
-    V_textbuffer.apply_tag(self.tag_found, match_start, match_end)
-    SearchAndMark(text, match_end)
+  if match {
+    gtk.text_buffer_apply_tag(V_textbuffer, V_tag_found, start, &end)
+    SearchAndMark(text, &end)
   }
 }
 
 SearchClickedCB :: proc "c" (sender :^gtk.Widget, cbData :glib.pointer) {
-  if V_search_dialog == nil {
-    parent := cast(^gtk.Widget)cbData
+  if V_searchDialog == nil {
+    parent := cast(^gtk.Window)cbData
     V_search_dialog := gtk.window_new()
-    gtk.window_set_title(V_search_dialog, "Search")
-    gtk.window_set_modal(V_search_dialog, true)
-    gtk.window_set_transient_for(V_search_dialog, parent)
+    gtk.window_set_title(V_searchDialog, "Search")
+    gtk.window_set_modal(V_searchDialog, true)
+    gtk.window_set_transient_for(V_searchDialog, parent)
 
-    box = gtk.box_new(gtk.Orientation.VERTICAL, spacing=12)
-    gtk.window_set_child(V_search_dialog, box)
+    box := gtk.box_new(gtk.Orientation.VERTICAL, spacing=12)
+    gtk.window_set_child(V_searchDialog, box)
 
     label := gtk.label_new("Insert text you want to search for:")
-    gtk.box_append(box, label)
+    gtk.box_append(cast(^gtk.Box)box, label)
 
     V_searchEntry = gtk.entry_new()
-    gtk.box_append(box, V_entry)
+    gtk.box_append(cast(^gtk.Box)box, V_searchEntry)
 
     button := gtk.button_new_with_label("Find")
-    gtk.box_append(box, button)
+    gtk.box_append(cast(^gtk.Box)box, button)
 
 //    V_search_dialog.button.connect("clicked", self.on_find_clicked)
   }
-  gtl.window_present(V_search_dialog)
+  gtk.window_present(V_searchDialog)
 }
 
 
@@ -108,15 +110,17 @@ V_tag_italic    :^gtk.TextTag = nil
 V_tag_underline :^gtk.TextTag = nil
 V_tag_found     :^gtk.TextTag = nil
 V_searchEntry   :^gtk.Widget  = nil
+V_searchDialog  :^gtk.Window = nil
+
 
 CreateTextView :: proc(app :^gtk.Application, vbox :^gtk.Box) {
-  scrolledwindow = gtk.scrolled_window_new()
+  scrolledwindow := gtk.scrolled_window_new()
   gtk.widget_set_hexpand(scrolledwindow, true)
   gtk.widget_set_vexpand(scrolledwindow, true)
-  gtk.box.append(vbox, scrolledwindow)
+  gtk.box_append(vbox, scrolledwindow)
 
-  V_textview = gtk.text_view_new()
-  V_textbuffer = gtk.text_view_get_buffer(V_textview)
+  V_textview := gtk.text_view_new()
+    V_textbuffer := gtk.text_view_get_buffer(cast(^gtk.TextView)V_textview)
   gtk.text_buffer.set_text(V_textbuffer,
 `This is some text inside of a Gtk.TextView. 
 Select text and click one of the buttons "bold", "italic", 
