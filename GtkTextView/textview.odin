@@ -48,8 +48,9 @@ JustifyToggledCB :: proc "c" (sender :^gtk.Widget, cbData :glib.pointer) {
                         "justification", justification)
 }
 
-FindClicked :: proc "c" (sender :^gtk.Widget, cbData :glib.pointer) {
+FindClickedCB :: proc "c" (sender :^gtk.Widget, cbData :glib.pointer) {
   context = runtime.default_context()
+
   cursor_mark := gtk.text_buffer_get_insert(V_textbuffer)
 //text_buffer_get_insert(buffer: ^TextBuffer) -> ^TextMark ---
   start := gtk.TextIter{}
@@ -60,27 +61,40 @@ FindClicked :: proc "c" (sender :^gtk.Widget, cbData :glib.pointer) {
   }
 
 //  entbuf := cast(^gtk.TextBuffer)gtk.entry_get_buffer(V_searchEntry)
-  enttxt := gtk.editable_get_text(cast(^gtk.Editable)V_searchEntry)
+  enttxt := gtk.editable_get_text(cast(^gtk.Editable)V_searchEntry) 
   SearchAndMark(enttxt, &start)
 }
 
 SearchAndMark :: proc(text :cstring, start: ^gtk.TextIter) {
+  fmt.printf("SearchAndMark: text='%s' START=%v\n", text, start)
+  fmt.printf("            : start offset=%d\n", gtk.text_iter_get_offset(start))
   end   := gtk.TextIter{}
   gtk.text_buffer_get_end_iter(V_textbuffer, &end)
+  fmt.printf("             : end %v\n", end)
   miter := gtk.TextIter{}
-  flags :gtk.TextSearchFlags = gtk.TextSearchFlags(0)
-  match := gtk.text_iter_forward_search(&miter, text, flags, start, &end, &end)
+//  flags :gtk.TextSearchFlags = gtk.TextSearchFlags(0)
+  flags := gtk.TextSearchFlags.TEXT_SEARCH_CASE_INSENSITIVE
+//  TextSearchFlags :: enum u32 {TEXT_SEARCH_VISIBLE_ONLY = 1, TEXT_SEARCH_TEXT_ONLY = 2, TEXT_SEARCH_CASE_INSENSITIVE = 4 }
+  mstart := gtk.TextIter{}
+  mend   := gtk.TextIter{}
+  found := gtk.text_iter_forward_search(start, text, flags, &mstart, &mend, nil)
+//text_iter_forward_search(iter: ^TextIter, str: cstring, flags: TextSearchFlags, match_start: ^TextIter, match_end: ^TextIter, limit: ^TextIter) -> glib.boolean
 
-  if match {
-    gtk.text_buffer_apply_tag(V_textbuffer, V_tag_found, start, &end)
-    SearchAndMark(text, &end)
+  fmt.printf("             : found=%v MSTART=%v MEND=%v\n", found, mstart, mend)
+  if found {
+    gtk.text_buffer_apply_tag(V_textbuffer, V_tag_found, &mstart, &mend)
+//    SearchAndMark(text, &end)
   }
 }
 
 SearchClickedCB :: proc "c" (sender :^gtk.Widget, cbData :glib.pointer) {
+  context = runtime.default_context()
+  fmt.printf("SearchClickedCB: V_searchDialog=%p\n", V_searchDialog)
   if V_searchDialog == nil {
     parent := cast(^gtk.Window)cbData
-    V_search_dialog := gtk.window_new()
+    fmt.printf("SearchClickedCB: parent=%p\n", parent)
+    searchDlg := gtk.window_new()
+    V_searchDialog = cast(^gtk.Window)searchDlg
     gtk.window_set_title(V_searchDialog, "Search")
     gtk.window_set_modal(V_searchDialog, true)
     gtk.window_set_transient_for(V_searchDialog, parent)
@@ -97,7 +111,8 @@ SearchClickedCB :: proc "c" (sender :^gtk.Widget, cbData :glib.pointer) {
     button := gtk.button_new_with_label("Find")
     gtk.box_append(cast(^gtk.Box)box, button)
 
-//    V_search_dialog.button.connect("clicked", self.on_find_clicked)
+    gobj.signal_connect(button, "clicked",
+                      cast(gobj.Callback)FindClickedCB, nil)
   }
   gtk.window_present(V_searchDialog)
 }
@@ -144,7 +159,7 @@ or "underline" to modify the text accordingly.`
 }
 
 
-CreateToolBar :: proc(app :^gtk.Application, vbox :^gtk.Box) { // , self):
+CreateToolBar :: proc(app :^gtk.Application, vbox :^gtk.Box, appwin: ^gtk.Window) { // , self):
   toolbar := gtk.box_new(gtk.Orientation.HORIZONTAL, spacing=6)
   gtk.widget_set_margin_top(toolbar, 6)
   gtk.widget_set_margin_start(toolbar, 6)
@@ -159,12 +174,18 @@ CreateToolBar :: proc(app :^gtk.Application, vbox :^gtk.Box) { // , self):
                       cast(gobj.Callback)ButtonClickedCB, V_tag_bold)
   gtk.box_append(cast(^gtk.Box)toolbar, button_bold)
 
-  button_italic := gtk.button_new_from_icon_name("format-text-italic-symbolic")
+  button_italic := gtk.button_new_with_label("I")
+  //_from_icon_name("format-text-italic-symbolic")
+  btnlbl = gtk.button_get_child(cast(^gtk.Button)button_italic) 
+  gtk.label_set_markup(cast(^gtk.Label)btnlbl, "<i>I</i>")
   gobj.signal_connect(button_italic, "clicked",
                       cast(gobj.Callback)ButtonClickedCB, V_tag_italic)
   gtk.box_append(cast(^gtk.Box)toolbar, button_italic)
 
-  button_underline := gtk.button_new_from_icon_name("format-text-underline-symbolic")
+  button_underline := gtk.button_new_with_label("U")
+  //from_icon_name("format-text-underline-symbolic")
+  btnlbl = gtk.button_get_child(cast(^gtk.Button)button_underline) 
+  gtk.label_set_markup(cast(^gtk.Label)btnlbl, "<u>U</u>")
   gobj.signal_connect(button_underline, "clicked",
                       cast(gobj.Callback)ButtonClickedCB, V_tag_underline)
   gtk.box_append(cast(^gtk.Box)toolbar, button_underline)
@@ -225,7 +246,7 @@ CreateToolBar :: proc(app :^gtk.Application, vbox :^gtk.Box) { // , self):
 
   button_search := gtk.button_new_from_icon_name("system-search-symbolic")
   gobj.signal_connect(button_search, "clicked",
-                      cast(gobj.Callback)SearchClickedCB, nil)
+                      cast(gobj.Callback)SearchClickedCB, appwin)
   gtk.box_append(cast(^gtk.Box)toolbar, button_search)
 }
 
@@ -287,7 +308,7 @@ AppActivateCB :: proc "c" (app :^gtk.Application, user_data :glib.pointer) {
   fmt.printf("AppActivateCB: appwin %p [%T]\n", appwin, appwin)
 
   CreateTextView(app, cast(^gtk.Box)vbox)
-  CreateToolBar(app, cast(^gtk.Box)vbox)
+  CreateToolBar(app, cast(^gtk.Box)vbox, appwin)
   CreateButtons(app, cast(^gtk.Box)vbox)
 
   gtk.window_present(appwin)
