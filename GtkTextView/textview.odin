@@ -104,7 +104,7 @@ SearchClickedCB :: proc "c" (sender :^gtk.Widget, cbData :glib.pointer) {
 
 
 
-V_textview      :^gtk.TextView = nil
+V_textview      :^gtk.Widget = nil
 V_textbuffer    :^gtk.TextBuffer = nil
 V_tag_bold      :^gtk.TextTag = nil
 V_tag_italic    :^gtk.TextTag = nil
@@ -124,8 +124,8 @@ CreateTextView :: proc(app :^gtk.Application, vbox :^gtk.Box) {
   gtk.box_append(vbox, scrolledwindow)
 
 //  fmt.printf("CreateTextView-2\n")
-  V_textview := gtk.text_view_new()
-  V_textbuffer := gtk.text_view_get_buffer(cast(^gtk.TextView)V_textview)
+  V_textview = gtk.text_view_new()
+  V_textbuffer = gtk.text_view_get_buffer(cast(^gtk.TextView)V_textview)
   ctext :cstring = `This is some text inside of a Gtk.TextView. 
 Select text and click one of the buttons "bold", "italic", 
 or "underline" to modify the text accordingly.`
@@ -134,7 +134,7 @@ or "underline" to modify the text accordingly.`
   gtk.scrolled_window_set_child(cast(^gtk.ScrolledWindow)scrolledwindow, V_textview)
 
   V_tag_bold = gtk.text_buffer_create_tag(V_textbuffer, "bold",
-                   "weight", pango.Weight.BOLD)
+                                          "weight", pango.Weight.BOLD)
   V_tag_italic = gtk.text_buffer_create_tag(V_textbuffer, "italic",
                    "style", pango.Style.ITALIC)
   V_tag_underline = gtk.text_buffer_create_tag(V_textbuffer, "underline",
@@ -151,22 +151,25 @@ CreateToolBar :: proc(app :^gtk.Application, vbox :^gtk.Box) { // , self):
   gtk.widget_set_margin_end(toolbar,  6)
   gtk.box_prepend(vbox, toolbar)
 
-  button_bold := gtk.button_new_from_icon_name("format-text-bold-symbolic")
+  button_bold := gtk.button_new_with_label("B")
+//  gtk.button_set_icon_name(cast(^gtk.Button)button_bold, "format-text-bold-symbolic")
+  btnlbl := gtk.button_get_child(cast(^gtk.Button)button_bold) 
+  gtk.label_set_markup(cast(^gtk.Label)btnlbl, "<b>B</b>")
   gobj.signal_connect(button_bold, "clicked",
-                      cast(gobj.Callback)ButtonClickedCB, &V_tag_bold)
+                      cast(gobj.Callback)ButtonClickedCB, V_tag_bold)
   gtk.box_append(cast(^gtk.Box)toolbar, button_bold)
 
   button_italic := gtk.button_new_from_icon_name("format-text-italic-symbolic")
   gobj.signal_connect(button_italic, "clicked",
-                      cast(gobj.Callback)ButtonClickedCB, &V_tag_italic)
+                      cast(gobj.Callback)ButtonClickedCB, V_tag_italic)
   gtk.box_append(cast(^gtk.Box)toolbar, button_italic)
 
   button_underline := gtk.button_new_from_icon_name("format-text-underline-symbolic")
   gobj.signal_connect(button_underline, "clicked",
-                      cast(gobj.Callback)ButtonClickedCB, &V_tag_underline)
+                      cast(gobj.Callback)ButtonClickedCB, V_tag_underline)
   gtk.box_append(cast(^gtk.Box)toolbar, button_underline)
 
-  sep1 := gtk.separator_new(gtk.Orientation.VERTICAL)
+  sep1 := gtk.separator_new(gtk.Orientation.HORIZONTAL)
   gtk.box_append(cast(^gtk.Box)toolbar, sep1)
 
   justifyleft := gtk.toggle_button_new()
@@ -281,10 +284,6 @@ AppActivateCB :: proc "c" (app :^gtk.Application, user_data :glib.pointer) {
   vbox := gtk.box_new(gtk.Orientation.VERTICAL, spacing=6)
   gtk.window_set_child(appwin, vbox)
 
-  button1 := gtk.button_new_with_label("Hello")
-  gobj.signal_connect(button1, "clicked",
-                     cast(gobj.Callback)ButtonClickedCB, appwin)
-  gtk.box_append(cast(^gtk.Box)vbox, button1)
   fmt.printf("AppActivateCB: appwin %p [%T]\n", appwin, appwin)
 
   CreateTextView(app, cast(^gtk.Box)vbox)
