@@ -94,7 +94,11 @@ SearchClickedCB :: proc "c" (sender :^gtk.Widget, cbData :glib.pointer) {
     parent := cast(^gtk.Window)cbData
     fmt.printf("SearchClickedCB: parent=%p\n", parent)
     searchDlg := gtk.window_new()
+    gobj.signal_connect(searchDlg, "close-request",
+                      cast(gobj.Callback)SearchClosedCB, searchDlg)
     V_searchDialog = cast(^gtk.Window)searchDlg
+//    gobj.signal_connect(V_searchDialog, "delete-event",
+//                      cast(gobj.Callback)SearchWindowDeleteCB, searchDlg)
     gtk.window_set_title(V_searchDialog, "Search")
     gtk.window_set_modal(V_searchDialog, true)
     gtk.window_set_transient_for(V_searchDialog, parent)
@@ -116,6 +120,27 @@ SearchClickedCB :: proc "c" (sender :^gtk.Widget, cbData :glib.pointer) {
   }
   gtk.window_present(V_searchDialog)
 }
+
+SearchClosedCB :: proc "c" (sender :^gtk.Widget, cbData :glib.pointer)  -> glib.boolean {
+  context = runtime.default_context()
+  fmt.printf("SearchClosedCB: sdlg=%p\n", cbData)
+  V_searchDialog = nil
+  return false // allow close
+}
+
+// 1. Callback to hide the window instead of destroying it
+SearchWindowDeleteCB  :: proc "c" (sender :^gtk.Widget, event :^gtk.Event,  data :glib.pointer) -> glib.boolean {
+  context = runtime.default_context()
+  fmt.printf("SearchWindowDeleteCB: data=%p\n", data)
+
+    gtk.widget_hide(sender)
+    return true // Returns TRUE to tell GTK the event is handled and not to destroy the window
+}
+/*
+// 2. Connect the signal during initialization
+g_signal_connect(G_OBJECT(window), "delete-event", G_CALLBACK(on_window_
+*/
+
 
 
 
@@ -193,28 +218,36 @@ CreateToolBar :: proc(app :^gtk.Application, vbox :^gtk.Box, appwin: ^gtk.Window
   sep1 := gtk.separator_new(gtk.Orientation.HORIZONTAL)
   gtk.box_append(cast(^gtk.Box)toolbar, sep1)
 
-  justifyleft := gtk.toggle_button_new()
-  gtk.button_set_icon_name(cast(^gtk.Button)justifyleft,
-                           "format-justify-left-symbolic")
+  justifyleft := gtk.toggle_button_new_with_label("X")
+  lbl := gtk.button_get_child(cast(^gtk.Button)justifyleft)
+  gtk.label_set_markup(cast(^gtk.Label)lbl, "<b>&lt;</b>")
+//  gtk.button_set_icon_name(cast(^gtk.Button)justifyleft,
+//                           "format-justify-left-symbolic")
   gtk.box_append(cast(^gtk.Box)toolbar, justifyleft)
 
-  justifycenter := gtk.toggle_button_new()
-  gtk.button_set_icon_name(cast(^gtk.Button)justifycenter,
-                           "format-justify-center-symbolic")
+  justifycenter := gtk.toggle_button_new_with_label("X")
+  lbl = gtk.button_get_child(cast(^gtk.Button)justifycenter)
+  gtk.label_set_markup(cast(^gtk.Label)lbl, "<b>Jc</b>")
+//  gtk.button_set_icon_name(cast(^gtk.Button)justifycenter,
+//                           "format-justify-center-symbolic")
   gtk.toggle_button_set_group(cast(^gtk.ToggleButton)justifycenter,
                               cast(^gtk.ToggleButton)justifyleft)
   gtk.box_append(cast(^gtk.Box)toolbar, justifycenter)
 
-  justifyright := gtk.toggle_button_new()
-  gtk.button_set_icon_name(cast(^gtk.Button)justifyright,
-                           "format-justify-right-symbolic")
+  justifyright := gtk.toggle_button_new_with_label("X")
+  lbl = gtk.button_get_child(cast(^gtk.Button)justifyright)
+  gtk.label_set_markup(cast(^gtk.Label)lbl, "<b>Jr</b>")
+//  gtk.button_set_icon_name(cast(^gtk.Button)justifyright,
+//                           "format-justify-right-symbolic")
   gtk.toggle_button_set_group(cast(^gtk.ToggleButton)justifyright,
                               cast(^gtk.ToggleButton)justifyleft)
   gtk.box_append(cast(^gtk.Box)toolbar, justifyright)
 
-  justifyfill := gtk.toggle_button_new()
-  gtk.button_set_icon_name(cast(^gtk.Button)justifyfill,
-                           "format-justify-fill-symbolic")
+  justifyfill := gtk.toggle_button_new_with_label("X")
+  lbl = gtk.button_get_child(cast(^gtk.Button)justifyfill)
+  gtk.label_set_markup(cast(^gtk.Label)lbl, "<b>Jf</b>")
+//  gtk.button_set_icon_name(cast(^gtk.Button)justifyfill,
+//                           "format-justify-fill-symbolic")
   gtk.toggle_button_set_group(cast(^gtk.ToggleButton)justifyfill,
                               cast(^gtk.ToggleButton)justifyleft)
   gtk.box_append(cast(^gtk.Box)toolbar, justifyfill)
