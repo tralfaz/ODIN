@@ -66,21 +66,14 @@ FindClickedCB :: proc "c" (sender :^gtk.Widget, cbData :glib.pointer) {
 }
 
 SearchAndMark :: proc(text :cstring, start: ^gtk.TextIter) {
-  fmt.printf("SearchAndMark: text='%s' START=%v\n", text, start)
-  fmt.printf("            : start offset=%d\n", gtk.text_iter_get_offset(start))
   end   := gtk.TextIter{}
   gtk.text_buffer_get_end_iter(V_textbuffer, &end)
-  fmt.printf("             : end %v\n", end)
-  miter := gtk.TextIter{}
-//  flags :gtk.TextSearchFlags = gtk.TextSearchFlags(0)
   flags := gtk.TextSearchFlags.TEXT_SEARCH_CASE_INSENSITIVE
 //  TextSearchFlags :: enum u32 {TEXT_SEARCH_VISIBLE_ONLY = 1, TEXT_SEARCH_TEXT_ONLY = 2, TEXT_SEARCH_CASE_INSENSITIVE = 4 }
   mstart := gtk.TextIter{}
   mend   := gtk.TextIter{}
   found := gtk.text_iter_forward_search(start, text, flags, &mstart, &mend, nil)
-//text_iter_forward_search(iter: ^TextIter, str: cstring, flags: TextSearchFlags, match_start: ^TextIter, match_end: ^TextIter, limit: ^TextIter) -> glib.boolean
 
-  fmt.printf("             : found=%v MSTART=%v MEND=%v\n", found, mstart, mend)
   if found {
     gtk.text_buffer_apply_tag(V_textbuffer, V_tag_found, &mstart, &mend)
 //    SearchAndMark(text, &end)
@@ -88,11 +81,8 @@ SearchAndMark :: proc(text :cstring, start: ^gtk.TextIter) {
 }
 
 SearchClickedCB :: proc "c" (sender :^gtk.Widget, cbData :glib.pointer) {
-  context = runtime.default_context()
-  fmt.printf("SearchClickedCB: V_searchDialog=%p\n", V_searchDialog)
   if V_searchDialog == nil {
     parent := cast(^gtk.Window)cbData
-    fmt.printf("SearchClickedCB: parent=%p\n", parent)
     searchDlg := gtk.window_new()
     gobj.signal_connect(searchDlg, "close-request",
                       cast(gobj.Callback)SearchClosedCB, searchDlg)
@@ -122,8 +112,6 @@ SearchClickedCB :: proc "c" (sender :^gtk.Widget, cbData :glib.pointer) {
 }
 
 SearchClosedCB :: proc "c" (sender :^gtk.Widget, cbData :glib.pointer)  -> glib.boolean {
-  context = runtime.default_context()
-  fmt.printf("SearchClosedCB: sdlg=%p\n", cbData)
   V_searchDialog = nil
   return false // allow close
 }
@@ -155,15 +143,12 @@ V_searchDialog  :^gtk.Window = nil
 
 
 CreateTextView :: proc(app :^gtk.Application, vbox :^gtk.Box) {
-  context = runtime.default_context()
 
-//  fmt.printf("CreateTextView-1\n")
   scrolledwindow := gtk.scrolled_window_new()
   gtk.widget_set_hexpand(scrolledwindow, true)
   gtk.widget_set_vexpand(scrolledwindow, true)
   gtk.box_append(vbox, scrolledwindow)
 
-//  fmt.printf("CreateTextView-2\n")
   V_textview = gtk.text_view_new()
   V_textbuffer = gtk.text_view_get_buffer(cast(^gtk.TextView)V_textview)
   ctext :cstring = `This is some text inside of a Gtk.TextView. 
@@ -174,13 +159,13 @@ or "underline" to modify the text accordingly.`
   gtk.scrolled_window_set_child(cast(^gtk.ScrolledWindow)scrolledwindow, V_textview)
 
   V_tag_bold = gtk.text_buffer_create_tag(V_textbuffer, "bold",
-                                          "weight", pango.Weight.BOLD)
+                                          "weight", pango.Weight.BOLD, nil)
   V_tag_italic = gtk.text_buffer_create_tag(V_textbuffer, "italic",
-                   "style", pango.Style.ITALIC)
+                   "style", pango.Style.ITALIC, nil)
   V_tag_underline = gtk.text_buffer_create_tag(V_textbuffer, "underline",
-                        "underline", pango.Underline.SINGLE)
+                        "underline", pango.Underline.SINGLE, nil)
   V_tag_found = gtk.text_buffer_create_tag(V_textbuffer, "found",
-                    "background", cstring("yellow"))
+                    "background", cstring("yellow"), nil)
 }
 
 
@@ -227,7 +212,7 @@ CreateToolBar :: proc(app :^gtk.Application, vbox :^gtk.Box, appwin: ^gtk.Window
 
   justifycenter := gtk.toggle_button_new_with_label("X")
   lbl = gtk.button_get_child(cast(^gtk.Button)justifycenter)
-  gtk.label_set_markup(cast(^gtk.Label)lbl, "<b>Jc</b>")
+  gtk.label_set_markup(cast(^gtk.Label)lbl, "<b>^</b>")
 //  gtk.button_set_icon_name(cast(^gtk.Button)justifycenter,
 //                           "format-justify-center-symbolic")
   gtk.toggle_button_set_group(cast(^gtk.ToggleButton)justifycenter,
@@ -236,7 +221,7 @@ CreateToolBar :: proc(app :^gtk.Application, vbox :^gtk.Box, appwin: ^gtk.Window
 
   justifyright := gtk.toggle_button_new_with_label("X")
   lbl = gtk.button_get_child(cast(^gtk.Button)justifyright)
-  gtk.label_set_markup(cast(^gtk.Label)lbl, "<b>Jr</b>")
+  gtk.label_set_markup(cast(^gtk.Label)lbl, "<b>&gt;</b>")
 //  gtk.button_set_icon_name(cast(^gtk.Button)justifyright,
 //                           "format-justify-right-symbolic")
   gtk.toggle_button_set_group(cast(^gtk.ToggleButton)justifyright,
@@ -245,7 +230,7 @@ CreateToolBar :: proc(app :^gtk.Application, vbox :^gtk.Box, appwin: ^gtk.Window
 
   justifyfill := gtk.toggle_button_new_with_label("X")
   lbl = gtk.button_get_child(cast(^gtk.Button)justifyfill)
-  gtk.label_set_markup(cast(^gtk.Label)lbl, "<b>Jf</b>")
+  gtk.label_set_markup(cast(^gtk.Label)lbl, "<b>=</b>")
 //  gtk.button_set_icon_name(cast(^gtk.Button)justifyfill,
 //                           "format-justify-fill-symbolic")
   gtk.toggle_button_set_group(cast(^gtk.ToggleButton)justifyfill,
@@ -337,8 +322,6 @@ AppActivateCB :: proc "c" (app :^gtk.Application, user_data :glib.pointer) {
 
   vbox := gtk.box_new(gtk.Orientation.VERTICAL, spacing=6)
   gtk.window_set_child(appwin, vbox)
-
-  fmt.printf("AppActivateCB: appwin %p [%T]\n", appwin, appwin)
 
   CreateTextView(app, cast(^gtk.Box)vbox)
   CreateToolBar(app, cast(^gtk.Box)vbox, appwin)
