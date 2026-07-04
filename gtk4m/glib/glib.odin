@@ -6,7 +6,9 @@ import "core:c/libc"
 
 when ODIN_OS == .Windows do foreign import libglib2 "glib-2.0.lib"
 when ODIN_OS == .Linux   do foreign import libglib2 "glib-2.0.a"
-when ODIN_OS == .Darwin  do foreign import libglib2 "../LIBS/libglib-2.0.dylib"
+//when ODIN_OS == .Darwin  do foreign import libglib2 "../LIBS/libglib-2.0.dylib"
+// requires -collection:gtk_libs=/opt/homebnrew/lib appended to odin build cmd
+when ODIN_OS == .Darwin  do foreign import libglib2 "gtk_libs:libglib-2.0.dylib"
 
 ANALYZER_ANALYZING :: 0
 FALSE :: 0

@@ -6,7 +6,9 @@ import "../glib"
 import "../gio"
 import gobj "../gobject"
 
-when ODIN_OS == .Darwin  do foreign import libgdkpixbuf2 "../LIBS/libgdk_pixbuf-2.0.dylib"
+//when ODIN_OS == .Darwin  do foreign import libgdkpixbuf2 "../LIBS/libgdk_pixbuf-2.0.dylib"
+// requires -collection:gtk_libs=/opt/homebnrew/lib appended to odin build cmd
+when ODIN_OS == .Darwin  do foreign import libgdkpixbuf2 "gtk_libs:libgdk_pixbuf-2.0.dylib"
 
 
 TYPE_PIXBUF :: pixbuf_get_type 

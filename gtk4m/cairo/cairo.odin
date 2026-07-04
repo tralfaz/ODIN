@@ -1,7 +1,9 @@
 #+build darwin amd64, darwin arm64, linux amd64, linux arm64, windows amd64
 package cairo
 
-when ODIN_OS == .Darwin  do foreign import libcairo "../LIBS/libcairo.dylib"
+//when ODIN_OS == .Darwin  do foreign import libcairo "../LIBS/libcairo.dylib"
+// requires -collection:gtk_libs=/opt/homebnrew/lib appended to odin build cmd
+when ODIN_OS == .Darwin  do foreign import libcairo "gtk_libs:libcairo.dylib"
 
 TAG_DEST :: "cairo.dest"
 TAG_LINK :: "Link"

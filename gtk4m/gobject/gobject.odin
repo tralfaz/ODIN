@@ -5,7 +5,9 @@ import "core:c/libc"
 
 import glib "../glib"
 
-when ODIN_OS == .Darwin do foreign import libgobject2 "../LIBS/libgobject-2.0.dylib"
+//when ODIN_OS == .Darwin do foreign import libgobject2 "../LIBS/libgobject-2.0.dylib"
+// requires -collection:gtk_libs=/opt/homebnrew/lib appended to odin build cmd
+when ODIN_OS == .Darwin  do foreign import libgobject2 "gtk_libs:libgobject-2.0.dylib"
 
 TYPE_FUNDAMENTAL_MAX :: (255 << (2))
 TYPE_INVALID :: ( ((0) << (2)))

@@ -7,7 +7,9 @@ import "../gtk"
 import "../pango"
 import gobj "../gobject"
 
-when ODIN_OS == .Darwin  do foreign import libadwaita1 "../LIBS/libadwaita-1.dylib"
+//when ODIN_OS == .Darwin  do foreign import libadwaita1 "../LIBS/libadwaita-1.dylib"
+// requires -collection:gtk_libs=/opt/homebnrew/lib appended to odin build cmd
+when ODIN_OS == .Darwin  do foreign import libadwaita1 "gtk_libs:libadwaita-1.dylib"
 
 TYPE_BREAKPOINT_CONDITION :: breakpoint_condition_get_type 
 TYPE_BREAKPOINT :: breakpoint_get_type

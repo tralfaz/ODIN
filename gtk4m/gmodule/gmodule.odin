@@ -1,7 +1,9 @@
 #+build darwin amd64, darwin arm64, linux amd64, linux arm64, windows amd64
 package gmodule
 
-when ODIN_OS == .Darwin  do foreign import libgmodule2 "../LIBS/libgmodule-2.0.dylib"
+//when ODIN_OS == .Darwin  do foreign import libgmodule2 "../LIBS/libgmodule-2.0.dylib"
+// requires -collection:gtk_libs=/opt/homebnrew/lib appended to odin build cmd
+when ODIN_OS == .Darwin  do foreign import libgmodule2 "gtk_libs:libgmodule-2.0.dylib"
 
 import glib "../glib"
 

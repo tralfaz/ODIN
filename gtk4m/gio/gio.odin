@@ -6,7 +6,9 @@ import "core:c/libc"
 import glib "../glib"
 import gobj "../gobject"
 
-foreign import libgio2 "../LIBS/libgio-2.0.dylib"
+//foreign import libgio2 "../LIBS/libgio-2.0.dylib"
+// requires -collection:gtk_libs=/opt/homebnrew/lib appended to odin build cmd
+when ODIN_OS == .Darwin  do foreign import libgio2 "gtk_libs:libgio-2.0.dylib"
 
 TYPE_ACTION :: action_get_type 
 TYPE_ACTION_GROUP :: action_group_get_type 

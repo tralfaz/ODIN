@@ -10,7 +10,9 @@ import "../pango"
 import gdk "../gdk-pixbuf"
 import gobj "../gobject"
 
-when ODIN_OS == .Darwin  do foreign import libgtk4 "../LIBS/libgtk-4.dylib"
+//when ODIN_OS == .Darwin  do foreign import libgtk4 "../LIBS/libgtk-4.dylib"
+// requires -collection:gtk_libs=/opt/homebnrew/lib appended to odin build cmd
+when ODIN_OS == .Darwin  do foreign import libgtk4 "gtk_libs:libgtk-4.dylib"
 
 TYPE_CSS_PARSER_ERROR :: css_parser_error_get_type 
 TYPE_CSS_PARSER_WARNING :: css_parser_warning_get_type 

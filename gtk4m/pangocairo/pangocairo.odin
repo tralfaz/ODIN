@@ -6,7 +6,9 @@ import glib  "../glib"
 import gobj  "../gobject"
 import pango "../pango"
 
-when ODIN_OS == .Darwin  do foreign import libpangocairo  "../LIBS/libpangocairo-1.0.dylib"
+//when ODIN_OS == .Darwin  do foreign import libpangocairo  "../LIBS/libpangocairo-1.0.dylib"
+// requires -collection:gtk_libs=/opt/homebnrew/lib appended to odin build cmd
+when ODIN_OS == .Darwin  do foreign import libpangocairo "gtk_libs:libpangocairo-1.0.dylib"
 
 TYPE_CAIRO_FONT :: font_get_type 
 TYPE_CAIRO_FONT_MAP :: font_map_get_type 

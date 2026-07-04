@@ -7,7 +7,9 @@ import "core:c/libc"
 import "../glib"
 import gobj "../gobject"
 
-when ODIN_OS == .Darwin  do foreign import libpango "../LIBS/libpango-1.0.dylib"
+//when ODIN_OS == .Darwin  do foreign import libpango "../LIBS/libpango-1.0.dylib"
+// requires -collection:gtk_libs=/opt/homebnrew/lib appended to odin build cmd
+when ODIN_OS == .Darwin  do foreign import libpango "gtk_libs:libpango-1.0.dylib"
 
 SCALE :: 1024
 TYPE_MATRIX :: matrix_get_type 
