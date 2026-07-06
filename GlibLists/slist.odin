@@ -39,4 +39,32 @@ main :: proc() {
   glib.slist_free(list)
 
   //return 0
+/*
+GSList* g_slist_alloc       (void);
+
+void    g_slist_free_1      (GSList   *list);
+
+GSList* g_slist_insert      (GSList   *list,
+                             gpointer  data,
+                             gint      position);
+                             
+GSList* g_slist_remove      (GSList   *list,
+                             gpointer  data);
+                             
+GSList* g_slist_remove_link (GSList   *list,
+                             GSList   *link);
+                             
+GSList* g_slist_reverse     (GSList   *list);
+
+GSList* g_slist_nth         (GSList   *list,
+                             gint      n);
+                             
+GSList* g_slist_last        (GSList   *list);
+
+gint    g_slist_length      (GSList   *list);
+
+void    g_slist_foreach     (GSList   *list,
+                             GFunc     func,
+                             gpointer  user_data);
+*/
 }
