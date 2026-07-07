@@ -1,9 +1,8 @@
-#+build darwin amd64, darwin arm64, linux amd64, linux arm64, windows amd64
+#+build  darwin amd64, darwin arm64, linux amd64, linux arm64, windows amd64
 package graphene
 
-//when ODIN_OS == .Darwin  do foreign import libgraphene "../LIBS/libgraphene-1.0.dylib"
 // requires -collection:gtk_libs=/opt/homebnrew/lib appended to odin build cmd
-when ODIN_OS == .Darwin  do foreign import libgraphene "gtk_libs:libgraphene-1.0.dylib"
+when ODIN_OS == .Darwin  do foreign import libgraphene "gtk_libs:liblibgraphene-1.0.dylib"
 
 PI :: 3.1415926535897932384626434
 PI_2 :: 1.5707963267948966192313217
@@ -110,11 +109,6 @@ ray_t :: _graphene_ray_t
 
 @(default_calling_convention = "c")
 foreign libgraphene {
-}
-
-/*
-@(default_calling_convention = "c")
-foreign graphene_runic {
     @(link_name = "graphene_simd4f_init")
     simd4f_init :: proc(x: f32, y: f32, z: f32, w: f32) -> simd4f_t ---
 
@@ -1553,9 +1547,8 @@ foreign graphene_runic {
     simd4x4f_is_2d :: proc(m: ^simd4x4f_t) -> b8 ---
 
 }
-*/
 
-when (ODIN_OS == .Linux) {
+when (ODIN_OS == .Linux || ODIN_OS == .Darwin) {
 
 SIMD_S :: "scalar"
 
