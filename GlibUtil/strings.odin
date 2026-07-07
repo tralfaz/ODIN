@@ -33,12 +33,13 @@ main :: proc() {
   // GString* g_string_append(GString *string, gchar *val);
   accum := glib.string_new("BEGIN")
   fmt.printf("before append: accum=%s\n", accum.str)
-  glib.string_append(accum, "ONE")
+  glib.string_append(accum, "-ONE")
   fmt.printf("after append ONE: accum=%s\n", accum.str)
-  glib.string_append(accum, "TWO")
+  glib.string_append(accum, "-TWO")
   fmt.printf("after append TWO: accum=%s\n", accum.str)
-  glib.string_append(accum, "THREE")
+  glib.string_append(accum, "-THREE")
   fmt.printf("after append THREE: accum=%s\n", accum.str)
+  glib.string_free(accum, true)
 
   // GString* g_string_append_c(GString *string, gchar c);
   accumc := glib.string_new("begin")
@@ -49,20 +50,40 @@ main :: proc() {
   fmt.printf("after append_c Y: accumc=%s\n", accumc.str)
   glib.string_append_c(accumc, 'Z')
   fmt.printf("after append_c Z: accumc=%s\n", accumc.str)
+  glib.string_free(accumc, true)
+
+  // GString* g_string_prepend(GString *string, gchar* val);
+  accum = glib.string_new("BEGIN-PREPEND-STRING")
+  fmt.printf("before prepend: accum=%s\n", accum.str)
+  glib.string_prepend(accum, "ONE-")
+  fmt.printf("after prepend ONE: accum=%s\n", accum.str)
+  glib.string_prepend(accum, "TWO-")
+  fmt.printf("after prepend TWO: accum=%s\n", accum.str)
+  glib.string_prepend(accum, "THREE-")
+  fmt.printf("after prepend THREE: accum=%s\n", accum.str)
+  glib.string_free(accum, true)
+
+  // GString* g_string_prepend_c (GString *string, gchar c);
+  accumc = glib.string_new("begin")
+  fmt.printf("before prepend_c: accumc=%s\n", accumc.str)
+  glib.string_prepend_c(accumc, 'X')
+  fmt.printf("after prepend_c X: accumc=%s\n", accumc.str)
+  glib.string_prepend_c(accumc, 'Y')
+  fmt.printf("after prepend_c Y: accumc=%s\n", accumc.str)
+  glib.string_prepend_c(accumc, 'Z')
+  fmt.printf("after prepend_c Z: accumc=%s\n", accumc.str)
+  glib.string_free(accumc, true)
+
+  // void g_string_sprintf(GString *string, gchar* fmt, ...);
+  embed :cstring = "EMBED ME"
+  fmttmpl :cstring = "an int=%d a float=%f a string=%s"
+  fmtstr := glib.string_new(nil)
+  glib.string_sprintf(fmtstr, fmttmpl, 123, 3.45, embed)
+  fmt.printf("fmt=%s result=%s\n", fmttmpl, fmtstr.str)
+
+  // void g_string_sprintfa(GString *string, gchar   *fmt, ...);
+  fmta := glib.string_new("PREFIX: ")
+  fmt.printf("before sprintfa: %v\n", fmta)
+  glib.string_sprintfa(fmta, fmttmpl, 123, 3.45, embed)
+  fmt.printf("fmt=%s result=%s\n", fmttmpl, fmta.str)
 }
-/*
-        
-GString* g_string_prepend   (GString *string,
-                             gchar   *val);
-                             
-GString* g_string_prepend_c (GString *string,
-                             gchar    c);
-        
-void     g_string_sprintf   (GString *string,
-                             gchar   *fmt,
-                             ...);
-        
-void     g_string_sprintfa  (GString *string,
-                             gchar   *fmt,
-                             ...);
-*/
