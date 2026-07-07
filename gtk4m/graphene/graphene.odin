@@ -2,7 +2,7 @@
 package graphene
 
 // requires -collection:gtk_libs=/opt/homebnrew/lib appended to odin build cmd
-when ODIN_OS == .Darwin  do foreign import libgraphene "gtk_libs:liblibgraphene-1.0.dylib"
+when ODIN_OS == .Darwin  do foreign import libgraphene "gtk_libs:libgraphene-1.0.dylib"
 
 PI :: 3.1415926535897932384626434
 PI_2 :: 1.5707963267948966192313217
