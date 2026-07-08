@@ -5,6 +5,7 @@ import "core:fmt"
 import "core:os"
 import "core:strings"
 
+import cairo "../gtk4m/cairo"
 import pango "../gtk4m/pango"
 import gio  "../gtk4m/gio"
 import glib "../gtk4m/glib"
@@ -13,21 +14,111 @@ import grph "../gtk4m/graphene"
 import gtk  "../gtk4m/gtk"
 
 
+/* Callback for the drawing area: draws a triangle using Graphene math */
+DrawFuncCB :: proc "c" (area :^gtk.DrawingArea,
+                       cr: ^cairo.context_t,
+                       width  :i32,
+                       height :i32,
+                       user_data :glib.pointer)
+{
+  context = runtime.default_context()
+  fmt.printf("DrawFuncCB: %d x %d\n", width, height)
+
+/***********
+    // 1. Create a linear gradient pattern (from x0, y0 to x1, y1)
+    cairo.pattern_t pat := cairo.pattern_create_linear(0, 0, width, height)
+
+    // 2. Add color stops (offsets range from 0.0 to 1.0)
+    cairo.pattern_add_color_stop_rgba(pat, 0.0, 1.0, 0.5, 0.0, 1.0) // Orange
+    cairo.pattern_add_color_stop_rgba(pat, 1.0, 0.0, 0.5, 1.0, 1.0) // Blue
+
+    // 3. Paint the gradient onto the drawing area context
+    cairo.rectangle(cr, 0, 0, width, height)
+    cairo.set_source(cr, pat)
+    cairo.fill(cr)
+
+    // 4. Clean up the pattern
+    cairo.pattern_destroy(pat)
+************/
+
+  // 1. Define bounds & corners for a rounded rectangle
+  daw := f32(width)
+  dah := f32(height)
+  bounds := grph.rect_t{ origin = {x = 0, y = 0 },
+                         size   = { width = daw, height = dah } }
+  radius :f32 = 20.0
+  radii :[4]f32 = { radius, radius, radius, radius }
+
+  // 2. Push a Rounded Clip node to enforce round corners
+  grrect := gtk.RoundedRect{ bounds = bounds,
+                             corner = { {radius,radius},
+                                        {radius,radius},
+                                        {radius,radius},
+                                        {radius,radius} }
+                             }           
+  //snapshot := gtk.snapshot_new()
+  snapshot := gtk.drawing_area_get_gl_snapshot(area)
+  gtk.snapshot_push_rounded_clip(snapshot, &grrect)
+
+  // 3. Create a Linear Gradient
+  colors :[2]gtk.RGBA
+  gtk.gdk_rgba_parse(&colors[0], "rgba(255,100,100,1)") // Start color
+  gtk.gdk_rgba_parse(&colors[1], "rgba(100,100,255,1)"); // End color
+
+  clrStopRed := gtk.ColorStop{ offset=0.0, color=gtk.RGBA{1.0,0.2,0.2,1.0} }
+  clrStopBlue := gtk.ColorStop{ offset=1.0, color=gtk.RGBA{0.2,0.2,1.0,1.0} }
+  clrStops := [2]gtk.ColorStop{ clrStopRed, clrStopBlue }
+  gtk.snapshot_append_linear_gradient(snapshot,
+                                      &bounds,
+    &grph.point_t{ x = 0, y = 0 },
+    &grph.point_t{ x = daw, y = dah },
+    &clrStops[0], 2)
+
+  // 4. Draw Text using a Pango Layout
+  layout := gtk.widget_create_pango_layout(cast(^gtk.Widget)area, "GSK + GTK 4")
+  font_desc := pango.font_description_from_string("Sans Bold 24")
+  pango.layout_set_font_description(layout, font_desc)
+  
+  // Append text node to the snapshot
+  textclr := gtk.RGBA{1.0, 1.0, 1.0, 1.0}
+  gtk.snapshot_append_layout(snapshot, layout, &textclr)
+
+  // 5. Clean up nodes
+  gobj.object_unref(layout)
+  pango.font_description_free(font_desc)
+  gtk.snapshot_pop(snapshot) // Pop the rounded clip
+}
+
+
 DemoWidget :: struct {
   parent_instance :gtk.Widget 
 }
 
 
+// The class structure of Person
+DemoWidgetClass :: struct {
+    parent_class: gobj.ObjectClass,
+}
+
+demo_widget_parent_class: glib.pointer = nil
+DemoWidget_private_offset: glib.int_
+demo_widget_class_intern_init :: proc "c" (klass, klass_data: glib.pointer) {
+    demo_widget_parent_class = gobj.type_class_peek_parent(klass)
+    if (DemoWidget_private_offset != 0) do gobj.type_class_adjust_private_offset(klass, &DemoWidget_private_offset)
+
+    demo_widget_class_init(cast(^DemoWidgetClass)klass)
+}
+
 //G_DECLARE_FINAL_TYPE (DemoWidget, demo_widget, DEMO, WIDGET, GtkWidget)
 demo_widget_type_id :gobj.Type
 demo_widget_get_type :: proc "c" () -> gobj.Type {
-  if person_type_id == 0 {
+  if demo_widget_type_id == 0 {
     demo_widget_type_id = gobj.type_register_static_simple(
             gobj.TYPE_OBJECT,
             glib.intern_static_string("DemoWidget"),
             size_of(DemoWidgetClass),
             demo_widget_class_intern_init,
-            size_of(Person),
+            size_of(DemoWidget),
             demo_widget_init,
             .NONE)
   }
@@ -37,23 +128,28 @@ demo_widget_get_type :: proc "c" () -> gobj.Type {
 
 
 //G_DEFINE_TYPE(DemoWidget, demo_widget, GTK_TYPE_WIDGET)
-
-demo_widget_init :: proc "c" (self :^DemoWidget) {
+//demo_widget_init :: proc "c" (self :^DemoWidget) {
+//}
+// The object initialization function (like a constructor)
+demo_widget_init :: proc "c" (instance :^gobj.TypeInstance,
+                              klass    :glib.pointer) {
+    self := cast(^DemoWidget)instance
 }
 
-/* --- THE GSK RENDERING PIPELINE --- */
+
+// --- THE GSK RENDERING PIPELINE ---
 demo_widget_snapshot :: proc "c" (widget :^gtk.Widget,
                                   snapshot :^gtk.Snapshot) {
   width  := gtk.widget_get_width(widget)
   height := gtk.widget_get_height(widget)
-
-  /* 1. Define bounds & corners for a rounded rectangle */
+/*
+  // 1. Define bounds & corners for a rounded rectangle
   bounds := grph.rect_t{ origin.x = 0, origin.y = 0,
                          size.width = width, size.height = height }
   radius :f64 = 20.0
   radii :[4]f64 = { radius, radius, radius, radius }
 
-  /* 2. Push a Rounded Clip node to enforce round corners */
+  // 2. Push a Rounded Clip node to enforce round corners
   grrect := gtk.RoundedRect{ bounds = bounds,
                              corner = { {radius,radius},
                                         {radius,radius},
@@ -62,7 +158,7 @@ demo_widget_snapshot :: proc "c" (widget :^gtk.Widget,
                             }
   gtk.snapshot_push_rounded_clip(GskRoundedRectsnapshot, &grrect)
 
-  /* 3. Create a Linear Gradient */
+  // 3. Create a Linear Gradient
   colors :[2]gtk.RGBA
   gtk.gdk_rgba_parse(&colors[0], "rgba(255,100,100,1)") // Start color
   gtk.gdk_rgba_parse(&colors[1], "rgba(100,100,255,1)"); // End color
@@ -72,27 +168,29 @@ demo_widget_snapshot :: proc "c" (widget :^gtk.Widget,
     &(grph.point_t){ x = 0, y = 0 },
     &(grph.point_t){ x = width, y = height },
     (gtk.ColorStop[2]){
-      { .offset = 0.0, .color = (GdkRGBA){ 1.0, 0.2, 0.2, 1.0 } },  // Red
-      { .offset = 1.0, .color = (GdkRGBA){ 0.2, 0.2, 1.0, 1.0 } }   // Blue
+      { offset = 0.0, color = gtk.RGBA{ 1.0, 0.2, 0.2, 1.0 } },  // Red
+      { offset = 1.0, color = gtk.RGBA{ 0.2, 0.2, 1.0, 1.0 } }   // Blue
     }, 2)
 
-  /* 4. Draw Text using a Pango Layout */
+  // 4. Draw Text using a Pango Layout
   layout := gtk.widget_create_pango_layout(widget, "GSK + GTK 4")
   font_desc := pango.font_description_from_string("Sans Bold 24")
   pango.layout_set_font_description(layout, font_desc)
   
-  /* Append text node to the snapshot */
+  // Append text node to the snapshot
   textclr :gtk.RGBA{1.0, 1.0, 1.0, 1.0}
   gtk_snapshot_append_layout(snapshot, layout, &textclr)
 
-  /* 5. Clean up nodes */
+  // 5. Clean up nodes
   gobj.object_unref(layout)
   pango.font_description_free(font_desc)
-  gtk.snapshot_pop(snapshot) /* Pop the rounded clip */
+  gtk.snapshot_pop(snapshot) // Pop the rounded clip
+*/
 }
 
+
 demo_widget_class_init :: proc "c" (klass :^DemoWidgetClass) {
-  widget_class = cast(^gtk.WidgetClass)klass
+  widget_class := cast(^gtk.WidgetClass)klass
   widget_class.snapshot = demo_widget_snapshot
 }
 
@@ -127,8 +225,12 @@ AppActivateCB :: proc "c" (app :^gtk.Application, user_data :glib.pointer) {
 */
 //////////
   demoWgt := demo_widget_get_type()
-  my_widget := gobj.object_new(demoWgt, nil)
-  gtk_window_set_child (GTK_WINDOW (window), my_widget);
+  //my_widget := gobj.object_new(demoWgt, nil)
+  //gtk_window_set_child (GTK_WINDOW (window), my_widget);
+  drawing_area := gtk.drawing_area_new()
+  gtk.drawing_area_set_draw_func(cast(^gtk.DrawingArea)drawing_area,
+                                 DrawFuncCB, nil, nil)
+  gtk.window_set_child (appwin, drawing_area)
 //////////
 
   gtk.window_present(appwin)
